@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Install" Height="450" Width="800">
+        Title="Autodarts-visual - Install" Height="450" Width="800">
     <Grid>
         <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="120,101,0,0" VerticalAlignment="Top" Checked="Checkboxcallerinstall_Checked"/>
         <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="156,121,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>

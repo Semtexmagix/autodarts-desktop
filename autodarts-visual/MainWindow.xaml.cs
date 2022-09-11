@@ -67,7 +67,7 @@ namespace autodarts_visual
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Comboboxportal.Text == "")
+            if (Comboboxportal.SelectedIndex == 0)
             {
                 MessageBox.Show("Bitte Portal auswählen");
             }

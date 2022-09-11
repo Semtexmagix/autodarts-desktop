@@ -26,11 +26,24 @@ namespace autodarts_visual
 
         private void Checkboxcallerinstall_Checked(object sender, RoutedEventArgs e)
         {
-            Checkboxexterninstall.Visibility = Visibility.Visible;
-            Labelextern.Visibility = Visibility.Visible;
+            if (Checkboxcallerinstall.IsChecked == true)
+            {
+                Checkboxexterninstall.Visibility = Visibility.Visible;
+                Labelextern.Visibility = Visibility.Visible;
+            }
+            if (Checkboxcallerinstall.IsChecked == false)
+            {
+                Checkboxexterninstall.Visibility = Visibility.Hidden;
+                Labelextern.Visibility = Visibility.Hidden;
+                //Properties.Settings.Default.boxcaller = false;
+            }
         }
 
-        private void Checkboxcallerinstall_Unchecked(object sender, RoutedEventArgs e)
+
+
+
+
+        private void Checkboxcallerinstall_CheckChange(object sender, RoutedEventArgs e)
         {
             Checkboxexterninstall.Visibility = Visibility.Hidden;
             Labelextern.Visibility = Visibility.Hidden;

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Setup" Height="790" Width="614">
+        Title="Autodarts-visual - Setup" Height="790" Width="614">
     <Grid HorizontalAlignment="Left" Width="620" Margin="0,0,0,22">
         <TextBox HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200"/>
         <TextBox x:Name="TextBoxEmailAutodarts" HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="Email Autodarts" VerticalAlignment="Top" Width="200" FontSize="10"/>
