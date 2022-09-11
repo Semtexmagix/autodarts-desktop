@@ -36,7 +36,7 @@ namespace autodarts_visual
 
             // Ein und Ausblenden der Checkboxen je nach Combobox auswahl funktioniert nicht
 
-
+            /*
             if (Comboboxportal.SelectedIndex == 1)
             {
                 Checkboxbot.Visibility = Visibility.Visible;
@@ -49,7 +49,8 @@ namespace autodarts_visual
                 Checkboxvdzobs.Visibility = Visibility.Visible;
                 Checkboxbot.Visibility = Visibility.Hidden;
                 Checkboxbot.IsChecked = false;
-            }  
+            } 
+            */
         }
 
         private void Buttonsetup_Click(object sender, RoutedEventArgs e)
@@ -66,6 +67,69 @@ namespace autodarts_visual
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
+
+
+            if (Checkboxvdzobs.IsChecked == true)
+            {
+
+                string obsphat = Properties.Settings.Default.obs;
+
+                if (obsphat == "Bitte Datei auswählen")
+                {
+                    MessageBox.Show("OBS Ordner im Setup einstellen!");
+                }
+                else
+                {
+                    Process obsprocess = new Process();
+                    obsprocess.StartInfo.FileName = obsphat;
+                    obsprocess.StartInfo.UseShellExecute = true;
+                    obsprocess.StartInfo.WorkingDirectory = "D:\\obs-studio\\bin\\64bit";
+                    //obsprocess.StartInfo.Verb = "runas";
+                    obsprocess.Start();
+                }
+
+
+
+                string vdzphat = Properties.Settings.Default.vdz;
+
+                if (vdzphat == "Bitte Datei auswählen")
+                {
+                    MessageBox.Show("VDZ Ordner im Setup einstellen!");
+                }
+                else
+                {
+                    Process vdzprocess = new Process();
+                    vdzprocess.StartInfo.FileName = vdzphat;
+                    vdzprocess.StartInfo.UseShellExecute = true;
+                    //vdzprocess.StartInfo.Verb = "runas";
+                    vdzprocess.Start();
+                }
+
+
+
+
+            }
+
+            if (Checkboxbot.IsChecked == true)
+            {
+                string botphat = Properties.Settings.Default.bot;
+
+                if (botphat == "Bitte Datei auswählen")
+                {
+                    MessageBox.Show("VDZ Ordner im Setup einstellen!");
+                }
+                else
+                {
+                    Process vdzprocess = new Process();
+                    vdzprocess.StartInfo.FileName = botphat;
+                    vdzprocess.StartInfo.UseShellExecute = true;
+                    //vdzprocess.StartInfo.Verb = "runas";
+                    vdzprocess.Start();
+                }
+            }
+
+
+
 
             if (Comboboxportal.SelectedIndex == 0)
             {
