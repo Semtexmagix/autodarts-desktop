@@ -1,0 +1,57 @@
+﻿<Window x:Class="autodarts_visual.Setup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autodarts_visual"
+        mc:Ignorable="d"
+        Title="Setup" Height="790" Width="614">
+    <Grid HorizontalAlignment="Left" Width="620" Margin="0,0,0,22">
+        <TextBox HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="TextBoxEmailAutodarts" HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="Email Autodarts" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxcallervol" HorizontalAlignment="Left" Height="20" Margin="66,164,0,0" TextWrapping="Wrap" Text="Caller Volume" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxBoardID" HorizontalAlignment="Left" Height="20" Margin="66,114,0,0" TextWrapping="Wrap" Text="Board-ID" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxPWAutodarts" HorizontalAlignment="Left" Height="20" Margin="341,63,0,0" TextWrapping="Wrap" Text="Passwort Autodarts" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxrandomcaller" HorizontalAlignment="Left" Height="20" Margin="341,164,0,0" TextWrapping="Wrap" Text="Random Caller" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxmedia" HorizontalAlignment="Left" Height="20" Margin="341,114,0,0" TextWrapping="Wrap" Text="Media Ordner Caller" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxrcel" HorizontalAlignment="Left" Height="20" Margin="66,214,0,0" TextWrapping="Wrap" Text="Random Caller each leg" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxmessagestart" HorizontalAlignment="Left" Height="20" Margin="66,364,0,0" TextWrapping="Wrap" Text="Nachricht beim Spielbeginn" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxEmailLidarts" HorizontalAlignment="Left" Height="20" Margin="66,314,0,0" TextWrapping="Wrap" Text="Email Lidarts.org" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxwebhook" HorizontalAlignment="Left" Height="20" Margin="341,214,0,0" TextWrapping="Wrap" Text="Webhook" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxmessageend" HorizontalAlignment="Left" Height="20" Margin="341,364,0,0" TextWrapping="Wrap" Text="Nachricht am Spielende" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxPWLidarts" HorizontalAlignment="Left" Height="20" Margin="341,314,0,0" TextWrapping="Wrap" Text="Passwort Lidarts.org" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <Label Content="Bitte Autodarts.io Zugangsdaten eintragen:" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Bitte Lidarts.org Zugangsdaten eintragen:" HorizontalAlignment="Center" Margin="0,257,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <TextBox x:Name="TextBoxskipdarts" HorizontalAlignment="Left" Height="20" Margin="66,414,0,0" TextWrapping="Wrap" Text="Automatisches Überspringen" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxtime" HorizontalAlignment="Left" Height="20" Margin="341,414,0,0" TextWrapping="Wrap" Text="Zeit nach Spielende" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <Button x:Name="Buttonspeichern" Content="Speichern" HorizontalAlignment="Left" Margin="138,702,0,0" VerticalAlignment="Top" Click="Buttonspeichern_Click"/>
+        <Button x:Name="Buttonabbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="393,702,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.151,2.958" Click="Buttonabbrechen_Click"/>
+        <Label Content="Email Autodarts.io" HorizontalAlignment="Left" Margin="66,37,0,0" VerticalAlignment="Top"/>
+        <Label Content="Passwort Autodarts.io" HorizontalAlignment="Left" Margin="341,37,0,0" VerticalAlignment="Top"/>
+        <Label Content="Autodarts.io Board-ID" HorizontalAlignment="Left" Margin="66,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Caller Media Ordner" HorizontalAlignment="Left" Margin="341,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Caller Volumen" HorizontalAlignment="Left" Margin="66,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Random Caller" HorizontalAlignment="Left" Margin="341,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Random Caller each leg" HorizontalAlignment="Left" Margin="66,189,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Webhook" HorizontalAlignment="Left" Margin="341,189,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Email Lidarts.org" HorizontalAlignment="Left" Margin="66,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Passwort Lidarts.org" HorizontalAlignment="Left" Margin="341,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Nachricht beim Spielbeginn" HorizontalAlignment="Left" Margin="66,339,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Nachricht am Spielende" HorizontalAlignment="Left" Margin="341,338,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Auto. überspringen von Dartabfragen" HorizontalAlignment="Left" Margin="66,389,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="Zeit nach Spielende" HorizontalAlignment="Left" Margin="341,389,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <TextBox x:Name="TextBoxvdz" HorizontalAlignment="Left" Height="20" Margin="70,521,0,0" TextWrapping="Wrap" Text="VDZ Webcamzoom" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxobs" HorizontalAlignment="Left" Height="20" Margin="345,521,0,0" TextWrapping="Wrap" Text="OBS Webcam" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <Label Content="Programme die bei Lidarts.org mitgestartet werden können" HorizontalAlignment="Center" Margin="0,464,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label Content="VDZ Webcamzoom / VDZ.exe auswählen" HorizontalAlignment="Left" Margin="70,495,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Label Content="OBS Webcam / OBS.exe auswählen" HorizontalAlignment="Left" Margin="345,495,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <TextBox x:Name="TextBoxbot" HorizontalAlignment="Left" Height="20" Margin="70,618,0,0" TextWrapping="Wrap" Text="Autodarts.io Bot" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <Label Content="Programme die bei Autodarts.io mitgestartet werden können" HorizontalAlignment="Center" Margin="0,561,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Autodarts.io Bot" HorizontalAlignment="Left" Margin="70,592,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Button x:Name="Buttonmedia" Content="Suchen..." HorizontalAlignment="Left" Margin="541,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonmedia_Click"/>
+        <Button x:Name="Buttonbot" Content="Suchen..." HorizontalAlignment="Left" Margin="141,638,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonbot_Click"/>
+        <Button x:Name="Buttonvdz" Content="Suchen..." HorizontalAlignment="Left" Margin="141,541,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonvdz_Click"/>
+        <Button x:Name="Buttonobs" Content="Suchen..." HorizontalAlignment="Left" Margin="416,541,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonobs_Click"/>
+
+    </Grid>
+</Window>

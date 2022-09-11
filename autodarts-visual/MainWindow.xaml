@@ -1,0 +1,26 @@
+﻿<Window x:Class="autodarts_visual.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autodarts_visual"
+        mc:Ignorable="d"
+        Title="Autodarts-visual" Height="193" Width="329">
+    <Grid HorizontalAlignment="Center" Width="335" RenderTransformOrigin="0.505,0.362" Margin="0,0,0,6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="28,65,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Comboboxportal_DropDownClosed" Height="22" SelectedIndex="0">
+            <ComboBoxItem Content="Auswählen..."></ComboBoxItem>
+            <ComboBoxItem Content="Autodarts.io"></ComboBoxItem>
+            <ComboBoxItem Content="Lidarts.org"></ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="labelcombobox" Content="Portal Auswählen:" HorizontalAlignment="Left" Margin="36,34,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Buttonstart" Content="Start" HorizontalAlignment="Left" Margin="74,118,0,0" VerticalAlignment="Top" Click="Buttonstart_Click"/>
+        <Button x:Name="Buttonsetup" Content="Setup" HorizontalAlignment="Left" Margin="254,40,0,0" VerticalAlignment="Top" Click="Buttonsetup_Click"/>
+        <Button x:Name="Buttoninstall" Content="Install" HorizontalAlignment="Left" Margin="196,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.634,1.657" Click="Buttoninstall_Click"/>
+        <Button x:Name="Buttonschließen" Content="Schließen" HorizontalAlignment="Left" Margin="216,118,0,0" VerticalAlignment="Top" Click="Buttonschließen_Click"/>
+        <CheckBox x:Name="Checkboxbot" Content="Bot mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxbot_Checked" Visibility="Collapsed"/>
+        <CheckBox x:Name="Checkboxvdzobs" Content="VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="22,92,0,0" VerticalAlignment="Top" Checked="Checkboxvdzobs_Checked" Visibility="Collapsed"/>
+    </Grid>
+</Window>

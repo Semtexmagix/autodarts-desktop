@@ -1,0 +1,21 @@
+﻿<Window x:Class="autodarts_visual.Install"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autodarts_visual"
+        mc:Ignorable="d"
+        Title="Install" Height="450" Width="800">
+    <Grid>
+        <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="120,101,0,0" VerticalAlignment="Top" Checked="Checkboxcallerinstall_Checked"/>
+        <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="156,121,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <TextBox x:Name="Textboxinstallertionsordner" HorizontalAlignment="Left" Margin="185,204,0,0" TextWrapping="Wrap" Text="Ordner auswählen" VerticalAlignment="Top" Width="322"/>
+        <Label Content="Ordner für die Installation von Programmen wählen" HorizontalAlignment="Left" Margin="203,178,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Buttonsuchen" Content="Suchen..." HorizontalAlignment="Left" Margin="507,203,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="129,116,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <Button x:Name="ButtonInstall" Content="Installieren" HorizontalAlignment="Left" Margin="315,227,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Buttonabbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="120,349,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Buttonweiter" Content="Weiter" HorizontalAlignment="Left" Margin="613,344,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.656,-3.806"/>
+
+    </Grid>
+</Window>
