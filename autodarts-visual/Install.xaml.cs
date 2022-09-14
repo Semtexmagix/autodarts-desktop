@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
+using System.Xml.Linq;
 
 namespace autodarts_visual
 {
@@ -24,30 +29,108 @@ namespace autodarts_visual
             InitializeComponent();
         }
 
-        private void Checkboxcallerinstall_Checked(object sender, RoutedEventArgs e)
+        private void Checkboxcallerinstall_Click(object sender, RoutedEventArgs e)
         {
             if (Checkboxcallerinstall.IsChecked == true)
             {
                 Checkboxexterninstall.Visibility = Visibility.Visible;
                 Labelextern.Visibility = Visibility.Visible;
+                Checkboxinstallbot.Visibility = Visibility.Visible;
+                Labelbot.Visibility = Visibility.Visible;
             }
-            if (Checkboxcallerinstall.IsChecked == false)
+            else
             {
-                Checkboxexterninstall.Visibility = Visibility.Hidden;
-                Labelextern.Visibility = Visibility.Hidden;
+                Checkboxexterninstall.IsChecked = false;
+                Checkboxexterninstall.Visibility = Visibility.Collapsed;
+                Labelextern.Visibility = Visibility.Collapsed;
+                Checkboxinstallbot.IsChecked = false;
+                Checkboxinstallbot.Visibility = Visibility.Collapsed;
+                Labelbot.Visibility = Visibility.Collapsed;
+                Checkboxinstallvdz.IsChecked = false;
+                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
+                Labelvdz.Visibility = Visibility.Collapsed;
                 //Properties.Settings.Default.boxcaller = false;
             }
         }
-
-
-
-
-
-        private void Checkboxcallerinstall_CheckChange(object sender, RoutedEventArgs e)
+        private void Checkboxexterninstall_Click(object sender, RoutedEventArgs e)
         {
-            Checkboxexterninstall.Visibility = Visibility.Hidden;
-            Labelextern.Visibility = Visibility.Hidden;
+
+
+            if (Checkboxexterninstall.IsChecked == true)
+            {
+                Checkboxinstallvdz.Visibility = Visibility.Visible;
+                Labelvdz.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Checkboxinstallvdz.IsChecked = false;
+                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
+                Labelvdz.Visibility = Visibility.Collapsed;
+
+            }
+
         }
 
+        private void Buttonabbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ButtonInstall_Click(object sender, RoutedEventArgs e)
+        {
+
+
+
+
+            // Download vdz.zip
+            string vdz = @"./vdz.zip";
+            Process p = new Process();
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = "cmd.exe";
+            info.RedirectStandardInput = true;
+            info.RedirectStandardOutput = true;
+            info.UseShellExecute = false;
+
+            p.StartInfo = info;
+            p.Start();
+
+            using (StreamWriter sw = p.StandardInput)
+            {
+                if (sw.BaseStream.CanWrite)
+                {
+                    if (!System.IO.File.Exists(vdz))
+                    {
+                        sw.WriteLine("curl https://www.lehmann-bo.de/Downloads/VDZ/Virtual%20Darts%20Zoom.zip --output vdz.zip");
+                    }    
+                }
+            }
+
+
+            // Download bot
+            string bot = @"./bot.zip";
+            Process p1 = new Process();
+            ProcessStartInfo info1 = new ProcessStartInfo();
+            info1.FileName = "cmd.exe";
+            info1.RedirectStandardInput = true;
+            info1.RedirectStandardOutput = true;
+            info1.UseShellExecute = false;
+
+            p1.StartInfo = info1;
+            p1.Start();
+
+            using (StreamWriter sw = p1.StandardInput)
+            {
+                if (sw.BaseStream.CanWrite)
+                {
+                    if (!System.IO.File.Exists(bot))
+                    {
+                        sw.WriteLine("curl https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip --output bot.zip");
+                        //sw.WriteLine("Expand-Archive -Path \"path of ZIP file\" -DestinationPath \"C:\\New Folder\"");
+                    }
+                }
+            }
+
+
+        }
     }
 }

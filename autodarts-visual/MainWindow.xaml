@@ -20,7 +20,7 @@
         <Button x:Name="Buttonsetup" Content="Setup" HorizontalAlignment="Left" Margin="254,40,0,0" VerticalAlignment="Top" Click="Buttonsetup_Click" Width="48"/>
         <Button x:Name="Buttoninstall" Content="Install" HorizontalAlignment="Left" Margin="183,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.634,1.657" Click="Buttoninstall_Click" Width="48"/>
         <Button x:Name="Buttonschließen" Content="Schließen" HorizontalAlignment="Left" Margin="204,118,0,0" VerticalAlignment="Top" Click="Buttonschließen_Click" Width="66"/>
-        <CheckBox x:Name="Checkboxbot" Content="Bot mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxbot_Checked"/>
-        <CheckBox x:Name="Checkboxvdzobs" Content="VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="170,92,0,0" VerticalAlignment="Top" Checked="Checkboxvdzobs_Checked"/>
+        <CheckBox x:Name="Checkboxbot" Content="Bot mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxbot_Checked" Visibility="Collapsed"/>
+        <CheckBox x:Name="Checkboxvdzobs" Content="VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxvdzobs_Checked" Visibility="Collapsed"/>
     </Grid>
 </Window>

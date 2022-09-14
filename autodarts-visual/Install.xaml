@@ -6,16 +6,20 @@
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
         Title="Autodarts-visual - Install" Height="450" Width="800">
-    <Grid>
-        <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="120,101,0,0" VerticalAlignment="Top" Checked="Checkboxcallerinstall_Checked"/>
-        <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="156,121,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+    <Grid Margin="1,-2,-1,2">
+        <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="111,38,0,0" VerticalAlignment="Top" Click="Checkboxcallerinstall_Click"/>
+        <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="147,92,0,0" VerticalAlignment="Top" Click="Checkboxexterninstall_Click" Visibility="Collapsed"/>
         <TextBox x:Name="Textboxinstallertionsordner" HorizontalAlignment="Left" Margin="185,204,0,0" TextWrapping="Wrap" Text="Ordner auswählen" VerticalAlignment="Top" Width="322"/>
         <Label Content="Ordner für die Installation von Programmen wählen" HorizontalAlignment="Left" Margin="203,178,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Buttonsuchen" Content="Suchen..." HorizontalAlignment="Left" Margin="507,203,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="129,116,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <Button x:Name="ButtonInstall" Content="Installieren" HorizontalAlignment="Left" Margin="315,227,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="Buttonabbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="120,349,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="125,86,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <Button x:Name="ButtonInstall" Content="Installieren" HorizontalAlignment="Left" Margin="315,227,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click"/>
+        <Button x:Name="Buttonabbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="120,349,0,0" VerticalAlignment="Top" Click="Buttonabbrechen_Click"/>
         <Button x:Name="Buttonweiter" Content="Weiter" HorizontalAlignment="Left" Margin="613,344,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.656,-3.806"/>
+        <CheckBox x:Name="Checkboxinstallbot" Content="Autodarts.io Bot mit installieren" HorizontalAlignment="Left" Margin="166,58,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <Label x:Name="Labelbot" Content="➥" HorizontalAlignment="Left" Margin="144,52,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <Label x:Name="Labelvdz" Content="➥" HorizontalAlignment="Left" Margin="172,107,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <CheckBox x:Name="Checkboxinstallvdz" Content="Virtual Darts Zoom mit installieren" HorizontalAlignment="Left" Margin="194,113,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Visibility="Collapsed"/>
 
     </Grid>
 </Window>

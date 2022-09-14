@@ -28,31 +28,6 @@ namespace autodarts_visual
             InitializeComponent();
         }
 
-
-        private void Comboboxportal_DropDownClosed(object sender, EventArgs e)
-        {
-
-
-
-            // Ein und Ausblenden der Checkboxen je nach Combobox auswahl funktioniert nicht
-
-            /*
-            if (Comboboxportal.SelectedIndex == 1)
-            {
-                Checkboxbot.Visibility = Visibility.Visible;
-                Checkboxvdzobs.Visibility = Visibility.Collapsed;
-                Checkboxvdzobs.IsChecked = false;
-
-            }
-            else if (Comboboxportal.SelectedIndex == 2)
-            {
-                Checkboxvdzobs.Visibility = Visibility.Visible;
-                Checkboxbot.Visibility = Visibility.Hidden;
-                Checkboxbot.IsChecked = false;
-            } 
-            */
-        }
-
         private void Buttonsetup_Click(object sender, RoutedEventArgs e)
         {
             Setup S1 = new Setup();
@@ -258,7 +233,7 @@ namespace autodarts_visual
         }
         private void Checkboxbot_Checked(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void Buttoninstall_Click(object sender, RoutedEventArgs e)
@@ -269,7 +244,21 @@ namespace autodarts_visual
 
         private void Comboboxportal_DropDownClosed(object sender, SelectionChangedEventArgs e)
         {
+            // Ein und Ausblenden der Checkboxen je nach Combobox auswahl funktioniert nicht
 
+            if (Comboboxportal.SelectedIndex == 1)
+            {
+                Checkboxbot.Visibility = Visibility.Visible;
+                Checkboxvdzobs.Visibility = Visibility.Collapsed;
+                Checkboxvdzobs.IsChecked = false;
+
+            }
+            else if (Comboboxportal.SelectedIndex == 2)
+            {
+                Checkboxvdzobs.Visibility = Visibility.Visible;
+                Checkboxbot.Visibility = Visibility.Collapsed;
+                Checkboxbot.IsChecked = false;
+            } 
         }
     }
 }
