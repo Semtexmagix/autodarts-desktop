@@ -16,6 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.WebRequestMethods;
 using System.Xml.Linq;
+using System.IO.Compression;
+using System.Reflection;
+using System.Threading;
 
 namespace autodarts_visual
 {
@@ -81,7 +84,9 @@ namespace autodarts_visual
 
 
 
-
+            /////////////////////////////// Virtual Darts Zoom
+            ///
+   
             // Download vdz.zip
             string vdz = @"./vdz.zip";
             Process p = new Process();
@@ -98,12 +103,38 @@ namespace autodarts_visual
             {
                 if (sw.BaseStream.CanWrite)
                 {
+                    string vdzordner = @"./vdz/";
+                    if (!Directory.Exists(vdzordner))
+                    {
+                        sw.WriteLine("mkdir vdz");
+                    }
+
                     if (!System.IO.File.Exists(vdz))
                     {
                         sw.WriteLine("curl https://www.lehmann-bo.de/Downloads/VDZ/Virtual%20Darts%20Zoom.zip --output vdz.zip");
-                    }    
+                    }
+
+                    Console.WriteLine("Sleep for 20 seconds.");
+                    Thread.Sleep(20000);
+
+                    if (!Directory.Exists(vdzordner))
+                    {
+                        // Entpacken VDZ
+                        string zipPath = @".\vdz.zip";
+                        string extractPath = @".\vdz";
+
+                        ZipFile.ExtractToDirectory(zipPath, extractPath);  
+                    }
                 }
             }
+
+            
+
+
+
+
+
+
 
 
             // Download bot
@@ -122,10 +153,27 @@ namespace autodarts_visual
             {
                 if (sw.BaseStream.CanWrite)
                 {
+                    string botordner = @"./bot/";
+                    if (!Directory.Exists(botordner))
+                    {
+                        sw.WriteLine("mkdir bot");
+                    }
                     if (!System.IO.File.Exists(bot))
                     {
                         sw.WriteLine("curl https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip --output bot.zip");
-                        //sw.WriteLine("Expand-Archive -Path \"path of ZIP file\" -DestinationPath \"C:\\New Folder\"");
+                    }
+
+                    Console.WriteLine("Sleep for 20 seconds.");
+                    Thread.Sleep(20000);
+
+
+                    if (!Directory.Exists(botordner))
+                    {
+                        // Entpacken bot
+                        string zipPath = @".\bot.zip";
+                        string extractPath = @".\bot";
+
+                        ZipFile.ExtractToDirectory(zipPath, extractPath);
                     }
                 }
             }
