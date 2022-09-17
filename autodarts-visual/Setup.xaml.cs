@@ -62,6 +62,9 @@ namespace autodarts_visual
 
             // Settings Zusatz Programme Autodarts (Bot)
             TextBoxbot.Text = Properties.Settings.Default.bot;
+
+            // Settings Zusatz Programme DartsBoard.Online (Client, wird für Webcam benötigt)
+            TextBoxdbo.Text = Properties.Settings.Default.dbo;
         }
 
         private void Buttonspeichern_Click(object sender, RoutedEventArgs e)
@@ -103,6 +106,9 @@ namespace autodarts_visual
 
             // Settings Zusatz Programme Autodarts (Bot)
             Properties.Settings.Default.bot = TextBoxbot.Text;
+
+            // Settings Zusatz Programme DartsBoard.Online (Client, wird für Webcam benötigt)
+            Properties.Settings.Default.dbo = TextBoxdbo.Text;
 
             // Settings Speichern
             Properties.Settings.Default.Save();
@@ -155,6 +161,22 @@ namespace autodarts_visual
             else
             { TextBoxbot.Text = "Bitte Datei auswählen"; }
         }
+
+        private void Buttondbo_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Select File";
+            openFileDialog.InitialDirectory = @"C:\";//--"C:\\";
+            openFileDialog.Filter = "All files (*.*)|*.*|Anwendung (*.exe)|*.exe";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.ShowDialog();
+            if (openFileDialog.FileName != "")
+            { TextBoxdbo.Text = openFileDialog.FileName; }
+            else
+            { TextBoxdbo.Text = "Bitte Datei auswählen"; }
+        }
+
+
 
         private void Buttonmedia_Click(object sender, RoutedEventArgs e)
         {

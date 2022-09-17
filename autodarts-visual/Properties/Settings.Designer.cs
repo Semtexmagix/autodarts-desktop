@@ -238,5 +238,17 @@ namespace autodarts_visual.Properties {
                 this["bot"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string dbo {
+            get {
+                return ((string)(this["dbo"]));
+            }
+            set {
+                this["dbo"] = value;
+            }
+        }
     }
 }

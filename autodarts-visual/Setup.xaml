@@ -52,6 +52,9 @@
         <Button x:Name="Buttonbot" Content="Suchen..." HorizontalAlignment="Left" Margin="141,638,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonbot_Click"/>
         <Button x:Name="Buttonvdz" Content="Suchen..." HorizontalAlignment="Left" Margin="141,541,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonvdz_Click"/>
         <Button x:Name="Buttonobs" Content="Suchen..." HorizontalAlignment="Left" Margin="416,541,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonobs_Click"/>
+        <TextBox x:Name="TextBoxdbo" HorizontalAlignment="Left" Height="20" Margin="346,655,0,0" TextWrapping="Wrap" Text="DartsBoard.Online Clinet" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <Label Content="DartsBoard.Online Clinet" HorizontalAlignment="Left" Margin="346,629,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483"/>
+        <Button x:Name="Buttondbo" Content="Suchen..." HorizontalAlignment="Left" Margin="415,675,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttondbo_Click"/>
 
     </Grid>
 </Window>

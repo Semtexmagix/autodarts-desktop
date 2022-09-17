@@ -14,6 +14,7 @@
             <ComboBoxItem Content="Auswählen..."></ComboBoxItem>
             <ComboBoxItem Content="Autodarts.io"></ComboBoxItem>
             <ComboBoxItem Content="Lidarts.org"></ComboBoxItem>
+            <ComboBoxItem Content="dartboards.online"></ComboBoxItem>
         </ComboBox>
         <Label x:Name="labelcombobox" Content="Portal Auswählen:" HorizontalAlignment="Left" Margin="36,34,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Buttonstart" Content="Start" HorizontalAlignment="Left" Margin="74,118,0,0" VerticalAlignment="Top" Click="Buttonstart_Click" Width="42"/>
@@ -22,5 +23,6 @@
         <Button x:Name="Buttonschließen" Content="Schließen" HorizontalAlignment="Left" Margin="204,118,0,0" VerticalAlignment="Top" Click="Buttonschließen_Click" Width="66"/>
         <CheckBox x:Name="Checkboxbot" Content="Bot mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxbot_Checked" Visibility="Collapsed"/>
         <CheckBox x:Name="Checkboxvdzobs" Content="VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxvdzobs_Checked" Visibility="Collapsed"/>
+        <CheckBox x:Name="Checkboxdbovdzobs" Content="DBO Client / VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxdbovdzobs_Checked" Visibility="Collapsed"/>
     </Grid>
 </Window>

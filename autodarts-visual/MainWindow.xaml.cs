@@ -51,7 +51,7 @@ namespace autodarts_visual
 
                 if (obsphat == "Bitte Datei auswählen")
                 {
-                    MessageBox.Show("OBS Ordner im Setup einstellen!");
+                    MessageBox.Show("OBS.exe im Setup einstellen!");
                 }
                 else
                 {
@@ -69,7 +69,48 @@ namespace autodarts_visual
 
                 if (vdzphat == "Bitte Datei auswählen")
                 {
-                    MessageBox.Show("VDZ Ordner im Setup einstellen!");
+                    MessageBox.Show("VDZ.exe im Setup einstellen!");
+                }
+                else
+                {
+                    Process vdzprocess = new Process();
+                    vdzprocess.StartInfo.FileName = vdzphat;
+                    vdzprocess.StartInfo.UseShellExecute = true;
+                    //vdzprocess.StartInfo.Verb = "runas";
+                    vdzprocess.Start();
+                }
+            }
+
+
+
+
+            
+            if (Checkboxdbovdzobs.IsChecked == true)
+            {
+
+                string obsphat = Properties.Settings.Default.obs;
+
+                if (obsphat == "Bitte Datei auswählen")
+                {
+                    MessageBox.Show("OBS.exe im Setup einstellen!");
+                }
+                else
+                {
+                    Process obsprocess = new Process();
+                    obsprocess.StartInfo.FileName = obsphat;
+                    obsprocess.StartInfo.UseShellExecute = true;
+                    obsprocess.StartInfo.WorkingDirectory = "D:\\obs-studio\\bin\\64bit";
+                    //obsprocess.StartInfo.Verb = "runas";
+                    obsprocess.Start();
+                }
+
+
+
+                string vdzphat = Properties.Settings.Default.vdz;
+
+                if (vdzphat == "Bitte Datei auswählen")
+                {
+                    MessageBox.Show("VDZ.exe im Setup einstellen!");
                 }
                 else
                 {
@@ -80,10 +121,29 @@ namespace autodarts_visual
                     vdzprocess.Start();
                 }
 
+                string dbophat = Properties.Settings.Default.dbo;
 
-
-
+                if (dbophat == "Bitte Datei auswählen")
+                {
+                    MessageBox.Show("DBO.exe im Setup einstellen!");
+                }
+                else
+                {
+                    Process dboprocess = new Process();
+                    dboprocess.StartInfo.FileName = dbophat;
+                    dboprocess.StartInfo.UseShellExecute = true;
+                    //dboprocess.StartInfo.Verb = "runas";
+                    dboprocess.Start();
+                }
             }
+
+            
+
+
+
+
+
+
 
             if (Checkboxbot.IsChecked == true)
             {
@@ -91,7 +151,7 @@ namespace autodarts_visual
 
                 if (botphat == "Bitte Datei auswählen")
                 {
-                    MessageBox.Show("VDZ Ordner im Setup einstellen!");
+                    MessageBox.Show("Bot Ordner im Setup einstellen!");
                 }
                 else
                 {
@@ -226,7 +286,10 @@ namespace autodarts_visual
                 }
             }
         }
+        private void Checkboxdbovdzobs_Checked(object sender, RoutedEventArgs e)
+        {
 
+        }
         private void Checkboxvdzobs_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -244,21 +307,32 @@ namespace autodarts_visual
 
         private void Comboboxportal_DropDownClosed(object sender, SelectionChangedEventArgs e)
         {
-            // Ein und Ausblenden der Checkboxen je nach Combobox auswahl funktioniert nicht
-
+            // Ein und Ausblenden der Checkboxen
+            //TBD bei Zurückfallen auf "Auswählen" alle Boxen verstecken
             if (Comboboxportal.SelectedIndex == 1)
             {
                 Checkboxbot.Visibility = Visibility.Visible;
                 Checkboxvdzobs.Visibility = Visibility.Collapsed;
+                Checkboxdbovdzobs.Visibility = Visibility.Collapsed;
                 Checkboxvdzobs.IsChecked = false;
-
+                Checkboxdbovdzobs.IsChecked = false;
             }
             else if (Comboboxportal.SelectedIndex == 2)
             {
                 Checkboxvdzobs.Visibility = Visibility.Visible;
                 Checkboxbot.Visibility = Visibility.Collapsed;
+                Checkboxdbovdzobs.Visibility = Visibility.Collapsed;
                 Checkboxbot.IsChecked = false;
-            } 
+                Checkboxdbovdzobs.IsChecked = false;
+            }
+            else if (Comboboxportal.SelectedIndex == 3)
+            {
+                Checkboxdbovdzobs.Visibility = Visibility.Visible;
+                Checkboxbot.Visibility = Visibility.Collapsed;
+                Checkboxvdzobs.Visibility = Visibility.Collapsed;
+                Checkboxbot.IsChecked = false;
+                Checkboxvdzobs.IsChecked = false;
+            }
         }
     }
 }
