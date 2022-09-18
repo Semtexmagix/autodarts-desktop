@@ -17,7 +17,6 @@ Its buggy at the moment. Im a hard nooby in coding =D You can give me feedback i
 # TODOs
  - MainWindow:
    - Combobox bei erneutem Auswählen von "Auswählen" alle Checkboxen verstecken und unchecken
-   -
 
  - Install:
    - Trigger für Installertionsprobleme finden
@@ -26,7 +25,6 @@ Its buggy at the moment. Im a hard nooby in coding =D You can give me feedback i
 
  - Setup:
    - Slider testen (Slider Position in Settings Speichern) und laden bei erneutem öffenen vom Setup
-   -
 
 # Done
  - Beta V0.1
