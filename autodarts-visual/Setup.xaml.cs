@@ -38,6 +38,10 @@ namespace autodarts_visual
             TextBoxEmailLidarts.Text = Properties.Settings.Default.emaillidarts;
             TextBoxPWLidarts.Text = Properties.Settings.Default.pwlidarts;
 
+            // Settings Dartboards.online
+            TextBoxEmaildbo.Text = Properties.Settings.Default.dbouser;
+            TextBoxPWdbo.Text = Properties.Settings.Default.dbopw;
+
             // Settings Webcamdarts.com
             //textBoxemailWebcamdarts.Text = Properties.Settings.Default.emailwebcamdarts;
             //textBoxPWWebcamdarts.Text = Properties.Settings.Default.pwwebcamdarts;
@@ -55,6 +59,7 @@ namespace autodarts_visual
             TextBoxmessageend.Text = Properties.Settings.Default.messageend;
             TextBoxskipdarts.Text = Properties.Settings.Default.skipdarts;
             TextBoxtime.Text = Properties.Settings.Default.timetoend;
+            TextBoxbrowser.Text = Properties.Settings.Default.browserpath;
 
             // Settings Zusatz Programme Lidarts (OBS,VDZ)
             TextBoxvdz.Text = Properties.Settings.Default.vdz;
@@ -81,6 +86,10 @@ namespace autodarts_visual
             Properties.Settings.Default.emaillidarts = TextBoxEmailLidarts.Text;
             Properties.Settings.Default.pwlidarts = TextBoxPWLidarts.Text;
 
+            // Settings Dartboards.online
+            Properties.Settings.Default.dbouser = TextBoxEmaildbo.Text;
+            Properties.Settings.Default.dbopw = TextBoxPWdbo.Text;
+
             // Settings Webcamdarts.com
             //Properties.Settings.Default.emailwebcamdarts = textBoxemailWebcamdarts.Text;
             //Properties.Settings.Default.pwwebcamdarts = textBoxPWWebcamdarts.Text;
@@ -98,6 +107,7 @@ namespace autodarts_visual
             Properties.Settings.Default.messageend = TextBoxmessageend.Text;
             Properties.Settings.Default.skipdarts = TextBoxskipdarts.Text;
             Properties.Settings.Default.timetoend = TextBoxtime.Text;
+            Properties.Settings.Default.browserpath = TextBoxbrowser.Text;
 
 
             // Settings Zusatz Programme Lidarts (OBS,VDZ)
@@ -176,7 +186,19 @@ namespace autodarts_visual
             { TextBoxdbo.Text = "Bitte Datei auswählen"; }
         }
 
-
+        private void Buttonbrowser_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Select File";
+            openFileDialog.InitialDirectory = @"C:\";//--"C:\\";
+            openFileDialog.Filter = "All files (*.*)|*.*|Anwendung (*.exe)|*.exe";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.ShowDialog();
+            if (openFileDialog.FileName != "")
+            { TextBoxbrowser.Text = openFileDialog.FileName; }
+            else
+            { TextBoxbrowser.Text = "Bitte Datei auswählen"; }
+        }
 
         private void Buttonmedia_Click(object sender, RoutedEventArgs e)
         {

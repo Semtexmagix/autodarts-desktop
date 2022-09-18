@@ -15,6 +15,7 @@
             <ComboBoxItem Content="AutoDarts.io"></ComboBoxItem>
             <ComboBoxItem Content="LiDarts.org"></ComboBoxItem>
             <ComboBoxItem Content="DartBoards.online"></ComboBoxItem>
+            <ComboBoxItem Content="N01 Online"></ComboBoxItem>
         </ComboBox>
         <Label x:Name="labelcombobox" Content="Portal Auswählen:" HorizontalAlignment="Left" Margin="36,34,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Buttonstart" Content="Start" HorizontalAlignment="Left" Margin="74,118,0,0" VerticalAlignment="Top" Click="Buttonstart_Click" Width="42"/>

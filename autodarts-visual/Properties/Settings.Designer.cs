@@ -250,5 +250,53 @@ namespace autodarts_visual.Properties {
                 this["dbo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string browserpath {
+            get {
+                return ((string)(this["browserpath"]));
+            }
+            set {
+                this["browserpath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string dbouser {
+            get {
+                return ((string)(this["dbouser"]));
+            }
+            set {
+                this["dbouser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string dbopw {
+            get {
+                return ((string)(this["dbopw"]));
+            }
+            set {
+                this["dbopw"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string portal {
+            get {
+                return ((string)(this["portal"]));
+            }
+            set {
+                this["portal"] = value;
+            }
+        }
     }
 }

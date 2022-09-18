@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Windows.Foundation.Numerics;
 
 namespace autodarts_visual
 {
@@ -28,6 +29,15 @@ namespace autodarts_visual
             InitializeComponent();
         }
 
+
+
+
+
+
+
+
+
+
         private void Buttonsetup_Click(object sender, RoutedEventArgs e)
         {
             Setup S1 = new Setup();
@@ -40,15 +50,19 @@ namespace autodarts_visual
         }
 
 
+
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
 
+
+
+            ///////////////////////////////////////// Mitstarten von VDZ und OBS
+            ///
 
             if (Checkboxvdzobs.IsChecked == true)
             {
 
                 string obsphat = Properties.Settings.Default.obs;
-
                 if (obsphat == "Bitte Datei auswählen")
                 {
                     MessageBox.Show("OBS.exe im Setup einstellen!");
@@ -64,9 +78,7 @@ namespace autodarts_visual
                 }
 
 
-
                 string vdzphat = Properties.Settings.Default.vdz;
-
                 if (vdzphat == "Bitte Datei auswählen")
                 {
                     MessageBox.Show("VDZ.exe im Setup einstellen!");
@@ -83,8 +95,9 @@ namespace autodarts_visual
 
 
 
+            ///////////////////////////////////////// Mitstarten von DBO, VDZ und OBS
+            ///
 
-            
             if (Checkboxdbovdzobs.IsChecked == true)
             {
 
@@ -137,12 +150,10 @@ namespace autodarts_visual
                 }
             }
 
-            
 
 
-
-
-
+            ///////////////////////////////////////// Mitstarten von Autodarts.io Bot
+            ///
 
 
             if (Checkboxbot.IsChecked == true)
@@ -170,6 +181,8 @@ namespace autodarts_visual
             {
                 MessageBox.Show("Bitte Portal auswählen");
             }
+
+
             // Werte, die für beide Apps benötigt werden
             string autodartsUser = Properties.Settings.Default.emailautodarts;
             string autodartsPassword = Properties.Settings.Default.pwautodarts;
@@ -182,20 +195,16 @@ namespace autodarts_visual
             
             
             /////////////////////////  Autodarts-caller Starten mit Args aus den Settings
+            ///
             
             //string callerpath = Properties.Settings.Default.pathcaller;
-            string callerpath = "C:\\Users\\danie\\source\\repos\\autodarts-visual\\autodarts-visual\\autodarts-visual\\bin\\Debug\\net6.0-windows10.0.22621.0\\";
-
-
-
-
             string callerProcess = "autodarts-caller.exe";
+            string callerpath = ".\\";
             string callerPath = callerpath + "caller";
             string callerArgumentDelimitter = " ";
 
             IDictionary<string, string> callerArguments = new Dictionary<string, string>
             {
-                    { "autodarts-caller.exe", "" },
                     { "-U", autodartsUser },
                     { "-P", autodartsPassword },
                     { "-B", autodartsBoardId },
@@ -203,34 +212,49 @@ namespace autodarts_visual
                     { "-WTT", $"http://localhost:{port}/throw" }
             };
 
-            // Beispielaufruf für autodarts-extern
+            /////////////////////////  Autodarts-Extern Starten mit Args aus den Settings
+            ///
+
             string lidartsUser = Properties.Settings.Default.emaillidarts;
             string lidartsPassword = Properties.Settings.Default.pwlidarts;
             string skipdarts = Properties.Settings.Default.skipdarts;
             string timer = Properties.Settings.Default.timetoend;
             string messagestart = Properties.Settings.Default.messagestart;
             string messageend = Properties.Settings.Default.messageend;
-            string externProcess = "node";
-            string externPath = callerpath + "/autodarts-extern-master";
+            string browserpath = Properties.Settings.Default.browserpath;
+            string dboUser = Properties.Settings.Default.dbouser;
+            string dboPassword = Properties.Settings.Default.dbopw;
+
+            string externProcess = "autodarts-extern.exe";
+            string externpath = ".\\";
+            string externPath = externpath + "extern";
             string externArgumentDelimitter = "=";
 
+            string portalextern = Properties.Settings.Default.portal;
 
             IDictionary<string, string> externArguments = new Dictionary<string, string>
             {
-                { ".", "" },
+                //{ ".", "" },
+                { "--browser_path", browserpath },
                 { "--host_port", port },
                 { "--autodarts_user", autodartsUser },
                 { "--autodarts_password", autodartsPassword },
                 { "--autodarts_board_id", autodartsBoardId },
-                { "--extern_platform", "lidarts" },
+                { "--extern_platform", portalextern },
+                //{ "--extern_platform", "dartboards" },
                 { "--time_before_exit", timer },
                 { "--lidarts_user", lidartsUser },
                 { "--lidarts_password", lidartsPassword },
                 { "--lidarts_skip_dart_modals", skipdarts },
                 { "--lidarts_chat_message_start", messagestart },
-                { "--lidarts_chat_message_end", messageend }
+                { "--lidarts_chat_message_end", messageend },
+                { "--nakka_skip_dart_modals", skipdarts },
+                { "--dartboards_user", dboUser },
+                { "--dartboards_password", dboPassword },
+                { "--dartboards_skip_dart_modals", skipdarts }
             };
 
+            // Combobox Autodarts
             if (Comboboxportal.SelectedIndex == 1)
             {
                 var ps = new ProcessStartInfo("http://Autodarts.io")
@@ -242,8 +266,21 @@ namespace autodarts_visual
 
                 RunApp(callerProcess, callerPath, callerArguments, callerArgumentDelimitter);
             }
+            // Combobox Lidarts
             else if (Comboboxportal.SelectedIndex == 2)
             {
+                RunApp(callerProcess, callerPath, callerArguments, callerArgumentDelimitter);
+                RunApp(externProcess, externPath, externArguments, externArgumentDelimitter);
+            }
+            // Combobox Dartbords.online
+            else if (Comboboxportal.SelectedIndex == 3)
+            {
+                RunApp(callerProcess, callerPath, callerArguments, callerArgumentDelimitter);
+                RunApp(externProcess, externPath, externArguments, externArgumentDelimitter);
+            }
+            // Combobox Nakka
+            else if (Comboboxportal.SelectedIndex == 4)
+            {              
                 RunApp(callerProcess, callerPath, callerArguments, callerArgumentDelimitter);
                 RunApp(externProcess, externPath, externArguments, externArgumentDelimitter);
             }
@@ -324,6 +361,8 @@ namespace autodarts_visual
             }
             else if (Comboboxportal.SelectedIndex == 2)
             {
+                Properties.Settings.Default.portal = "lidarts";
+                Properties.Settings.Default.Save();
                 Checkboxvdzobs.Visibility = Visibility.Visible;
                 Checkboxbot.Visibility = Visibility.Collapsed;
                 Checkboxdbovdzobs.Visibility = Visibility.Collapsed;
@@ -332,11 +371,24 @@ namespace autodarts_visual
             }
             else if (Comboboxportal.SelectedIndex == 3)
             {
+                Properties.Settings.Default.portal = "dartboards";
+                Properties.Settings.Default.Save();
                 Checkboxdbovdzobs.Visibility = Visibility.Visible;
                 Checkboxbot.Visibility = Visibility.Collapsed;
                 Checkboxvdzobs.Visibility = Visibility.Collapsed;
                 Checkboxbot.IsChecked = false;
                 Checkboxvdzobs.IsChecked = false;
+            }
+            else if (Comboboxportal.SelectedIndex == 4)
+            {
+                Properties.Settings.Default.portal = "nakka";
+                Properties.Settings.Default.Save();
+                Checkboxbot.Visibility = Visibility.Collapsed;
+                Checkboxvdzobs.Visibility = Visibility.Collapsed;
+                Checkboxdbovdzobs.Visibility = Visibility.Collapsed;
+                Checkboxbot.IsChecked = false;
+                Checkboxvdzobs.IsChecked = false;
+                Checkboxdbovdzobs.IsChecked = false;
             }
         }
     }

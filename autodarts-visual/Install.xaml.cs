@@ -116,7 +116,7 @@ namespace autodarts_visual
                 string callerexe = @".\caller\autodarts-caller.exe";
                 if (!System.IO.File.Exists(callerexe))
                 {
-                    downloadFile("https://github.com/lbormann/autodarts-caller/releases/download/v.1.1.4/autodarts-caller.exe");
+                    downloadFile("https://github.com/lbormann/autodarts-caller/releases/download/v1.1.4/autodarts-caller.exe");
                 }
 
                 // Ordner erstellen
@@ -154,7 +154,7 @@ namespace autodarts_visual
                     }
                     else
                     {
-                        Console.WriteLine("Caller wurde runtergeladen (Beim ersten Start muss der Bot in seinem Fenster konfiguriert werden");
+                        Console.WriteLine("Caller wurde runtergeladen");
                     }
                 }
                 catch (Exception)
@@ -170,9 +170,9 @@ namespace autodarts_visual
 
 
 
-                MessageBox.Show("Software wurde installiert, nun müssen einige Daten eingegeben werden, dafür wirst Du in das Setup Menü weitergeleitet");
-                Setup S1 = new Setup();
-                S1.ShowDialog();
+                //MessageBox.Show("Software wurde installiert, nun müssen einige Daten eingegeben werden, dafür wirst Du in das Setup Menü weitergeleitet");
+                //Setup S1 = new Setup();
+                //S1.ShowDialog();
             }
             else
             {
@@ -185,10 +185,56 @@ namespace autodarts_visual
 
             if (Checkboxexterninstall.IsChecked == true)
             {
+                // Download Autodarts.io Extern
 
+                string externexe = @".\extern\autodarts-extern.exe";
+                if (!System.IO.File.Exists(externexe))
+                {
+                    downloadFile("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe");
+                }
 
+                // Ordner erstellen
+                string folderPathextern = @".\extern";
+                if (!Directory.Exists(folderPathextern))
+                {
+                    Directory.CreateDirectory(folderPathextern);
+                    Console.WriteLine(folderPathextern);
+                }
 
+                // Exe in Ordner verschieben
+                string pathextern = @".\autodarts-extern.exe";
+                string path2extern = @".\extern\autodarts-extern.exe";
+                try
+                {
+                    if (!System.IO.File.Exists(pathextern))
+                    {
+                        // This statement ensures that the file is created,
+                        // but the handle is not kept.
+                        using (FileStream fs = System.IO.File.Create(pathextern)) { }
+                    }
 
+                    // Ensure that the target does not exist.
+                    if (System.IO.File.Exists(path2extern))
+                        System.IO.File.Delete(path2extern);
+
+                    // Move the file.
+                    System.IO.File.Move(pathextern, path2extern);
+                    Console.WriteLine("{0} was moved to {1}.", pathextern, path2extern);
+
+                    // See if the original exists now.
+                    if (System.IO.File.Exists(pathextern))
+                    {
+                        Console.WriteLine("Es gab Probleme bei der Installation");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Extern wurde runtergeladen");
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("The process failed: {0}", e.ToString());
+                }
 
 
 
