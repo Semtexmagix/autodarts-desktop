@@ -111,6 +111,13 @@ namespace autodarts_visual
 
             if (Checkboxcallerinstall.IsChecked == true)
             {
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////// Install erledgit -> Ja
+                Properties.Settings.Default.installdone = true;
+                Properties.Settings.Default.Save();
+
+
                 // Download Autodarts.io Caller
 
                 string callerexe = @".\caller\autodarts-caller.exe";

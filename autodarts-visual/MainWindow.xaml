@@ -25,5 +25,6 @@
         <CheckBox x:Name="Checkboxbot" Content="Bot mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxbot_Checked" Visibility="Collapsed"/>
         <CheckBox x:Name="Checkboxvdzobs" Content="VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxvdzobs_Checked" Visibility="Collapsed"/>
         <CheckBox x:Name="Checkboxdbovdzobs" Content="DBO Client / VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxdbovdzobs_Checked" Visibility="Collapsed"/>
+        <Button x:Name="Buttonrest" Content="Reset" HorizontalAlignment="Left" Margin="219,87,0,0" VerticalAlignment="Top" Click="Buttonrest_Click"/>
     </Grid>
 </Window>

@@ -32,15 +32,15 @@ namespace autodarts_visual
 
             // Settings Autodarts.io
             TextBoxEmailAutodarts.Text = Properties.Settings.Default.emailautodarts;
-            TextBoxPWAutodarts.Text = Properties.Settings.Default.pwautodarts;
-
+            TextBoxPWAutodarts.Password = Properties.Settings.Default.pwautodarts;
+            
             // Settings Lidarts.org
             TextBoxEmailLidarts.Text = Properties.Settings.Default.emaillidarts;
-            TextBoxPWLidarts.Text = Properties.Settings.Default.pwlidarts;
+            TextBoxPWLidarts.Password = Properties.Settings.Default.pwlidarts;
 
             // Settings Dartboards.online
             TextBoxEmaildbo.Text = Properties.Settings.Default.dbouser;
-            TextBoxPWdbo.Text = Properties.Settings.Default.dbopw;
+            TextBoxPWdbo.Password = Properties.Settings.Default.dbopw;
 
             // Settings Webcamdarts.com
             //textBoxemailWebcamdarts.Text = Properties.Settings.Default.emailwebcamdarts;
@@ -49,7 +49,7 @@ namespace autodarts_visual
             // Settings Caller
             TextBoxBoardID.Text = Properties.Settings.Default.boardid;
             TextBoxmedia.Text = Properties.Settings.Default.media;
-            TextBoxcallervol.Text = Properties.Settings.Default.callervol;
+            //TextBoxcallervol.Text = Properties.Settings.Default.callervol;
             TextBoxrandomcaller.Text = Properties.Settings.Default.randomcaller;
             TextBoxrcel.Text = Properties.Settings.Default.randomcallereachleg;
             TextBoxwebhook.Text = Properties.Settings.Default.webhook;
@@ -80,15 +80,15 @@ namespace autodarts_visual
 
             // Settings Autodarts.io
             Properties.Settings.Default.emailautodarts = TextBoxEmailAutodarts.Text;
-            Properties.Settings.Default.pwautodarts = TextBoxPWAutodarts.Text;
+            Properties.Settings.Default.pwautodarts = TextBoxPWAutodarts.Password;
 
             // Settings Lidarts.org
             Properties.Settings.Default.emaillidarts = TextBoxEmailLidarts.Text;
-            Properties.Settings.Default.pwlidarts = TextBoxPWLidarts.Text;
+            Properties.Settings.Default.pwlidarts = TextBoxPWLidarts.Password;
 
             // Settings Dartboards.online
             Properties.Settings.Default.dbouser = TextBoxEmaildbo.Text;
-            Properties.Settings.Default.dbopw = TextBoxPWdbo.Text;
+            Properties.Settings.Default.dbopw = TextBoxPWdbo.Password;
 
             // Settings Webcamdarts.com
             //Properties.Settings.Default.emailwebcamdarts = textBoxemailWebcamdarts.Text;
@@ -97,7 +97,7 @@ namespace autodarts_visual
             // Settings Caller
             Properties.Settings.Default.boardid = TextBoxBoardID.Text;
             Properties.Settings.Default.media = TextBoxmedia.Text;
-            Properties.Settings.Default.callervol = TextBoxcallervol.Text;
+            Properties.Settings.Default.callervol = TextBoxcallervol.Text;  
             Properties.Settings.Default.randomcaller = TextBoxrandomcaller.Text;
             Properties.Settings.Default.randomcallereachleg = TextBoxrcel.Text;
             Properties.Settings.Default.webhook = TextBoxwebhook.Text;
@@ -119,6 +119,9 @@ namespace autodarts_visual
 
             // Settings Zusatz Programme DartsBoard.Online (Client, wird für Webcam benötigt)
             Properties.Settings.Default.dbo = TextBoxdbo.Text;
+
+            // Setup erledigt -> Ja
+            Properties.Settings.Default.setupdone = true;
 
             // Settings Speichern
             Properties.Settings.Default.Save();
@@ -203,6 +206,11 @@ namespace autodarts_visual
         private void Buttonmedia_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("TBD folderbrowser nicht auffindbar");
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+           
         }
     }
 }

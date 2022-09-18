@@ -9,9 +9,9 @@
     <Grid HorizontalAlignment="Center" Width="614" Height="912" VerticalAlignment="Top">
         <TextBox HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200"/>
         <TextBox x:Name="TextBoxEmailAutodarts" HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="Email Autodarts" VerticalAlignment="Top" Width="200" FontSize="10"/>
-        <TextBox x:Name="TextBoxcallervol" HorizontalAlignment="Left" Height="20" Margin="66,306,0,0" TextWrapping="Wrap" Text="Caller Volume" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <TextBox x:Name="TextBoxcallervol" HorizontalAlignment="Left" Height="20" Margin="241,306,0,0" TextWrapping="Wrap" Text="{Binding ElementName=slValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="25" FontSize="10"/>
         <TextBox x:Name="TextBoxBoardID" HorizontalAlignment="Left" Height="20" Margin="66,256,0,0" TextWrapping="Wrap" Text="Board-ID" VerticalAlignment="Top" Width="200" FontSize="10"/>
-        <TextBox x:Name="TextBoxPWAutodarts" HorizontalAlignment="Left" Height="20" Margin="341,63,0,0" TextWrapping="Wrap" Text="Passwort Autodarts" VerticalAlignment="Top" Width="200" FontSize="10"/>
+        <PasswordBox x:Name="TextBoxPWAutodarts" HorizontalAlignment="Left" Margin="341,63,0,0" VerticalAlignment="Top" Width="200" Height="20"/>
         <TextBox x:Name="TextBoxrandomcaller" HorizontalAlignment="Left" Height="20" Margin="341,306,0,0" TextWrapping="Wrap" Text="Random Caller" VerticalAlignment="Top" Width="200" FontSize="10"/>
         <TextBox x:Name="TextBoxmedia" HorizontalAlignment="Left" Height="20" Margin="341,256,0,0" TextWrapping="Wrap" Text="Media Ordner Caller" VerticalAlignment="Top" Width="200" FontSize="10"/>
         <TextBox x:Name="TextBoxrcel" HorizontalAlignment="Left" Height="20" Margin="66,356,0,0" TextWrapping="Wrap" Text="Random Caller each leg" VerticalAlignment="Top" Width="200" FontSize="10"/>
@@ -19,7 +19,6 @@
         <TextBox x:Name="TextBoxEmailLidarts" HorizontalAlignment="Left" Height="20" Margin="66,109,0,0" TextWrapping="Wrap" Text="Email Lidarts.org" VerticalAlignment="Top" Width="200" FontSize="10"/>
         <TextBox x:Name="TextBoxwebhook" HorizontalAlignment="Left" Height="20" Margin="341,356,0,0" TextWrapping="Wrap" Text="Webhook" VerticalAlignment="Top" Width="200" FontSize="10"/>
         <TextBox x:Name="TextBoxmessageend" HorizontalAlignment="Left" Height="20" Margin="342,450,0,0" TextWrapping="Wrap" Text="Nachricht am Spielende" VerticalAlignment="Top" Width="200" FontSize="10"/>
-        <TextBox x:Name="TextBoxPWLidarts" HorizontalAlignment="Left" Height="20" Margin="341,109,0,0" TextWrapping="Wrap" Text="Passwort Lidarts.org" VerticalAlignment="Top" Width="200" FontSize="10"/>
         <Label Content="Bitte Zugangsdaten eintragen:" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <Label Content="Bitte Autodarts-caller Daten eintragen:" HorizontalAlignment="Center" Margin="0,197,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <TextBox x:Name="TextBoxskipdarts" HorizontalAlignment="Left" Height="20" Margin="67,500,0,0" TextWrapping="Wrap" Text="Automatisches Überspringen" VerticalAlignment="Top" Width="200" FontSize="10"/>
@@ -56,12 +55,14 @@
         <Button x:Name="Buttondbo" Content="Suchen..." HorizontalAlignment="Left" Margin="408,744,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttondbo_Click" Width="63"/>
         <Label Content="Bitte Autodarts-extern Daten eintragen:" HorizontalAlignment="Center" Margin="0,396,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <TextBox x:Name="TextBoxEmaildbo" HorizontalAlignment="Left" Height="20" Margin="67,160,0,0" TextWrapping="Wrap" Text="Email DartBords.online" VerticalAlignment="Top" Width="200" FontSize="10"/>
-        <TextBox x:Name="TextBoxPWdbo" HorizontalAlignment="Left" Height="20" Margin="342,160,0,0" TextWrapping="Wrap" Text="Passwort DartBords.online" VerticalAlignment="Top" Width="200" FontSize="10"/>
         <Label Content="Email DartBords.online" HorizontalAlignment="Left" Margin="67,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold"/>
         <Label Content="Passwort DartBords.online" HorizontalAlignment="Left" Margin="342,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold"/>
         <TextBox x:Name="TextBoxbrowser" HorizontalAlignment="Left" Height="20" Margin="67,547,0,0" TextWrapping="Wrap" Text="WebBrowser" VerticalAlignment="Top" Width="200" FontSize="10"/>
         <Label Content="Browser z.b. Chrome.exe auswählen" HorizontalAlignment="Left" Margin="67,521,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold"/>
         <Button x:Name="Buttonbrowser" Content="Suchen..." HorizontalAlignment="Left" Margin="138,567,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonbrowser_Click" Width="60"/>
+        <PasswordBox x:Name="TextBoxPWLidarts" HorizontalAlignment="Left" Margin="341,109,0,0" VerticalAlignment="Top" Width="200" Height="20"/>
+        <PasswordBox x:Name="TextBoxPWdbo" HorizontalAlignment="Left" Margin="342,160,0,0" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Slider x:Name="slValue" HorizontalAlignment="Left" Margin="67,306,0,0" VerticalAlignment="Top" Width="169" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
 
     </Grid>
 </Window>

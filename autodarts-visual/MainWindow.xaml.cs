@@ -27,16 +27,37 @@ namespace autodarts_visual
         public MainWindow()
         {
             InitializeComponent();
+
+
+
+            ////////////////////////////////// Abfrage ob Setup und Install durchgeführt wurden
+
+            if (Properties.Settings.Default.installdone == false)
+            {
+                MessageBox.Show("Autodarts-Visual hat erkannt das noch keine Programme installiert wurden, daher wirst du zum Install weitergeleitet");
+                Install I1 = new Install();
+                I1.ShowDialog();
+            }
+
+            if (Properties.Settings.Default.setupdone == false)
+            {    
+                MessageBox.Show("Autodarts-Visual hat erkannt das noch keine Setup Daten eingetragen wurden, daher wirst du zum Setup weitergeleitet");
+                Setup S1 = new Setup();
+                S1.ShowDialog();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
         }
-
-
-
-
-
-
-
-
-
 
         private void Buttonsetup_Click(object sender, RoutedEventArgs e)
         {
@@ -48,8 +69,6 @@ namespace autodarts_visual
         {
             this.Close();
         }
-
-
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
@@ -188,6 +207,10 @@ namespace autodarts_visual
             string autodartsPassword = Properties.Settings.Default.pwautodarts;
             string autodartsBoardId = Properties.Settings.Default.boardid;
             string autodartsSounds = Properties.Settings.Default.media;
+            string autodartsCallerVol = Properties.Settings.Default.callervol;
+            string autodartsRandomCaller = Properties.Settings.Default.randomcaller;
+            string autodartsRandomCallerEachLeg = Properties.Settings.Default.randomcallereachleg;
+
             string port = "8080";
 
             
@@ -203,12 +226,16 @@ namespace autodarts_visual
             string callerPath = callerpath + "caller";
             string callerArgumentDelimitter = " ";
 
+
             IDictionary<string, string> callerArguments = new Dictionary<string, string>
             {
                     { "-U", autodartsUser },
                     { "-P", autodartsPassword },
                     { "-B", autodartsBoardId },
                     { "-M", autodartsSounds },
+                    { "-V", autodartsCallerVol },
+                    { "-R", autodartsRandomCaller },
+                    { "-L", autodartsRandomCallerEachLeg },
                     { "-WTT", $"http://localhost:{port}/throw" }
             };
 
@@ -234,14 +261,12 @@ namespace autodarts_visual
 
             IDictionary<string, string> externArguments = new Dictionary<string, string>
             {
-                //{ ".", "" },
                 { "--browser_path", browserpath },
                 { "--host_port", port },
                 { "--autodarts_user", autodartsUser },
                 { "--autodarts_password", autodartsPassword },
                 { "--autodarts_board_id", autodartsBoardId },
                 { "--extern_platform", portalextern },
-                //{ "--extern_platform", "dartboards" },
                 { "--time_before_exit", timer },
                 { "--lidarts_user", lidartsUser },
                 { "--lidarts_password", lidartsPassword },
@@ -390,6 +415,15 @@ namespace autodarts_visual
                 Checkboxvdzobs.IsChecked = false;
                 Checkboxdbovdzobs.IsChecked = false;
             }
+        }
+
+        private void Buttonrest_Click(object sender, RoutedEventArgs e)
+        {
+            // Setup erledigt -> NEIN -> Reset TEST
+            Properties.Settings.Default.installdone = false;
+            Properties.Settings.Default.setupdone = false;
+            // Settings Speichern
+            Properties.Settings.Default.Save();
         }
     }
 }

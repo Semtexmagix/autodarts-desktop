@@ -157,7 +157,7 @@ namespace autodarts_visual.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string callervol {
             get {
                 return ((string)(this["callervol"]));
@@ -296,6 +296,30 @@ namespace autodarts_visual.Properties {
             }
             set {
                 this["portal"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setupdone {
+            get {
+                return ((bool)(this["setupdone"]));
+            }
+            set {
+                this["setupdone"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool installdone {
+            get {
+                return ((bool)(this["installdone"]));
+            }
+            set {
+                this["installdone"] = value;
             }
         }
     }
