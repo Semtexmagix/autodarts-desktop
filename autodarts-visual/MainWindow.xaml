@@ -10,11 +10,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="28,65,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Comboboxportal_DropDownClosed" Height="22" SelectedIndex="0">
+        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="28,65,0,0" VerticalAlignment="Top" Width="140" SelectionChanged="Comboboxportal_DropDownClosed" Height="22" SelectedIndex="0">
             <ComboBoxItem Content="Auswählen..."></ComboBoxItem>
-            <ComboBoxItem Content="Autodarts.io"></ComboBoxItem>
-            <ComboBoxItem Content="Lidarts.org"></ComboBoxItem>
-            <ComboBoxItem Content="dartboards.online"></ComboBoxItem>
+            <ComboBoxItem Content="AutoDarts.io"></ComboBoxItem>
+            <ComboBoxItem Content="LiDarts.org"></ComboBoxItem>
+            <ComboBoxItem Content="DartBoards.online"></ComboBoxItem>
         </ComboBox>
         <Label x:Name="labelcombobox" Content="Portal Auswählen:" HorizontalAlignment="Left" Margin="36,34,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Buttonstart" Content="Start" HorizontalAlignment="Left" Margin="74,118,0,0" VerticalAlignment="Top" Click="Buttonstart_Click" Width="42"/>

@@ -111,8 +111,56 @@ namespace autodarts_visual
 
             if (Checkboxcallerinstall.IsChecked == true)
             {
+                // Download Autodarts.io Caller
 
+                string callerexe = @".\caller\autodarts-caller.exe";
+                if (!System.IO.File.Exists(callerexe))
+                {
+                    downloadFile("https://github.com/lbormann/autodarts-caller/releases/download/v.1.1.4/autodarts-caller.exe");
+                }
 
+                // Ordner erstellen
+                string folderPathcaller = @".\caller";
+                if (!Directory.Exists(folderPathcaller))
+                {
+                    Directory.CreateDirectory(folderPathcaller);
+                    Console.WriteLine(folderPathcaller);
+                }
+
+                // Exe in Ordner verschieben
+                string pathcaller = @".\autodarts-caller.exe";
+                string path2caller = @".\caller\autodarts-caller.exe";
+                try
+                {
+                    if (!System.IO.File.Exists(pathcaller))
+                    {
+                        // This statement ensures that the file is created,
+                        // but the handle is not kept.
+                        using (FileStream fs = System.IO.File.Create(pathcaller)) { }
+                    }
+
+                    // Ensure that the target does not exist.
+                    if (System.IO.File.Exists(path2caller))
+                        System.IO.File.Delete(path2caller);
+
+                    // Move the file.
+                    System.IO.File.Move(pathcaller, path2caller);
+                    Console.WriteLine("{0} was moved to {1}.", pathcaller, path2caller);
+
+                    // See if the original exists now.
+                    if (System.IO.File.Exists(pathcaller))
+                    {
+                        Console.WriteLine("Es gab Probleme bei der Installation");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Caller wurde runtergeladen (Beim ersten Start muss der Bot in seinem Fenster konfiguriert werden");
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("The process failed: {0}", e.ToString());
+                }
 
 
 

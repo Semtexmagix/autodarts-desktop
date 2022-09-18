@@ -56,7 +56,7 @@ namespace autodarts_visual
                 else
                 {
                     Process obsprocess = new Process();
-                    obsprocess.StartInfo.FileName = obsphat;
+                    obsprocess.StartInfo.FileName = "obs64.exe";
                     obsprocess.StartInfo.UseShellExecute = true;
                     obsprocess.StartInfo.WorkingDirectory = "D:\\obs-studio\\bin\\64bit";
                     //obsprocess.StartInfo.Verb = "runas";
@@ -177,20 +177,25 @@ namespace autodarts_visual
             string autodartsSounds = Properties.Settings.Default.media;
             string port = "8080";
 
-            // Beispielaufruf für autodarts-caller
+            
+            
+            
+            
+            /////////////////////////  Autodarts-caller Starten mit Args aus den Settings
+            
             //string callerpath = Properties.Settings.Default.pathcaller;
-            string callerpath = "C:\\Users\\danie\\Desktop";
+            string callerpath = "C:\\Users\\danie\\source\\repos\\autodarts-visual\\autodarts-visual\\autodarts-visual\\bin\\Debug\\net6.0-windows10.0.22621.0\\";
 
 
 
 
-            string callerProcess = "python";
-            string callerPath = callerpath + "\\autodarts-caller-master";
+            string callerProcess = "autodarts-caller.exe";
+            string callerPath = callerpath + "caller";
             string callerArgumentDelimitter = " ";
 
             IDictionary<string, string> callerArguments = new Dictionary<string, string>
             {
-                    { "autodarts-caller.py", "" },
+                    { "autodarts-caller.exe", "" },
                     { "-U", autodartsUser },
                     { "-P", autodartsPassword },
                     { "-B", autodartsBoardId },
