@@ -15,7 +15,18 @@ you can also start side programmes:
 It may be buggy. I've a hard nooby in coding =D You can give me feedback in Discord (Autodarts.io) > Reepa86
 
 # TODOs
- - Many =D
+ - MainWindow:
+   - Combobox bei erneutem Auswählen von "Auswählen" alle Checkboxen verstecken und unchecken
+   -
+
+ - Install:
+   - Trigger für Installertionsprobleme finden
+   - Trigger für Installertion abgeschlossen finden
+   - Infos für den Enduser (Installiere..., verschiebe etc...)
+
+ - Setup:
+   - Slider testen (Slider Position in Settings Speichern) und laden bei erneutem öffenen vom Setup
+   -
 
 # Done
  - Beta V0.1
