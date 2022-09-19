@@ -12,7 +12,7 @@ you can also start side programmes:
  - Like OBS / VDZ
 
 # BUGS
-Its buggy at the moment. Im a hard nooby in coding =D You can give me feedback in Discord (Autodarts.io) ---> Reepa86
+Its buggy at the moment. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 
 # TODOs
  - MainWindow:
