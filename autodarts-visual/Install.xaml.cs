@@ -23,6 +23,7 @@ using System.Security.Policy;
 using System.Net.Http;
 using Windows.Media.Protection.PlayReady;
 using System.Net.Mime;
+using ABI.System;
 
 namespace autodarts_visual
 {
@@ -91,7 +92,6 @@ namespace autodarts_visual
         }
 
         /////////////////////////////// Downloader ///////////////////////////////
-
         private void downloadFile(string url)
         {
             string file = System.IO.Path.GetFileName(url);
@@ -101,17 +101,10 @@ namespace autodarts_visual
 
         private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {
-
-
-
-
-
-
             /////////////////////////////// Autodarts.io Caller ///////////////////////////////
 
             if (Checkboxcallerinstall.IsChecked == true)
             {
-
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////// Install erledgit -> Ja
                 Properties.Settings.Default.installdone = true;
@@ -152,7 +145,7 @@ namespace autodarts_visual
 
                     // Move the file.
                     System.IO.File.Move(pathcaller, path2caller);
-                    Console.WriteLine("{0} was moved to {1}.", pathcaller, path2caller);
+                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathcaller, path2caller);
 
                     // See if the original exists now.
                     if (System.IO.File.Exists(pathcaller))
@@ -161,12 +154,12 @@ namespace autodarts_visual
                     }
                     else
                     {
-                        Console.WriteLine("Caller wurde runtergeladen");
+                        Console.WriteLine("Caller wurde installiert");
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
-                    Console.WriteLine("The process failed: {0}", e.ToString());
+                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
                 }
 
 
@@ -226,7 +219,7 @@ namespace autodarts_visual
 
                     // Move the file.
                     System.IO.File.Move(pathextern, path2extern);
-                    Console.WriteLine("{0} was moved to {1}.", pathextern, path2extern);
+                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathextern, path2extern);
 
                     // See if the original exists now.
                     if (System.IO.File.Exists(pathextern))
@@ -235,16 +228,13 @@ namespace autodarts_visual
                     }
                     else
                     {
-                        Console.WriteLine("Extern wurde runtergeladen");
+                        Console.WriteLine("Extern wurde installiert");
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
-                    Console.WriteLine("The process failed: {0}", e.ToString());
+                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
                 }
-
-
-
             }
 
 
@@ -300,7 +290,7 @@ namespace autodarts_visual
 
                     // Move the file.
                     System.IO.File.Move(pathbot, path2bot);
-                    Console.WriteLine("{0} was moved to {1}.", pathbot, path2bot);
+                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathbot, path2bot);
 
                     // See if the original exists now.
                     if (System.IO.File.Exists(pathbot))
@@ -309,12 +299,12 @@ namespace autodarts_visual
                     }
                     else
                     {
-                        Console.WriteLine("Bot wurde runtergeladen (Beim ersten Start muss der Bot in seinem Fenster konfiguriert werden");
+                        Console.WriteLine("Bot wurde installiert (Beim ersten Start muss der Bot in seinem Fenster konfiguriert werden");
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
-                    Console.WriteLine("The process failed: {0}", e.ToString());
+                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
                 }
 
             }
@@ -368,7 +358,7 @@ namespace autodarts_visual
 
                     // Move the file.
                     System.IO.File.Move(pathvdz, path2vdz);
-                    Console.WriteLine("{0} was moved to {1}.", pathvdz, path2vdz);
+                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathvdz, path2vdz);
 
                     // See if the original exists now.
                     if (System.IO.File.Exists(pathvdz))
@@ -377,12 +367,12 @@ namespace autodarts_visual
                     }
                     else
                     {
-                        Console.WriteLine("Visual Darts Zoom wurde runtergeladen");
+                        Console.WriteLine("Visual Darts Zoom wurde installiert");
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
-                    Console.WriteLine("The process failed: {0}", e.ToString());
+                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
                 }
 
             }
@@ -426,7 +416,7 @@ namespace autodarts_visual
 
                     // Move the file.
                     System.IO.File.Move(pathdbo, path2dbo);
-                    Console.WriteLine("{0} was moved to {1}.", pathdbo, path2dbo);
+                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathdbo, path2dbo);
 
                     // See if the original exists now.
                     if (System.IO.File.Exists(pathdbo))
@@ -435,12 +425,12 @@ namespace autodarts_visual
                     }
                     else
                     {
-                        Console.WriteLine("DartsBoardOnline wurde runtergeladen");
+                        Console.WriteLine("DartsBoardOnline Client (Webcam support) wurde installiert");
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
-                    Console.WriteLine("The process failed: {0}", e.ToString());
+                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
                 }
 
 
@@ -455,6 +445,19 @@ namespace autodarts_visual
         {
             Setup S1 = new Setup();
             S1.ShowDialog();
+        }
+
+        private void Checkboxcallerinstall_Checked(object sender, RoutedEventArgs e)
+        {
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////// Install Button anzeigen!
+            ButtonInstall.Visibility = Visibility.Visible;
+        }
+        private void Checkboxcallerinstall_Unchecked(object sender, RoutedEventArgs e)
+        {
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////// Install Button verstecken!
+            ButtonInstall.Visibility = Visibility.Collapsed;
         }
     }
 }

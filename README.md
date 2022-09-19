@@ -24,10 +24,11 @@ Its buggy at the moment. Im a hard nooby in coding =D You can give me feedback i
    - Infos für den Enduser (Installiere..., verschiebe etc...)
 
  - Setup:
-   - Slider testen (Slider Position in Settings Speichern) und laden bei erneutem öffenen vom Setup
+   - Checkboxen für Random Caller und Random Caller each Leg
 
 # Done
- - Beta V0.1
+ - Setup:
+   - Slider für Caller Vol., Danke Wusaaa!!
 
 # LAST WORDS
 Thanks to Timo for awesome https://autodarts.io. 

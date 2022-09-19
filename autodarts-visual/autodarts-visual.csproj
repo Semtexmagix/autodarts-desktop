@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
     <RootNamespace>autodarts_visual</RootNamespace>
     <Nullable>enable</Nullable>

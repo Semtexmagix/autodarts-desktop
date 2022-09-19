@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Autodarts-visual - Install" Height="281" Width="558">
+        Title="Autodarts-visual - Install" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558">
     <Grid Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
-        <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Click="Checkboxcallerinstall_Click"/>
+        <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Click="Checkboxcallerinstall_Click" Checked="Checkboxcallerinstall_Checked" Unchecked="Checkboxcallerinstall_Unchecked"/>
         <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="57,72,0,0" VerticalAlignment="Top" Click="Checkboxexterninstall_Click" Visibility="Collapsed"/>
         <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="35,66,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <Button x:Name="ButtonInstall" Content="Installieren" HorizontalAlignment="Left" Margin="231,152,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="0.5,0.5" Width="75">
+        <Button x:Name="ButtonInstall" Content="Installieren" HorizontalAlignment="Left" Margin="231,152,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="0.5,0.5" Width="75" Visibility="Collapsed">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

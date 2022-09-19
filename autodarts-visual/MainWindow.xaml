@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Autodarts-visual" Height="193" Width="329">
-    <Grid HorizontalAlignment="Center" Width="335" RenderTransformOrigin="0.505,0.362" Margin="0,0,0,6">
+        Title="Autodarts-visual" MaxHeight="175" MaxWidth="325" MinWidth="325" MinHeight="175">
+    <Grid HorizontalAlignment="Center" Width="325" RenderTransformOrigin="0.531,-0.273" Height="167" Margin="0,-16,0,0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>

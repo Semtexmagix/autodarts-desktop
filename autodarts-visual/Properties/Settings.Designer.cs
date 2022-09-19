@@ -322,5 +322,17 @@ namespace autodarts_visual.Properties {
                 this["installdone"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double sliderpos {
+            get {
+                return ((double)(this["sliderpos"]));
+            }
+            set {
+                this["sliderpos"] = value;
+            }
+        }
     }
 }

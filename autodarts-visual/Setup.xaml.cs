@@ -49,10 +49,11 @@ namespace autodarts_visual
             // Settings Caller
             TextBoxBoardID.Text = Properties.Settings.Default.boardid;
             TextBoxmedia.Text = Properties.Settings.Default.media;
-            //TextBoxcallervol.Text = Properties.Settings.Default.callervol;
+            TextBoxcallervol.Text = Properties.Settings.Default.callervol;
             TextBoxrandomcaller.Text = Properties.Settings.Default.randomcaller;
             TextBoxrcel.Text = Properties.Settings.Default.randomcallereachleg;
             TextBoxwebhook.Text = Properties.Settings.Default.webhook;
+            slValue.Value = Properties.Settings.Default.sliderpos;
 
             // Settings Extern
             TextBoxmessagestart.Text = Properties.Settings.Default.messagestart;
@@ -101,6 +102,7 @@ namespace autodarts_visual
             Properties.Settings.Default.randomcaller = TextBoxrandomcaller.Text;
             Properties.Settings.Default.randomcallereachleg = TextBoxrcel.Text;
             Properties.Settings.Default.webhook = TextBoxwebhook.Text;
+            Properties.Settings.Default.sliderpos = slValue.Value;
 
             // Settings Extern
             Properties.Settings.Default.messagestart = TextBoxmessagestart.Text;
@@ -210,7 +212,8 @@ namespace autodarts_visual
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-           
+            String slidValAsStr = Math.Round(slValue.Value, 2).ToString().Replace(",", ".");
+            TextBoxcallervol.Text = slidValAsStr;
         }
     }
 }
