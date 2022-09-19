@@ -10,7 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="28,65,0,0" VerticalAlignment="Top" Width="140" SelectionChanged="Comboboxportal_DropDownClosed" Height="22" SelectedIndex="0">
+        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="28,65,0,0" VerticalAlignment="Top" Width="140" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0">
             <ComboBoxItem Content="Auswählen..."></ComboBoxItem>
             <ComboBoxItem Content="AutoDarts.io"></ComboBoxItem>
             <ComboBoxItem Content="LiDarts.org"></ComboBoxItem>

@@ -378,7 +378,7 @@ namespace autodarts_visual
             I1.ShowDialog();
         }
 
-        private void Comboboxportal_DropDownClosed(object sender, SelectionChangedEventArgs e)
+        private void Comboboxportal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Ein und Ausblenden der Checkboxen
             //TBD bei Zurückfallen auf "Auswählen" alle Boxen verstecken
