@@ -42,35 +42,23 @@ namespace autodarts_visual
             TextBoxEmaildbo.Text = Properties.Settings.Default.dbouser;
             TextBoxPWdbo.Password = Properties.Settings.Default.dbopw;
 
-            // Settings Webcamdarts.com
-            //textBoxemailWebcamdarts.Text = Properties.Settings.Default.emailwebcamdarts;
-            //textBoxPWWebcamdarts.Text = Properties.Settings.Default.pwwebcamdarts;
-
             // Settings Caller
             TextBoxBoardID.Text = Properties.Settings.Default.boardid;
             TextBoxmedia.Text = Properties.Settings.Default.media;
             TextBoxcallervol.Text = Properties.Settings.Default.callervol;
-            TextBoxrandomcaller.Text = Properties.Settings.Default.randomcaller;
-            TextBoxrcel.Text = Properties.Settings.Default.randomcallereachleg;
-            TextBoxwebhook.Text = Properties.Settings.Default.webhook;
+            Checkboxrandomcaller.IsChecked = Properties.Settings.Default.checkboxrandomcaller;
+            Checkboxrandomcallereachleg.IsChecked = Properties.Settings.Default.checkboxrandomcallereachleg;
             slValue.Value = Properties.Settings.Default.sliderpos;
 
             // Settings Extern
             TextBoxmessagestart.Text = Properties.Settings.Default.messagestart;
             TextBoxmessageend.Text = Properties.Settings.Default.messageend;
-            TextBoxskipdarts.Text = Properties.Settings.Default.skipdarts;
+            Checkboxskipdart.IsChecked = Properties.Settings.Default.checkboxskipdart;
             TextBoxtime.Text = Properties.Settings.Default.timetoend;
             TextBoxbrowser.Text = Properties.Settings.Default.browserpath;
 
-            // Settings Zusatz Programme Lidarts (OBS,VDZ)
-            TextBoxvdz.Text = Properties.Settings.Default.vdz;
+            // Settings Zusatz Programme Lidarts (OBS)
             TextBoxobs.Text = Properties.Settings.Default.obs;
-
-            // Settings Zusatz Programme Autodarts (Bot)
-            TextBoxbot.Text = Properties.Settings.Default.bot;
-
-            // Settings Zusatz Programme DartsBoard.Online (Client, wird für Webcam benötigt)
-            TextBoxdbo.Text = Properties.Settings.Default.dbo;
         }
 
         private void Buttonspeichern_Click(object sender, RoutedEventArgs e)
@@ -91,36 +79,55 @@ namespace autodarts_visual
             Properties.Settings.Default.dbouser = TextBoxEmaildbo.Text;
             Properties.Settings.Default.dbopw = TextBoxPWdbo.Password;
 
-            // Settings Webcamdarts.com
-            //Properties.Settings.Default.emailwebcamdarts = textBoxemailWebcamdarts.Text;
-            //Properties.Settings.Default.pwwebcamdarts = textBoxPWWebcamdarts.Text;
-
             // Settings Caller
             Properties.Settings.Default.boardid = TextBoxBoardID.Text;
             Properties.Settings.Default.media = TextBoxmedia.Text;
-            Properties.Settings.Default.callervol = TextBoxcallervol.Text;  
-            Properties.Settings.Default.randomcaller = TextBoxrandomcaller.Text;
-            Properties.Settings.Default.randomcallereachleg = TextBoxrcel.Text;
-            Properties.Settings.Default.webhook = TextBoxwebhook.Text;
+            Properties.Settings.Default.callervol = TextBoxcallervol.Text;
+            if (Checkboxrandomcaller.IsChecked == true)
+            {
+                Properties.Settings.Default.randomcaller = "1";
+                Properties.Settings.Default.checkboxrandomcaller = true;           
+            }
+            else
+            {
+                Properties.Settings.Default.randomcaller = "0";
+                Properties.Settings.Default.checkboxrandomcaller = false;
+            }
+
+            if (Checkboxrandomcallereachleg.IsChecked == true)
+            {
+                Properties.Settings.Default.randomcallereachleg = "1";
+                Properties.Settings.Default.checkboxrandomcallereachleg = true;
+            }
+            else
+            {
+                Properties.Settings.Default.randomcallereachleg = "0";
+                Properties.Settings.Default.checkboxrandomcallereachleg = false;
+            }
             Properties.Settings.Default.sliderpos = slValue.Value;
+
+
 
             // Settings Extern
             Properties.Settings.Default.messagestart = TextBoxmessagestart.Text;
             Properties.Settings.Default.messageend = TextBoxmessageend.Text;
-            Properties.Settings.Default.skipdarts = TextBoxskipdarts.Text;
+            //Properties.Settings.Default.skipdarts = TextBoxskipdarts.Text;
+            if (Checkboxskipdart.IsChecked == true)
+            {
+                Properties.Settings.Default.skipdarts = "true";
+                Properties.Settings.Default.checkboxskipdart = true;
+            }
+            else
+            {
+                Properties.Settings.Default.skipdarts = "false";
+                Properties.Settings.Default.checkboxskipdart = false;
+            }
             Properties.Settings.Default.timetoend = TextBoxtime.Text;
             Properties.Settings.Default.browserpath = TextBoxbrowser.Text;
 
 
-            // Settings Zusatz Programme Lidarts (OBS,VDZ)
+            // Settings Zusatz Programme Lidarts (OBS)
             Properties.Settings.Default.obs = TextBoxobs.Text;
-            Properties.Settings.Default.vdz = TextBoxvdz.Text;
-
-            // Settings Zusatz Programme Autodarts (Bot)
-            Properties.Settings.Default.bot = TextBoxbot.Text;
-
-            // Settings Zusatz Programme DartsBoard.Online (Client, wird für Webcam benötigt)
-            Properties.Settings.Default.dbo = TextBoxdbo.Text;
 
             // Setup erledigt -> Ja
             Properties.Settings.Default.setupdone = true;
@@ -135,20 +142,6 @@ namespace autodarts_visual
             this.Close();
         }
 
-        private void Buttonvdz_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Select File";
-            openFileDialog.InitialDirectory = @"C:\";//--"C:\\";
-            openFileDialog.Filter = "All files (*.*)|*.*|Anwendung (*.exe)|*.exe";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.ShowDialog();
-            if (openFileDialog.FileName != "")
-            { TextBoxvdz.Text = openFileDialog.FileName; }
-            else
-            { TextBoxvdz.Text = "Bitte Datei auswählen"; }
-        }
-
         private void Buttonobs_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -161,34 +154,6 @@ namespace autodarts_visual
             { TextBoxobs.Text = openFileDialog.FileName; }
             else
             { TextBoxobs.Text = "Bitte Datei auswählen"; }
-        }
-
-        private void Buttonbot_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Select File";
-            openFileDialog.InitialDirectory = @"C:\";//--"C:\\";
-            openFileDialog.Filter = "All files (*.*)|*.*|Anwendung (*.exe)|*.exe";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.ShowDialog();
-            if (openFileDialog.FileName != "")
-            { TextBoxbot.Text = openFileDialog.FileName; }
-            else
-            { TextBoxbot.Text = "Bitte Datei auswählen"; }
-        }
-
-        private void Buttondbo_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Select File";
-            openFileDialog.InitialDirectory = @"C:\";//--"C:\\";
-            openFileDialog.Filter = "All files (*.*)|*.*|Anwendung (*.exe)|*.exe";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.ShowDialog();
-            if (openFileDialog.FileName != "")
-            { TextBoxdbo.Text = openFileDialog.FileName; }
-            else
-            { TextBoxdbo.Text = "Bitte Datei auswählen"; }
         }
 
         private void Buttonbrowser_Click(object sender, RoutedEventArgs e)

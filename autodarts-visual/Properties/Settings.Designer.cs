@@ -334,5 +334,41 @@ namespace autodarts_visual.Properties {
                 this["sliderpos"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkboxrandomcaller {
+            get {
+                return ((bool)(this["checkboxrandomcaller"]));
+            }
+            set {
+                this["checkboxrandomcaller"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkboxrandomcallereachleg {
+            get {
+                return ((bool)(this["checkboxrandomcallereachleg"]));
+            }
+            set {
+                this["checkboxrandomcallereachleg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkboxskipdart {
+            get {
+                return ((bool)(this["checkboxskipdart"]));
+            }
+            set {
+                this["checkboxskipdart"] = value;
+            }
+        }
     }
 }
