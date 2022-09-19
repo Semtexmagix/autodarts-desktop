@@ -1,11 +1,11 @@
 # AUTODARTS-VISUAL
 
-autodarts-visual is a tool (GUI) to handle (install/setup/use) many litte projects form some deverlopers for Autodarts.io.
+autodarts-visual is a tool (GUI) to handle (install/setup/use) many projects form some deverlopers for Autodarts.io.
 
-for example the caller tool:
+for example the Autodarts-caller tool:
  - tool to have a caller at Autodarts.io
 
-and the extern tool:
+and the Autodarts-external tool:
  - automates multiple dart-web-platforms accordingly to the state of an https://autodarts.io match.
 
 you can also start side programmes:
