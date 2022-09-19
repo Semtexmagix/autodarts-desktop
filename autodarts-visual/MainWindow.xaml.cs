@@ -48,9 +48,15 @@ namespace autodarts_visual
 
 
 
-
-
-
+            if (Comboboxportal.SelectedIndex == 0)
+            {
+                Checkboxbot.Visibility = Visibility.Collapsed;
+                Checkboxvdzobs.Visibility = Visibility.Collapsed;
+                Checkboxdbovdzobs.Visibility = Visibility.Collapsed;
+                Checkboxbot.IsChecked = false;
+                Checkboxvdzobs.IsChecked = false;
+                Checkboxdbovdzobs.IsChecked = false;
+            }
 
 
 

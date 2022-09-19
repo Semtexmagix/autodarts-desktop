@@ -24,11 +24,12 @@ Its buggy at the moment. You can give me feedback in Discord (Autodarts.io) --->
    - Infos für den Enduser (Installiere..., verschiebe etc...)
 
  - Setup:
-   - Checkboxen für Random Caller und Random Caller each Leg
+   - 
 
 # Done
  - Setup:
    - Slider für Caller Vol., Danke Wusaaa!!
+   - Checkboxen für Random Caller, Random Caller each Leg und SkipDarts
 
 # LAST WORDS
 Thanks to Timo for awesome https://autodarts.io. 
