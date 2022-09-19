@@ -2,6 +2,10 @@
 
 autodarts-visual is a tool (GUI) to handle (install/setup/use) many projects form some deverlopers for Autodarts.io.
 
+https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/Install.png?raw=true
+
+
+
 for example the Autodarts-caller tool:
  - tool to have a caller at Autodarts.io
 
