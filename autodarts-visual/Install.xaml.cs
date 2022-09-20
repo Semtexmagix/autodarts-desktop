@@ -24,6 +24,7 @@ using System.Net.Http;
 using Windows.Media.Protection.PlayReady;
 using System.Net.Mime;
 using ABI.System;
+using System.ComponentModel;
 
 namespace autodarts_visual
 {
@@ -117,6 +118,9 @@ namespace autodarts_visual
                 if (!System.IO.File.Exists(callerexe))
                 {
                     downloadFile("https://github.com/lbormann/autodarts-caller/releases/download/v1.1.4/autodarts-caller.exe");
+                    Console.WriteLine("###########################################################################");
+                    Console.WriteLine("###############  Download des Autodarts-caller wurde abgeschlossen");
+                    Console.WriteLine("###########################################################################");
                 }
 
                 // Ordner erstellen
@@ -124,7 +128,9 @@ namespace autodarts_visual
                 if (!Directory.Exists(folderPathcaller))
                 {
                     Directory.CreateDirectory(folderPathcaller);
-                    Console.WriteLine(folderPathcaller);
+                    Console.WriteLine("###########################################################################");
+                    Console.WriteLine("###############  Programmordner: {0} wurde erstellt", folderPathcaller);
+                    Console.WriteLine("###########################################################################");
                 }
 
                 // Exe in Ordner verschieben
@@ -145,34 +151,31 @@ namespace autodarts_visual
 
                     // Move the file.
                     System.IO.File.Move(pathcaller, path2caller);
-                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathcaller, path2caller);
+                    Console.WriteLine("###########################################################################");
+                    Console.WriteLine("###############  {0} wurde verschoben nach {1}.", pathcaller, path2caller);
+                    Console.WriteLine("###########################################################################");
 
                     // See if the original exists now.
                     if (System.IO.File.Exists(pathcaller))
                     {
-                        Console.WriteLine("Es gab Probleme bei der Installation");
+                        Console.WriteLine("###########################################################################");
+                        Console.WriteLine("###############  Es gab Probleme bei der Installation");
+                        Console.WriteLine("###########################################################################");
                     }
                     else
                     {
-                        Console.WriteLine("Caller wurde installiert");
+                        Console.WriteLine("###########################################################################");
+                        Console.WriteLine("###############  Autodarts-caller wurde erfolgreich installiert");
+                        Console.WriteLine("###########################################################################");
                     }
                 }
                 catch (System.Exception)
                 {
-                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
+                    Console.WriteLine("###########################################################################");
+                    Console.WriteLine("###############  Installertion fehlgeschlagen!!!: {0}", e.ToString());
+                    Console.WriteLine("###########################################################################");
                 }
 
-
-
-
-
-
-
-
-
-                //MessageBox.Show("Software wurde installiert, nun müssen einige Daten eingegeben werden, dafür wirst Du in das Setup Menü weitergeleitet");
-                //Setup S1 = new Setup();
-                //S1.ShowDialog();
             }
             else
             {
@@ -198,7 +201,9 @@ namespace autodarts_visual
                 if (!Directory.Exists(folderPathextern))
                 {
                     Directory.CreateDirectory(folderPathextern);
-                    Console.WriteLine(folderPathextern);
+                    Console.WriteLine("###########################################################################");
+                    Console.WriteLine("###############  Programmordner: {0} wurde erstellt", folderPathextern);
+                    Console.WriteLine("###########################################################################");
                 }
 
                 // Exe in Ordner verschieben
@@ -212,23 +217,29 @@ namespace autodarts_visual
                         // but the handle is not kept.
                         using (FileStream fs = System.IO.File.Create(pathextern)) { }
                     }
-
+                    
                     // Ensure that the target does not exist.
                     if (System.IO.File.Exists(path2extern))
                         System.IO.File.Delete(path2extern);
 
                     // Move the file.
                     System.IO.File.Move(pathextern, path2extern);
-                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathextern, path2extern);
+                    Console.WriteLine("###########################################################################");
+                    Console.WriteLine("###############  {0} wurde verschoben nach {1}.", pathextern, path2extern);
+                    Console.WriteLine("###########################################################################");
 
                     // See if the original exists now.
                     if (System.IO.File.Exists(pathextern))
                     {
-                        Console.WriteLine("Es gab Probleme bei der Installation");
+                        Console.WriteLine("###########################################################################");
+                        Console.WriteLine("###############  Es gab Probleme bei der Installation");
+                        Console.WriteLine("###########################################################################");
                     }
                     else
                     {
-                        Console.WriteLine("Extern wurde installiert");
+                        Console.WriteLine("###########################################################################");
+                        Console.WriteLine("###############  Autodarts-extern wurde erfolgreich installiert");
+                        Console.WriteLine("###########################################################################");
                     }
                 }
                 catch (System.Exception)
@@ -236,11 +247,6 @@ namespace autodarts_visual
                     Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
                 }
             }
-
-
-
-
-
 
 
             /////////////////////////////// Autodarts.io Bot ///////////////////////////////
@@ -432,12 +438,6 @@ namespace autodarts_visual
                 {
                     Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
                 }
-
-
-
-                // Keep console window open in debug mode.
-                //Console.WriteLine("Press any key to exit.");
-                //Console.ReadKey();
             }
         }
 
