@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Autodarts-visual - Setup" 
         SizeToContent="WidthAndHeight" MinHeight="800" MaxHeight="800" MaxWidth="700" MinWidth="700" Height="692">
-    <Grid Margin="0,18,0,-99">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,-10,0,100">
+    <Grid Margin="0,18,0,-6">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="-10,0,10,0" Height="775" VerticalAlignment="Top">
             <Canvas Width="630" Height="780">
                 <TextBox HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200"/>
                 <TextBox x:Name="TextBoxEmailAutodarts" HorizontalAlignment="Left" Height="20" Margin="66,63,0,0" TextWrapping="Wrap" Text="Email Autodarts" VerticalAlignment="Top" Width="200" FontSize="10"/>
