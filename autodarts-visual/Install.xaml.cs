@@ -64,6 +64,7 @@ namespace autodarts_visual
                 //Properties.Settings.Default.boxcaller = false;
             }
         }
+        
         private void Checkboxexterninstall_Click(object sender, RoutedEventArgs e)
         {
 
@@ -86,19 +87,35 @@ namespace autodarts_visual
             }
 
         }
+        /// Abbrechen
 
-        private void Buttonabbrechen_Click(object sender, RoutedEventArgs e)
+        private void Buttonabbrechen_Click(object sender, EventArgs e)
         {
-            this.Close();
+            
         }
 
-        /////////////////////////////// Downloader ///////////////////////////////
-        private void downloadFile(string url)
+        // Download Anzeige
+        private void ProgressChangedcaller(object sender, DownloadProgressChangedEventArgs e)
         {
-            string file = System.IO.Path.GetFileName(url);
-            WebClient cln = new WebClient();
-            cln.DownloadFile(url, file);
+            Progressbarcaller.Value = e.ProgressPercentage;
         }
+
+        private void Completedcaller(object sender, AsyncCompletedEventArgs e)
+        {
+            MessageBox.Show("Installertion Autodarts-caller abgeschlossen!");
+        }
+
+        private void ProgressChangedextern(object sender, DownloadProgressChangedEventArgs e)
+        {
+            Progressbarextern.Value = e.ProgressPercentage;
+        }
+
+        private void Completedextern(object sender, AsyncCompletedEventArgs e)
+        {
+            MessageBox.Show("Installertion Autodarts-extern abgeschlossen!");
+        }
+
+
 
         private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {
@@ -117,9 +134,12 @@ namespace autodarts_visual
                 string callerexe = @".\caller\autodarts-caller.exe";
                 if (!System.IO.File.Exists(callerexe))
                 {
-                    downloadFile("https://github.com/lbormann/autodarts-caller/releases/download/v1.1.4/autodarts-caller.exe");
+                    WebClient webClient = new WebClient();
+                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completedcaller);
+                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChangedcaller);
+                    webClient.DownloadFileAsync(new System.Uri("https://github.com/lbormann/autodarts-caller/releases/download/v1.1.4/autodarts-caller.exe"), @"./autodarts-caller.exe");
                     Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  Download des Autodarts-caller wurde abgeschlossen");
+                    Console.WriteLine("###############  Download des Autodarts-caller wurde gestartet");
                     Console.WriteLine("###########################################################################");
                 }
 
@@ -138,6 +158,7 @@ namespace autodarts_visual
                 string path2caller = @".\caller\autodarts-caller.exe";
                 try
                 {
+                    Thread.Sleep(5000);
                     if (!System.IO.File.Exists(pathcaller))
                     {
                         // This statement ensures that the file is created,
@@ -193,7 +214,14 @@ namespace autodarts_visual
                 string externexe = @".\extern\autodarts-extern.exe";
                 if (!System.IO.File.Exists(externexe))
                 {
-                    downloadFile("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe");
+                    WebClient webClient = new WebClient();
+                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completedextern);
+                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChangedextern);
+                    webClient.DownloadFileAsync(new System.Uri("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe"), @"./autodarts-extern.exe");
+                    Console.WriteLine("###########################################################################");
+                    Console.WriteLine("###############  Download des Autodarts-extern wurde gestartet");
+                    Console.WriteLine("###########################################################################");
+
                 }
 
                 // Ordner erstellen
@@ -211,6 +239,7 @@ namespace autodarts_visual
                 string path2extern = @".\extern\autodarts-extern.exe";
                 try
                 {
+                    Thread.Sleep(5000);
                     if (!System.IO.File.Exists(pathextern))
                     {
                         // This statement ensures that the file is created,
@@ -258,7 +287,7 @@ namespace autodarts_visual
                 string botzip = @".\bot\autodartsbot-0.0.1.windows.x64.zip";
                 if (!System.IO.File.Exists(botzip))
                 {
-                    downloadFile("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip");
+                    //downloadFile("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip");
                 }
 
                 // Ordner erstellen
@@ -326,7 +355,7 @@ namespace autodarts_visual
                 string vdzzip = @"./vdz/Virtual%20Darts%20Zoom.zip";
                 if (!System.IO.File.Exists(vdzzip))
                 {
-                    downloadFile("https://www.lehmann-bo.de/Downloads/VDZ/Virtual%20Darts%20Zoom.zip");
+                    //downloadFile("https://www.lehmann-bo.de/Downloads/VDZ/Virtual%20Darts%20Zoom.zip");
                 }
 
                 // Ordner erstellen
@@ -392,7 +421,7 @@ namespace autodarts_visual
                 string dboexe = @"./dbo/dboclient_0.8.6.exe";
                 if (!System.IO.File.Exists(dboexe))
                 {
-                    downloadFile("https://dartboards.online/dboclient_0.8.6.exe");
+                    //downloadFile("https://dartboards.online/dboclient_0.8.6.exe");
                 }
 
                 // Ordner erstellen

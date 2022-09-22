@@ -8,7 +8,7 @@
         Title="Autodarts-visual - Install" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558">
     <Grid Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
         <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Click="Checkboxcallerinstall_Click" Checked="Checkboxcallerinstall_Checked" Unchecked="Checkboxcallerinstall_Unchecked"/>
-        <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="57,72,0,0" VerticalAlignment="Top" Click="Checkboxexterninstall_Click" Visibility="Collapsed"/>
+        <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="57,72,0,0" VerticalAlignment="Top" Click="Checkboxexterninstall_Click" Visibility="Hidden"/>
         <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="35,66,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
         <Button x:Name="ButtonInstall" Content="Installieren" HorizontalAlignment="Left" Margin="231,152,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="0.5,0.5" Width="75" Visibility="Collapsed">
             <Button.RenderTransform>
@@ -28,6 +28,8 @@
         <CheckBox x:Name="Checkboxinstallvdz" Content="Virtual Darts Zoom mit installieren" HorizontalAlignment="Left" Margin="104,93,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Visibility="Collapsed"/>
         <CheckBox x:Name="Checkboxinstalldbo" Content="DartBoardsOnline Client mit installieren (wird für Webcam benötigt)" HorizontalAlignment="Left" Margin="104,113,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
         <Label x:Name="Labeldbo" Content="➥" HorizontalAlignment="Left" Margin="82,107,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <ProgressBar x:Name="Progressbarextern" HorizontalAlignment="Left" Height="10" Margin="440,75,0,0" VerticalAlignment="Top" Width="100"/>
+        <ProgressBar x:Name="Progressbarcaller" HorizontalAlignment="Left" Height="10" Margin="440,21,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>
