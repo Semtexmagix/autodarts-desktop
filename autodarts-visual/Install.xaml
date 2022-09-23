@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Autodarts-visual - Install" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558">
     <Grid x:Name="GridMain" Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
+        <CheckBox x:Name="Checkboxautodartsinstall" Content="Autodarts installieren" HorizontalAlignment="Left" Margin="210,18,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Click="Checkboxcallerinstall_Click" Checked="Checkboxcallerinstall_Checked" Unchecked="Checkboxcallerinstall_Unchecked"/>
         <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="57,72,0,0" VerticalAlignment="Top" Click="Checkboxexterninstall_Click" Visibility="Hidden"/>
         <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="35,66,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>

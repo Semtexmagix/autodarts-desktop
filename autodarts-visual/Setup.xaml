@@ -17,12 +17,12 @@
                 <TextBox x:Name="TextBoxCallerWtt" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="url to extern-host" VerticalAlignment="Center" Width="200" FontSize="10" Canvas.Left="67" Canvas.Top="336"/>
                 <PasswordBox x:Name="TextBoxPWAutodarts" HorizontalAlignment="Left" Margin="341,63,0,0" VerticalAlignment="Top" Width="200" Height="20"/>
                 <TextBox x:Name="TextBoxmedia" HorizontalAlignment="Center" Height="20" TextWrapping="Wrap" Text="Media Ordner Caller" VerticalAlignment="Top"  FontSize="10" Canvas.Left="394" Canvas.Top="257"/>
-                <TextBox x:Name="TextBoxmessagestart" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="Nachricht beim Spielbeginn" VerticalAlignment="Top" Width="200" FontSize="10" Canvas.Left="66" Canvas.Top="409"/>
+                <TextBox x:Name="TextBoxmessagestart" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="Chat-Nachricht beim Spielbeginn" VerticalAlignment="Top" Width="200" FontSize="10" Canvas.Left="66" Canvas.Top="409"/>
                 <TextBox x:Name="TextBoxEmailLidarts" HorizontalAlignment="Left" Height="20" Margin="66,109,0,0" TextWrapping="Wrap" Text="Email Lidarts.org" VerticalAlignment="Top" Width="200" FontSize="10"/>
-                <TextBox x:Name="TextBoxmessageend" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="Nachricht am Spielende" VerticalAlignment="Top" Width="200" FontSize="10" Canvas.Left="341" Canvas.Top="409"/>
+                <TextBox x:Name="TextBoxmessageend" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="Chat-Nachricht am Spielende" VerticalAlignment="Top" Width="200" FontSize="10" Canvas.Left="341" Canvas.Top="409"/>
                 <Label Content="Bitte Zugangsdaten eintragen:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Canvas.Left="173" Canvas.Top="15"/>
                 <Label Content="Bitte Autodarts-caller Daten eintragen:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Canvas.Left="141" Canvas.Top="200"/>
-                <TextBox x:Name="TextBoxtime" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="Zeit nach Spielende" VerticalAlignment="Top" Width="200" FontSize="10" Canvas.Left="341" Canvas.Top="459"/>
+                <TextBox x:Name="TextBoxtime" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="Verweilzeit nach Spielende" VerticalAlignment="Top" Width="200" FontSize="10" Canvas.Left="341" Canvas.Top="459"/>
                 <Button x:Name="Buttonspeichern" Content="Speichern" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Buttonspeichern_Click" Width="75" Canvas.Left="123" Canvas.Top="706"/>
                 <Button x:Name="Buttonabbrechen" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.151,2.958" Click="Buttonabbrechen_Click" Width="79" Canvas.Left="408" Canvas.Top="706"/>
                 <Label Content="Email Autodarts.io" HorizontalAlignment="Left" Margin="66,37,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -33,15 +33,15 @@
                 <Label Content="Zufälliger Caller" HorizontalAlignment="Left" Margin="341,282,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold"/>
                 <Label Content="Email Lidarts.org" HorizontalAlignment="Left" Margin="66,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold"/>
                 <Label Content="Passwort Lidarts.org" HorizontalAlignment="Left" Margin="341,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold"/>
-                <Label Content="Nachricht beim Spielbeginn" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="66" Canvas.Top="383"/>
-                <Label Content="Nachricht am Spielende" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="341" Canvas.Top="383"/>
+                <Label Content="Chat-Nachricht beim Spielbeginn" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="66" Canvas.Top="383"/>
+                <Label Content="Chat-Nachricht am Spielende" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="341" Canvas.Top="383"/>
                 <Label Content="Dartabfragen von externen Portalen" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="66" Canvas.Top="433"/>
-                <Label Content="Zeit nach Spielende" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="341" Canvas.Top="433"/>
-                <TextBox x:Name="TextBoxobs" HorizontalAlignment="Center" Height="20" TextWrapping="Wrap" Text="OBS Webcam" VerticalAlignment="Center" Width="200" FontSize="10" Canvas.Left="67" Canvas.Top="616"/>
+                <Label Content="Verweilzeit nach Spielende" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="341" Canvas.Top="433"/>
+                <TextBox x:Name="TextBoxobs" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="Pfad zu OBS" VerticalAlignment="Top" FontSize="10" Canvas.Left="131" Canvas.Top="616"/>
                 <Label Content="Programme die bei externen Portalen mitgestartet werden können" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Canvas.Top="559" Canvas.Left="59"/>
-                <Label Content="OBS Webcam / OBS.exe auswählen" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="67" Canvas.Top="590"/>
+                <Label Content="Pfad zu OBS" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Canvas.Left="67" Canvas.Top="590"/>
                 <Button x:Name="Buttonmedia" Content="Suchen..." HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonmedia_Click" Canvas.Left="344" Canvas.Top="257"/>
-                <Button x:Name="Buttonobs" Content="Suchen..." HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.492,-0.399" Click="Buttonobs_Click" Width="63" Canvas.Left="133" Canvas.Top="636"/>
+                <Button x:Name="Buttonobs" Content="Suchen..." HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonobs_Click" Width="63" Canvas.Left="68" Canvas.Top="616"/>
                 <Label Content="Bitte Autodarts-extern Daten eintragen:" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Canvas.Left="137" Canvas.Top="356"/>
                 <TextBox x:Name="TextBoxEmaildbo" HorizontalAlignment="Left" Height="20" Margin="67,160,0,0" TextWrapping="Wrap" Text="Email DartBords.online" VerticalAlignment="Top" Width="200" FontSize="10"/>
                 <Label Content="Email DartBords.online" HorizontalAlignment="Left" Margin="67,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold"/>

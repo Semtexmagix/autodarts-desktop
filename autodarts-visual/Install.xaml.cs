@@ -84,35 +84,43 @@ namespace autodarts_visual
 
         private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {
+
             /////////////////////////////// Autodarts.io Caller ///////////////////////////////
 
             if (Checkboxcallerinstall.IsChecked == true)
             {
-                // Install Autodarts.io Caller
                 try
                 {
-                    appManager.InstallAutodartsCaller();
+                    appManager.DownloadAutodartsCaller();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fehler beim Installieren von 'Caller': " + ex.Message);
                 }
             }
-            else
+
+
+            /////////////////////////////// Autodarts.io Main ///////////////////////////////
+
+            if (Checkboxautodartsinstall.IsChecked == true)
             {
-                MessageBox.Show("Bitte Software zur Installation auswählen");
+                try
+                {
+                    appManager.DownloadAutodarts();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Fehler beim Installieren von 'Autodarts': " + ex.Message);
+                }
             }
-
-
 
             /////////////////////////////// Autodarts.io Extern ///////////////////////////////
 
             if (Checkboxexterninstall.IsChecked == true)
             {
-                // Install Autodarts.io Extern
                 try
                 {
-                    appManager.InstallAutodartsExtern();
+                    appManager.DownloadAutodartsExtern();
                 }
                 catch (Exception ex)
                 {
@@ -120,200 +128,52 @@ namespace autodarts_visual
                 }
             }
 
-
             /////////////////////////////// Autodarts.io Bot ///////////////////////////////
 
             if (Checkboxinstallbot.IsChecked == true)
             {
-                // Install bot
-
-                // TODO: Aufruf wie bei caller/ extern, interne Hilfsmethoden im AppManager ggf. anpassen, um zip-Downloads zu unterstützen
-
-                string botzip = @".\bot\autodartsbot-0.0.1.windows.x64.zip";
-                if (!System.IO.File.Exists(botzip))
-                {
-                    //downloadFile("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip");
-                }
-
-                // Ordner erstellen
-                string folderPathbot = @".\bot";
-                if (!Directory.Exists(folderPathbot))
-                {
-                    Directory.CreateDirectory(folderPathbot);
-                    Console.WriteLine(folderPathbot);
-                }
-
-                // Entpacken bot
-                string bot = @".\bot\autodartsbot-0.0.1.windows.x64.zip";
-                if (!System.IO.File.Exists(bot))
-                {
-                    string zipPathbot = @".\autodartsbot-0.0.1.windows.x64.zip";
-                    string extractPathbot = @".\bot";
-                    ZipFile.ExtractToDirectory(zipPathbot, extractPathbot);
-                }
-
-                // Zip in Ordner verschieben
-                string pathbot = @".\autodartsbot-0.0.1.windows.x64.zip";
-                string path2bot = @".\bot\autodartsbot-0.0.1.windows.x64.zip";
                 try
                 {
-                    if (!System.IO.File.Exists(pathbot))
-                    {
-                        // This statement ensures that the file is created,
-                        // but the handle is not kept.
-                        using (FileStream fs = System.IO.File.Create(pathbot)) { }
-                    }
-
-                    // Ensure that the target does not exist.
-                    if (System.IO.File.Exists(path2bot))
-                        System.IO.File.Delete(path2bot);
-
-                    // Move the file.
-                    System.IO.File.Move(pathbot, path2bot);
-                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathbot, path2bot);
-
-                    // See if the original exists now.
-                    if (System.IO.File.Exists(pathbot))
-                    {
-                        Console.WriteLine("Es gab Probleme bei der Installation");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Bot wurde installiert (Beim ersten Start muss der Bot in seinem Fenster konfiguriert werden");
-                    }
+                    appManager.DownloadAutodartsBot();
                 }
-                catch (System.Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
-                }
-
+                    MessageBox.Show("Fehler beim Installieren von 'Bot': " + ex.Message);
+                } 
             }
-
 
             /////////////////////////////// Virtual Darts Zoom ///////////////////////////////
 
             if (Checkboxinstallvdz.IsChecked == true)
             {
-
-
-                // Download VDZ
-                string vdzzip = @"./vdz/Virtual%20Darts%20Zoom.zip";
-                if (!System.IO.File.Exists(vdzzip))
-                {
-                    //downloadFile("https://www.lehmann-bo.de/Downloads/VDZ/Virtual%20Darts%20Zoom.zip");
-                }
-
-                // Ordner erstellen
-                string folderPathvdz = @".\vdz";
-                if (!Directory.Exists(folderPathvdz))
-                {
-                    Directory.CreateDirectory(folderPathvdz);
-                    Console.WriteLine(folderPathvdz);
-                }
-
-                // Entpacken vdz
-                string vdz = @"./vdz/Virtual%20Darts%20Zoom.zip";
-                if (!System.IO.File.Exists(vdz))
-                {
-                    string zipPathvdz = @".\Virtual%20Darts%20Zoom.zip";
-                    string extractPathvdz = @".\vdz";
-                    ZipFile.ExtractToDirectory(zipPathvdz, extractPathvdz);
-                }
-
-                // Zip in Ordner verschieben
-                string pathvdz = @".\Virtual%20Darts%20Zoom.zip";
-                string path2vdz = @".\vdz\Virtual%20Darts%20Zoom.zip";
                 try
                 {
-                    if (!System.IO.File.Exists(pathvdz))
-                    {
-                        // This statement ensures that the file is created,
-                        // but the handle is not kept.
-                        using (FileStream fs = System.IO.File.Create(pathvdz)) { }
-                    }
-
-                    // Ensure that the target does not exist.
-                    if (System.IO.File.Exists(path2vdz))
-                        System.IO.File.Delete(path2vdz);
-
-                    // Move the file.
-                    System.IO.File.Move(pathvdz, path2vdz);
-                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathvdz, path2vdz);
-
-                    // See if the original exists now.
-                    if (System.IO.File.Exists(pathvdz))
-                    {
-                        Console.WriteLine("Es gab Probleme bei der Installation");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Visual Darts Zoom wurde installiert");
-                    }
+                    appManager.DownloadVirtualDartsZoom();
                 }
-                catch (System.Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
+                    MessageBox.Show("Fehler beim Installieren von 'Virtual Darts Zoom': " + ex.Message);
                 }
-
             }
 
             /////////////////////////////// DartsBoards.Online Client (benötigt für Webcams) ///////////////////////////////
 
             if (Checkboxinstalldbo.IsChecked == true)
             {
-
-                // Download DBO
-                string dboexe = @"./dbo/dboclient_0.8.6.exe";
-                if (!System.IO.File.Exists(dboexe))
-                {
-                    //downloadFile("https://dartboards.online/dboclient_0.8.6.exe");
-                }
-
-                // Ordner erstellen
-                string folderPathdbo = @".\dbo";
-                if (!Directory.Exists(folderPathdbo))
-                {
-                    Directory.CreateDirectory(folderPathdbo);
-                    Console.WriteLine(folderPathdbo);
-                }
-
-
-                // Exe in Ordner verschieben
-                string pathdbo = @".\dboclient_0.8.6.exe";
-                string path2dbo = @".\dbo\dboclient_0.8.6.exe";
                 try
                 {
-                    if (!System.IO.File.Exists(pathdbo))
-                    {
-                        // This statement ensures that the file is created,
-                        // but the handle is not kept.
-                        using (FileStream fs = System.IO.File.Create(pathdbo)) { }
-                    }
-
-                    // Ensure that the target does not exist.
-                    if (System.IO.File.Exists(path2dbo))
-                        System.IO.File.Delete(path2dbo);
-
-                    // Move the file.
-                    System.IO.File.Move(pathdbo, path2dbo);
-                    Console.WriteLine("{0} wurde verschoben nach {1}.", pathdbo, path2dbo);
-
-                    // See if the original exists now.
-                    if (System.IO.File.Exists(pathdbo))
-                    {
-                        Console.WriteLine("Es gab Probleme bei der Installation");
-                    }
-                    else
-                    {
-                        Console.WriteLine("DartsBoardOnline Client (Webcam support) wurde installiert");
-                    }
+                    appManager.DownloadDartboardsClient();
                 }
-                catch (System.Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
+                    MessageBox.Show("Fehler beim Installieren von 'Dartboards-client': " + ex.Message);
                 }
+
             }
         }
+
+        // Click="Checkboxautodartsinstall_Click" Checked="Checkboxautodartsinstall_Checked" Unchecked="Checkboxautodartsinstall_Unchecked"
+
 
         private void Checkboxcallerinstall_Click(object sender, RoutedEventArgs e)
         {

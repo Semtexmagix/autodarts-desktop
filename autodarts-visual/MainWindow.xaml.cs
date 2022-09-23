@@ -67,153 +67,52 @@ namespace autodarts_visual
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
-            if (Comboboxportal.SelectedIndex == 0)
+            try
             {
-                MessageBox.Show("Bitte Portal auswählen");
-                return;
-            }
-
-            ///////////////////////////////////////// Mitstarten von VDZ und OBS
-            ///
-
-            if (Checkboxvdzobs.IsChecked == true)
-            {
-
-                string obsphat = Properties.Settings.Default.obs;
-                if (obsphat == "Bitte Datei auswählen")
+                switch (Comboboxportal.SelectedIndex)
                 {
-                    MessageBox.Show("OBS.exe im Setup einstellen!");
-                }
-                else
-                {
-                    Process obsprocess = new Process();
-                    obsprocess.StartInfo.FileName = "obs64.exe";
-                    obsprocess.StartInfo.UseShellExecute = true;
-                    obsprocess.StartInfo.WorkingDirectory = "D:\\obs-studio\\bin\\64bit";
-                    //obsprocess.StartInfo.Verb = "runas";
-                    obsprocess.Start();
+                    case 0:
+                        MessageBox.Show("Bitte Portal auswählen");
+                        return;
+                    case 1:
+                        appManager.RunAutodartsPortal();
+                        break;
+                    case 2:
+                        appManager.RunAutodartsExtern(AutodartsExternPlatforms.lidarts);
+                        break;
+                    case 3:
+                        appManager.RunAutodartsExtern(AutodartsExternPlatforms.dartboards);
+                        break;
+                    case 4:
+                        appManager.RunAutodartsExtern(AutodartsExternPlatforms.nakka);
+                        break;
                 }
 
+                appManager.RunAutodartsCaller();
 
-                string vdzphat = Properties.Settings.Default.vdz;
-                if (vdzphat == "Bitte Datei auswählen")
+                if (Checkboxbot.IsChecked == true)
                 {
-                    MessageBox.Show("VDZ.exe im Setup einstellen!");
-                }
-                else
-                {
-                    Process vdzprocess = new Process();
-                    vdzprocess.StartInfo.FileName = vdzphat;
-                    vdzprocess.StartInfo.UseShellExecute = true;
-                    //vdzprocess.StartInfo.Verb = "runas";
-                    vdzprocess.Start();
-                }
-            }
-
-
-            ///////////////////////////////////////// Mitstarten von DBO, VDZ und OBS
-            ///
-
-            if (Checkboxdbovdzobs.IsChecked == true)
-            {
-
-                string obsphat = Properties.Settings.Default.obs;
-
-                if (obsphat == "Bitte Datei auswählen")
-                {
-                    MessageBox.Show("OBS.exe im Setup einstellen!");
-                }
-                else
-                {
-                    Process obsprocess = new Process();
-                    obsprocess.StartInfo.FileName = obsphat;
-                    obsprocess.StartInfo.UseShellExecute = true;
-                    obsprocess.StartInfo.WorkingDirectory = "D:\\obs-studio\\bin\\64bit";
-                    //obsprocess.StartInfo.Verb = "runas";
-                    obsprocess.Start();
+                    appManager.RunAutodartsBot();
                 }
 
-
-
-                string vdzphat = Properties.Settings.Default.vdz;
-
-                if (vdzphat == "Bitte Datei auswählen")
+                if (Checkboxvdzobs.IsChecked == true)
                 {
-                    MessageBox.Show("VDZ.exe im Setup einstellen!");
-                }
-                else
-                {
-                    Process vdzprocess = new Process();
-                    vdzprocess.StartInfo.FileName = vdzphat;
-                    vdzprocess.StartInfo.UseShellExecute = true;
-                    //vdzprocess.StartInfo.Verb = "runas";
-                    vdzprocess.Start();
+                    appManager.RunOpenBroadcasterSofware();
+                    appManager.RunVirtualDartsZoom();
                 }
 
-                string dbophat = Properties.Settings.Default.dbo;
-
-                if (dbophat == "Bitte Datei auswählen")
+                if (Checkboxdbovdzobs.IsChecked == true)
                 {
-                    MessageBox.Show("DBO.exe im Setup einstellen!");
-                }
-                else
-                {
-                    Process dboprocess = new Process();
-                    dboprocess.StartInfo.FileName = dbophat;
-                    dboprocess.StartInfo.UseShellExecute = true;
-                    //dboprocess.StartInfo.Verb = "runas";
-                    dboprocess.Start();
+                    appManager.RunOpenBroadcasterSofware();
+                    appManager.RunVirtualDartsZoom();
+                    appManager.RunDartboardsClient();
                 }
             }
-
-
-            ///////////////////////////////////////// Mitstarten von Autodarts.io Bot
-            ///
-
-
-            if (Checkboxbot.IsChecked == true)
+            catch(Exception ex)
             {
-                string botphat = Properties.Settings.Default.bot;
-
-                if (botphat == "Bitte Datei auswählen")
-                {
-                    MessageBox.Show("Bot Ordner im Setup einstellen!");
-                }
-                else
-                {
-                    Process vdzprocess = new Process();
-                    vdzprocess.StartInfo.FileName = botphat;
-                    vdzprocess.StartInfo.UseShellExecute = true;
-                    //vdzprocess.StartInfo.Verb = "runas";
-                    vdzprocess.Start();
-                }
+                MessageBox.Show("Error: " + ex.Message);
             }
-
-
-
-
-            AppManager.RunAutodartsCaller();
-
-            // Combobox Autodarts
-            if (Comboboxportal.SelectedIndex == 1)
-            {
-                AppManager.RunAutodartsWeb();
-            }
-            // Combobox Lidarts
-            else if (Comboboxportal.SelectedIndex == 2)
-            {
-                AppManager.RunAutodartsExtern("lidarts");
-            }
-            // Combobox Dartbords.online
-            else if (Comboboxportal.SelectedIndex == 3)
-            {
-                AppManager.RunAutodartsExtern("dartboards");
-            }
-            // Combobox Nakka
-            else if (Comboboxportal.SelectedIndex == 4)
-            {
-                AppManager.RunAutodartsExtern("nakka");
-            }
+    
         }
 
         private void Buttonsetup_Click(object sender, RoutedEventArgs e)
