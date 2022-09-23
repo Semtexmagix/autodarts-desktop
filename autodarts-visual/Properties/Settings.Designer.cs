@@ -370,5 +370,29 @@ namespace autodarts_visual.Properties {
                 this["checkboxskipdart"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8080")]
+        public string hostport {
+            get {
+                return ((string)(this["hostport"]));
+            }
+            set {
+                this["hostport"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/throw")]
+        public string callerwtt {
+            get {
+                return ((string)(this["callerwtt"]));
+            }
+            set {
+                this["callerwtt"] = value;
+            }
+        }
     }
 }

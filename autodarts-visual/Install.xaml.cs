@@ -35,73 +35,52 @@ namespace autodarts_visual
     /// Interaktionslogik für Install.xaml
     /// </summary>
     public partial class Install : Window
-    {   
-        // META-Inhalte können als Konstanten definiert werden. Vorteil: Alles schön beieinander und schnell abänderbar.
-        private const string pathToApps = @".\";
-        private const string callerUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.2.1/autodarts-caller.exe";
-        private const string externUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe";
-        private const string botUrl = "https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip";
+    {
+        private AppManager appManager;
 
 
-        public Install()
+        public Install(AppManager appManager)
         {
             InitializeComponent();
+            this.appManager = appManager;
+            this.appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
+            this.appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
+            this.appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
         }
 
-        private void Checkboxcallerinstall_Click(object sender, RoutedEventArgs e)
+
+        private void SetGUIForDownload(bool downloading)
         {
-            if (Checkboxcallerinstall.IsChecked == true)
+            if (downloading)
             {
-                Checkboxexterninstall.Visibility = Visibility.Visible;
-                Labelextern.Visibility = Visibility.Visible;
-                Checkboxinstallbot.Visibility = Visibility.Visible;
-                Labelbot.Visibility = Visibility.Visible;
+                GridMain.IsEnabled = false;
+                Progressbarcaller.Visibility = Visibility.Visible;
             }
             else
             {
-                Checkboxexterninstall.IsChecked = false;
-                Checkboxexterninstall.Visibility = Visibility.Collapsed;
-                Labelextern.Visibility = Visibility.Collapsed;
-                Checkboxinstallbot.IsChecked = false;
-                Checkboxinstallbot.Visibility = Visibility.Collapsed;
-                Labelbot.Visibility = Visibility.Collapsed;
-                Checkboxinstallvdz.IsChecked = false;
-                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
-                Labelvdz.Visibility = Visibility.Collapsed;
-                Checkboxinstalldbo.IsChecked = false;
-                Checkboxinstalldbo.Visibility = Visibility.Collapsed;
-                Labeldbo.Visibility = Visibility.Collapsed;
-                //Properties.Settings.Default.boxcaller = false;
+                GridMain.IsEnabled = true;
+                Progressbarcaller.Visibility = Visibility.Hidden;
             }
         }
 
-        private void Checkboxexterninstall_Click(object sender, RoutedEventArgs e)
+        private void AppManager_DownloadAppStarted(object? sender, EventArgs e)
         {
-
-
-            if (Checkboxexterninstall.IsChecked == true)
-            {
-                Checkboxinstallvdz.Visibility = Visibility.Visible;
-                Labelvdz.Visibility = Visibility.Visible;
-                Checkboxinstalldbo.Visibility = Visibility.Visible;
-                Labeldbo.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                Checkboxinstallvdz.IsChecked = false;
-                Checkboxinstalldbo.IsChecked = false;
-                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
-                Checkboxinstalldbo.Visibility = Visibility.Collapsed;
-                Labelvdz.Visibility = Visibility.Collapsed;
-                Labeldbo.Visibility = Visibility.Collapsed;
-            }
-
+            SetGUIForDownload(true);
         }
 
-        private void Buttonabbrechen_Click(object sender, EventArgs e)
+        private void AppManager_DownloadAppProgressed(object? sender, EventArgs e)
         {
-            this.Close();
+            DownloadProgressChangedEventArgs dpce = (DownloadProgressChangedEventArgs)e;
+            SetGUIForDownload(true);
+            Progressbarcaller.Value = dpce.ProgressPercentage;
         }
+
+        private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
+        {
+            SetGUIForDownload(false);
+        }
+
+
 
         private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {
@@ -112,9 +91,9 @@ namespace autodarts_visual
                 // Install Autodarts.io Caller
                 try
                 {
-                    InstallApp(callerUrl);
+                    appManager.InstallAutodartsCaller();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Fehler beim Installieren von 'Caller': " + ex.Message);
                 }
@@ -133,7 +112,7 @@ namespace autodarts_visual
                 // Install Autodarts.io Extern
                 try
                 {
-                    InstallApp(externUrl);
+                    appManager.InstallAutodartsExtern();
                 }
                 catch (Exception ex)
                 {
@@ -148,7 +127,7 @@ namespace autodarts_visual
             {
                 // Install bot
 
-                // TODO: Aufbauen, wie oben caller und extern, Hilfsmethoden ggf. anpassen, um zip-Downloads zu unterstützen
+                // TODO: Aufruf wie bei caller/ extern, interne Hilfsmethoden im AppManager ggf. anpassen, um zip-Downloads zu unterstützen
 
                 string botzip = @".\bot\autodartsbot-0.0.1.windows.x64.zip";
                 if (!System.IO.File.Exists(botzip))
@@ -336,22 +315,59 @@ namespace autodarts_visual
             }
         }
 
-        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void Checkboxcallerinstall_Click(object sender, RoutedEventArgs e)
         {
-            SetGUIForDownload(true);
-            Progressbarcaller.Value = e.ProgressPercentage;
+            if (Checkboxcallerinstall.IsChecked == true)
+            {
+                Checkboxexterninstall.Visibility = Visibility.Visible;
+                Labelextern.Visibility = Visibility.Visible;
+                Checkboxinstallbot.Visibility = Visibility.Visible;
+                Labelbot.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Checkboxexterninstall.IsChecked = false;
+                Checkboxexterninstall.Visibility = Visibility.Collapsed;
+                Labelextern.Visibility = Visibility.Collapsed;
+                Checkboxinstallbot.IsChecked = false;
+                Checkboxinstallbot.Visibility = Visibility.Collapsed;
+                Labelbot.Visibility = Visibility.Collapsed;
+                Checkboxinstallvdz.IsChecked = false;
+                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
+                Labelvdz.Visibility = Visibility.Collapsed;
+                Checkboxinstalldbo.IsChecked = false;
+                Checkboxinstalldbo.Visibility = Visibility.Collapsed;
+                Labeldbo.Visibility = Visibility.Collapsed;
+                //Properties.Settings.Default.boxcaller = false;
+            }
         }
 
-        private void WebClient_DownloadFileCompleted(object? sender, AsyncCompletedEventArgs e)
+        private void Checkboxexterninstall_Click(object sender, RoutedEventArgs e)
         {
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////// Install erledgit -> Ja
-            SetGUIForDownload(false);
 
-            // Erst hier ist die Installation vollständig und vorallem erfolgreich / ohne Fehler abgeschlossen
-            Properties.Settings.Default.installdone = true;
-            Properties.Settings.Default.Save();
-            //MessageBox.Show("Installation abgeschlossen!");
+
+            if (Checkboxexterninstall.IsChecked == true)
+            {
+                Checkboxinstallvdz.Visibility = Visibility.Visible;
+                Labelvdz.Visibility = Visibility.Visible;
+                Checkboxinstalldbo.Visibility = Visibility.Visible;
+                Labeldbo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Checkboxinstallvdz.IsChecked = false;
+                Checkboxinstalldbo.IsChecked = false;
+                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
+                Checkboxinstalldbo.Visibility = Visibility.Collapsed;
+                Labelvdz.Visibility = Visibility.Collapsed;
+                Labeldbo.Visibility = Visibility.Collapsed;
+            }
+
+        }
+
+        private void Buttonabbrechen_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void Buttonweiter_Click(object sender, RoutedEventArgs e)
@@ -374,75 +390,6 @@ namespace autodarts_visual
             ButtonInstall.Visibility = Visibility.Collapsed;
         }
 
-
-
-
-        // In Form/Window-Klassen trenne ich gerne, zur besseren Übersicht,
-        // automatisch generierte Event-Methoden von selbst verfassten Methoden
-
-        private void InstallApp(string url)
-        {
-            try
-            {
-                // wir holen uns den Namen der App einfach aus der Url und haben so ein allgemeines Schema für
-                // unsere Ordnerstrukturen
-                string appFileName = GetAppFileNameByUrl(url);
-                string appFolderName = RemoveFileExtension(appFileName);
-                string appPath = Path.Join(pathToApps, appFolderName);
-                string downloadPath = Path.Join(appPath, appFileName);
-
-                if (Directory.Exists(appPath)){
-                    Directory.Delete(appPath, true);
-                }
-                Directory.CreateDirectory(appPath);
-
-                SetGUIForDownload(true);
-                DownloadApp(url, downloadPath);
-
-            }
-            catch (Exception)
-            {
-                SetGUIForDownload(false);
-                throw;
-            }
-        }
-
-        private void SetGUIForDownload(bool downloading)
-        {
-            if (downloading)
-            {
-                GridMain.IsEnabled = false;
-                Progressbarcaller.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                GridMain.IsEnabled = true;
-                Progressbarcaller.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private string GetAppFileNameByUrl(string url)
-        {
-            string[] urlSplitted = url.Split("/");
-            return urlSplitted[urlSplitted.Length - 1];
-        }
-
-        private string RemoveFileExtension(string filename)
-        {
-            string extension = Path.GetExtension(filename);
-            return filename.Substring(0, filename.Length - extension.Length);
-        }
-
-        private void DownloadApp(string url, string path)
-        {
-            WebClient webClient = new WebClient();
-            webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
-            webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
-            webClient.DownloadFileAsync(new System.Uri(url), path);
-            Console.WriteLine("###########################################################################");
-            Console.WriteLine("###############  Download nach: " + path + " wurde gestartet");
-            Console.WriteLine("###########################################################################");
-        }
 
     }
 }

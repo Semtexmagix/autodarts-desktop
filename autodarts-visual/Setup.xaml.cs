@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace autodarts_visual
             Checkboxrandomcaller.IsChecked = Properties.Settings.Default.checkboxrandomcaller;
             Checkboxrandomcallereachleg.IsChecked = Properties.Settings.Default.checkboxrandomcallereachleg;
             slValue.Value = Properties.Settings.Default.sliderpos;
+            TextBoxCallerWtt.Text = Properties.Settings.Default.callerwtt;
 
             // Settings Extern
             TextBoxmessagestart.Text = Properties.Settings.Default.messagestart;
@@ -56,6 +58,7 @@ namespace autodarts_visual
             Checkboxskipdart.IsChecked = Properties.Settings.Default.checkboxskipdart;
             TextBoxtime.Text = Properties.Settings.Default.timetoend;
             TextBoxbrowser.Text = Properties.Settings.Default.browserpath;
+            TextBoxExternHostPort.Text = Properties.Settings.Default.hostport;
 
             // Settings Zusatz Programme Lidarts (OBS)
             TextBoxobs.Text = Properties.Settings.Default.obs;
@@ -105,6 +108,7 @@ namespace autodarts_visual
                 Properties.Settings.Default.checkboxrandomcallereachleg = false;
             }
             Properties.Settings.Default.sliderpos = slValue.Value;
+            Properties.Settings.Default.callerwtt = TextBoxCallerWtt.Text;
 
 
 
@@ -124,6 +128,7 @@ namespace autodarts_visual
             }
             Properties.Settings.Default.timetoend = TextBoxtime.Text;
             Properties.Settings.Default.browserpath = TextBoxbrowser.Text;
+            Properties.Settings.Default.hostport = TextBoxExternHostPort.Text;
 
 
             // Settings Zusatz Programme Lidarts (OBS)
@@ -172,7 +177,11 @@ namespace autodarts_visual
 
         private void Buttonmedia_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TBD folderbrowser nicht auffindbar");
+            var ookiiDialog = new VistaFolderBrowserDialog();
+            if (ookiiDialog.ShowDialog() == true)
+            {
+                TextBoxmedia.Text = ookiiDialog.SelectedPath;
+            }
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
