@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
         Title="Autodarts-visual - Install" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558">
-    <Grid Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
+    <Grid x:Name="GridMain" Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
         <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Click="Checkboxcallerinstall_Click" Checked="Checkboxcallerinstall_Checked" Unchecked="Checkboxcallerinstall_Unchecked"/>
         <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="57,72,0,0" VerticalAlignment="Top" Click="Checkboxexterninstall_Click" Visibility="Hidden"/>
         <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="35,66,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
@@ -20,7 +20,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Buttonabbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="31,200,0,0" VerticalAlignment="Top" Click="Buttonabbrechen_Click" Width="73"/>
+        <Button x:Name="Buttonabbrechen" Content="Zurück" HorizontalAlignment="Left" Margin="31,200,0,0" VerticalAlignment="Top" Click="Buttonabbrechen_Click" Width="73"/>
         <Button x:Name="Buttonweiter" Content="Weiter zum Setup" HorizontalAlignment="Left" Margin="418,200,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.656,-3.806" Click="Buttonweiter_Click" Width="109"/>
         <CheckBox x:Name="Checkboxinstallbot" Content="Autodarts.io Bot mit installieren" HorizontalAlignment="Left" Margin="76,38,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
         <Label x:Name="Labelbot" Content="➥" HorizontalAlignment="Left" Margin="54,32,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
@@ -28,8 +28,7 @@
         <CheckBox x:Name="Checkboxinstallvdz" Content="Virtual Darts Zoom mit installieren" HorizontalAlignment="Left" Margin="104,93,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Visibility="Collapsed"/>
         <CheckBox x:Name="Checkboxinstalldbo" Content="DartBoardsOnline Client mit installieren (wird für Webcam benötigt)" HorizontalAlignment="Left" Margin="104,113,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
         <Label x:Name="Labeldbo" Content="➥" HorizontalAlignment="Left" Margin="82,107,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <ProgressBar x:Name="Progressbarextern" HorizontalAlignment="Left" Height="10" Margin="440,75,0,0" VerticalAlignment="Top" Width="100"/>
-        <ProgressBar x:Name="Progressbarcaller" HorizontalAlignment="Left" Height="10" Margin="440,21,0,0" VerticalAlignment="Top" Width="100"/>
+        <ProgressBar x:Name="Progressbarcaller" Visibility="Hidden" HorizontalAlignment="Left" Height="10" Margin="440,21,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>

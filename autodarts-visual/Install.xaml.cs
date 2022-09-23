@@ -25,6 +25,9 @@ using Windows.Media.Protection.PlayReady;
 using System.Net.Mime;
 using ABI.System;
 using System.ComponentModel;
+using Exception = System.Exception;
+using File = System.IO.File;
+using Path = System.IO.Path;
 
 namespace autodarts_visual
 {
@@ -32,7 +35,14 @@ namespace autodarts_visual
     /// Interaktionslogik für Install.xaml
     /// </summary>
     public partial class Install : Window
-    {
+    {   
+        // META-Inhalte können als Konstanten definiert werden. Vorteil: Alles schön beieinander und schnell abänderbar.
+        private const string pathToApps = @".\";
+        private const string callerUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.1.4/autodarts-caller.exe";
+        private const string externUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe";
+        private const string botUrl = "https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip";
+
+
         public Install()
         {
             InitializeComponent();
@@ -64,7 +74,7 @@ namespace autodarts_visual
                 //Properties.Settings.Default.boxcaller = false;
             }
         }
-        
+
         private void Checkboxexterninstall_Click(object sender, RoutedEventArgs e)
         {
 
@@ -83,39 +93,15 @@ namespace autodarts_visual
                 Checkboxinstallvdz.Visibility = Visibility.Collapsed;
                 Checkboxinstalldbo.Visibility = Visibility.Collapsed;
                 Labelvdz.Visibility = Visibility.Collapsed;
-                Labeldbo.Visibility= Visibility.Collapsed;
+                Labeldbo.Visibility = Visibility.Collapsed;
             }
 
         }
-        /// Abbrechen
 
         private void Buttonabbrechen_Click(object sender, EventArgs e)
         {
-            
+            this.Close();
         }
-
-        // Download Anzeige
-        private void ProgressChangedcaller(object sender, DownloadProgressChangedEventArgs e)
-        {
-            Progressbarcaller.Value = e.ProgressPercentage;
-        }
-
-        private void Completedcaller(object sender, AsyncCompletedEventArgs e)
-        {
-            MessageBox.Show("Installertion Autodarts-caller abgeschlossen!");
-        }
-
-        private void ProgressChangedextern(object sender, DownloadProgressChangedEventArgs e)
-        {
-            Progressbarextern.Value = e.ProgressPercentage;
-        }
-
-        private void Completedextern(object sender, AsyncCompletedEventArgs e)
-        {
-            MessageBox.Show("Installertion Autodarts-extern abgeschlossen!");
-        }
-
-
 
         private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {
@@ -123,80 +109,15 @@ namespace autodarts_visual
 
             if (Checkboxcallerinstall.IsChecked == true)
             {
-                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////// Install erledgit -> Ja
-                Properties.Settings.Default.installdone = true;
-                Properties.Settings.Default.Save();
-
-
-                // Download Autodarts.io Caller
-
-                string callerexe = @".\caller\autodarts-caller.exe";
-                if (!System.IO.File.Exists(callerexe))
-                {
-                    WebClient webClient = new WebClient();
-                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completedcaller);
-                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChangedcaller);
-                    webClient.DownloadFileAsync(new System.Uri("https://github.com/lbormann/autodarts-caller/releases/download/v1.1.4/autodarts-caller.exe"), @"./autodarts-caller.exe");
-                    Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  Download des Autodarts-caller wurde gestartet");
-                    Console.WriteLine("###########################################################################");
-                }
-
-                // Ordner erstellen
-                string folderPathcaller = @".\caller";
-                if (!Directory.Exists(folderPathcaller))
-                {
-                    Directory.CreateDirectory(folderPathcaller);
-                    Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  Programmordner: {0} wurde erstellt", folderPathcaller);
-                    Console.WriteLine("###########################################################################");
-                }
-
-                // Exe in Ordner verschieben
-                string pathcaller = @".\autodarts-caller.exe";
-                string path2caller = @".\caller\autodarts-caller.exe";
+                // Install Autodarts.io Caller
                 try
                 {
-                    Thread.Sleep(5000);
-                    if (!System.IO.File.Exists(pathcaller))
-                    {
-                        // This statement ensures that the file is created,
-                        // but the handle is not kept.
-                        using (FileStream fs = System.IO.File.Create(pathcaller)) { }
-                    }
-
-                    // Ensure that the target does not exist.
-                    if (System.IO.File.Exists(path2caller))
-                        System.IO.File.Delete(path2caller);
-
-                    // Move the file.
-                    System.IO.File.Move(pathcaller, path2caller);
-                    Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  {0} wurde verschoben nach {1}.", pathcaller, path2caller);
-                    Console.WriteLine("###########################################################################");
-
-                    // See if the original exists now.
-                    if (System.IO.File.Exists(pathcaller))
-                    {
-                        Console.WriteLine("###########################################################################");
-                        Console.WriteLine("###############  Es gab Probleme bei der Installation");
-                        Console.WriteLine("###########################################################################");
-                    }
-                    else
-                    {
-                        Console.WriteLine("###########################################################################");
-                        Console.WriteLine("###############  Autodarts-caller wurde erfolgreich installiert");
-                        Console.WriteLine("###########################################################################");
-                    }
+                    InstallApp(callerUrl);
                 }
-                catch (System.Exception)
+                catch(Exception ex)
                 {
-                    Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  Installertion fehlgeschlagen!!!: {0}", e.ToString());
-                    Console.WriteLine("###########################################################################");
+                    MessageBox.Show("Fehler beim Installieren von 'Caller': " + ex.Message);
                 }
-
             }
             else
             {
@@ -209,71 +130,14 @@ namespace autodarts_visual
 
             if (Checkboxexterninstall.IsChecked == true)
             {
-                // Download Autodarts.io Extern
-
-                string externexe = @".\extern\autodarts-extern.exe";
-                if (!System.IO.File.Exists(externexe))
-                {
-                    WebClient webClient = new WebClient();
-                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completedextern);
-                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChangedextern);
-                    webClient.DownloadFileAsync(new System.Uri("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe"), @"./autodarts-extern.exe");
-                    Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  Download des Autodarts-extern wurde gestartet");
-                    Console.WriteLine("###########################################################################");
-
-                }
-
-                // Ordner erstellen
-                string folderPathextern = @".\extern";
-                if (!Directory.Exists(folderPathextern))
-                {
-                    Directory.CreateDirectory(folderPathextern);
-                    Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  Programmordner: {0} wurde erstellt", folderPathextern);
-                    Console.WriteLine("###########################################################################");
-                }
-
-                // Exe in Ordner verschieben
-                string pathextern = @".\autodarts-extern.exe";
-                string path2extern = @".\extern\autodarts-extern.exe";
+                // Install Autodarts.io Extern
                 try
                 {
-                    Thread.Sleep(5000);
-                    if (!System.IO.File.Exists(pathextern))
-                    {
-                        // This statement ensures that the file is created,
-                        // but the handle is not kept.
-                        using (FileStream fs = System.IO.File.Create(pathextern)) { }
-                    }
-                    
-                    // Ensure that the target does not exist.
-                    if (System.IO.File.Exists(path2extern))
-                        System.IO.File.Delete(path2extern);
-
-                    // Move the file.
-                    System.IO.File.Move(pathextern, path2extern);
-                    Console.WriteLine("###########################################################################");
-                    Console.WriteLine("###############  {0} wurde verschoben nach {1}.", pathextern, path2extern);
-                    Console.WriteLine("###########################################################################");
-
-                    // See if the original exists now.
-                    if (System.IO.File.Exists(pathextern))
-                    {
-                        Console.WriteLine("###########################################################################");
-                        Console.WriteLine("###############  Es gab Probleme bei der Installation");
-                        Console.WriteLine("###########################################################################");
-                    }
-                    else
-                    {
-                        Console.WriteLine("###########################################################################");
-                        Console.WriteLine("###############  Autodarts-extern wurde erfolgreich installiert");
-                        Console.WriteLine("###########################################################################");
-                    }
+                    InstallApp(externUrl);
                 }
-                catch (System.Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Installertion fehlgeschlagen!!!: {0}", e.ToString());
+                    MessageBox.Show("Fehler beim Installieren von 'Extern': " + ex.Message);
                 }
             }
 
@@ -282,7 +146,9 @@ namespace autodarts_visual
 
             if (Checkboxinstallbot.IsChecked == true)
             {
-                // Download bot
+                // Install bot
+
+                // TODO: Aufbauen, wie oben caller und extern, Hilfsmethoden ggf. anpassen, um zip-Downloads zu unterstützen
 
                 string botzip = @".\bot\autodartsbot-0.0.1.windows.x64.zip";
                 if (!System.IO.File.Exists(botzip))
@@ -470,6 +336,24 @@ namespace autodarts_visual
             }
         }
 
+        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            SetGUIForDownload(true);
+            Progressbarcaller.Value = e.ProgressPercentage;
+        }
+
+        private void WebClient_DownloadFileCompleted(object? sender, AsyncCompletedEventArgs e)
+        {
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////// Install erledgit -> Ja
+            SetGUIForDownload(false);
+
+            // Erst hier ist die Installation vollständig und vorallem erfolgreich / ohne Fehler abgeschlossen
+            Properties.Settings.Default.installdone = true;
+            Properties.Settings.Default.Save();
+            //MessageBox.Show("Installation abgeschlossen!");
+        }
+
         private void Buttonweiter_Click(object sender, RoutedEventArgs e)
         {
             Setup S1 = new Setup();
@@ -482,11 +366,83 @@ namespace autodarts_visual
             ///////////////////////////////////////////////////////////// Install Button anzeigen!
             ButtonInstall.Visibility = Visibility.Visible;
         }
+        
         private void Checkboxcallerinstall_Unchecked(object sender, RoutedEventArgs e)
         {
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////// Install Button verstecken!
             ButtonInstall.Visibility = Visibility.Collapsed;
         }
+
+
+
+
+        // In Form/Window-Klassen trenne ich gerne, zur besseren Übersicht,
+        // automatisch generierte Event-Methoden von selbst verfassten Methoden
+
+        private void InstallApp(string url)
+        {
+            try
+            {
+                // wir holen uns den Namen der App einfach aus der Url und haben so ein allgemeines Schema für
+                // unsere Ordnerstrukturen
+                string appFileName = GetAppFileNameByUrl(url);
+                string appFolderName = RemoveFileExtension(appFileName);
+                string appPath = Path.Join(pathToApps, appFolderName);
+                string downloadPath = Path.Join(appPath, appFileName);
+
+                if (Directory.Exists(appPath)){
+                    Directory.Delete(appPath, true);
+                }
+                Directory.CreateDirectory(appPath);
+
+                SetGUIForDownload(true);
+                DownloadApp(url, downloadPath);
+
+            }
+            catch (Exception)
+            {
+                SetGUIForDownload(false);
+                throw;
+            }
+        }
+
+        private void SetGUIForDownload(bool downloading)
+        {
+            if (downloading)
+            {
+                GridMain.IsEnabled = false;
+                Progressbarcaller.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                GridMain.IsEnabled = true;
+                Progressbarcaller.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private string GetAppFileNameByUrl(string url)
+        {
+            string[] urlSplitted = url.Split("/");
+            return urlSplitted[urlSplitted.Length - 1];
+        }
+
+        private string RemoveFileExtension(string filename)
+        {
+            string extension = Path.GetExtension(filename);
+            return filename.Substring(0, filename.Length - extension.Length);
+        }
+
+        private void DownloadApp(string url, string path)
+        {
+            WebClient webClient = new WebClient();
+            webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+            webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
+            webClient.DownloadFileAsync(new System.Uri(url), path);
+            Console.WriteLine("###########################################################################");
+            Console.WriteLine("###############  Download nach: " + path + " wurde gestartet");
+            Console.WriteLine("###########################################################################");
+        }
+
     }
 }
