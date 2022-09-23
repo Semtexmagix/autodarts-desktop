@@ -38,7 +38,7 @@ namespace autodarts_visual
     {   
         // META-Inhalte können als Konstanten definiert werden. Vorteil: Alles schön beieinander und schnell abänderbar.
         private const string pathToApps = @".\";
-        private const string callerUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.1.4/autodarts-caller.exe";
+        private const string callerUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.2.1/autodarts-caller.exe";
         private const string externUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe";
         private const string botUrl = "https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip";
 
