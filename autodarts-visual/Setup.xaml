@@ -55,9 +55,9 @@
                 <PasswordBox x:Name="TextBoxPWLidarts" HorizontalAlignment="Left" Margin="341,109,0,0" VerticalAlignment="Top" Width="200" Height="20"/>
                 <PasswordBox x:Name="TextBoxPWdbo" HorizontalAlignment="Left" Margin="342,160,0,0" VerticalAlignment="Top" Width="200" Height="20"/>
                 <Slider x:Name="slValue" HorizontalAlignment="Left" Margin="67,306,0,0" VerticalAlignment="Top" Width="169" ValueChanged="Slider_ValueChanged" TickFrequency="0.01" Minimum="0.01" Maximum="1.00" Value="1.00"/>
-                <CheckBox x:Name="Checkboxrandomcaller" Content="zufällig, einmalig bei Programmstart" Canvas.Left="342" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <CheckBox x:Name="Checkboxrandomcallereachleg" Content="zufällig, jedes Leg" Canvas.Left="342" Canvas.Top="326" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <CheckBox x:Name="Checkboxskipdart" Content="Automatisch Überspringen aktivieren" Canvas.Left="67" Canvas.Top="461" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.507,-0.262"/>
+                <CheckBox x:Name="Checkboxrandomcaller" Content="randomly at program start" Canvas.Left="342" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="Checkboxrandomcaller_Checked"/>
+                <CheckBox x:Name="Checkboxrandomcallereachleg" Content="randomly every leg" Canvas.Left="342" Canvas.Top="326" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <CheckBox x:Name="Checkboxskipdart" Content="enable automatic skipping" Canvas.Left="67" Canvas.Top="461" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.507,-0.262"/>
             </Canvas>
         </ScrollViewer>
     </Grid>
