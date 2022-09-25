@@ -17,11 +17,21 @@ and the Autodarts-external tool:
  - automates multiple dart-web-platforms accordingly to the state of an https://autodarts.io match.
 
 you can also start side programmes:
- - Like OBS / VDZ
+ - Like Dartsboard.Online Client (webcam support) / VDZ Visual Darts Zoom
+
+and custom programmes (like OBS to create a visual cam with custom theme)
+
+
+![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/OBS2.png?raw=true)
+With OBS it is possible to display the Autodarts.io game in the virtual camera.
 
 ![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/OBS1.png?raw=true)
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/OBS2.png?raw=true)
+It is also possible, for example, to integrate a player camera with OBS into the virtual camera stream.
+
 ![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/OBS3.png?raw=true)
+A full screen mode for the board.
+
+All this can be easily realized via OBS scenes. The scenes can be easily switched during the game in OBS or e.g. via hotkey.
 
 # BUGS
 Its buggy at the moment. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
