@@ -211,7 +211,7 @@ namespace autodarts_visual
                 {
                     process.StartInfo.WorkingDirectory = Path.GetFullPath(Path.GetDirectoryName(pathToExecutable));
                     process.StartInfo.FileName = Path.GetFileName(pathToExecutable);
-                    if (String.IsNullOrEmpty(arguments))
+                    if (!String.IsNullOrEmpty(arguments))
                     {
                         process.StartInfo.Arguments = arguments;
                     }
