@@ -9,6 +9,7 @@
     <StartupObject>autodarts_visual.App</StartupObject>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
