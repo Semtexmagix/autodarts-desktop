@@ -4,7 +4,6 @@ autodarts-visual is a tool (GUI) to handle (install/setup/use) many projects for
 
 
 ![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/Main.png?raw=true)
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/Main1.png?raw=true)
 ![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/Install.png?raw=true)
 ![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/Setup.png?raw=true)
 
