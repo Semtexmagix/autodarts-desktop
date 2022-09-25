@@ -5,31 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Autodarts-visual - Install" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558">
+        Title="Autodarts-visual - Download" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="Beige">
     <Grid x:Name="GridMain" Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
-        <CheckBox x:Name="Checkboxautodartsinstall" Content="Autodarts installieren" HorizontalAlignment="Left" Margin="210,18,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="Checkboxcallerinstall" Content="Autodarts-caller installieren" HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Click="Checkboxcallerinstall_Click" Checked="Checkboxcallerinstall_Checked" Unchecked="Checkboxcallerinstall_Unchecked"/>
-        <CheckBox x:Name="Checkboxexterninstall" Content="Autodarts-extern installieren" HorizontalAlignment="Left" Margin="57,72,0,0" VerticalAlignment="Top" Click="Checkboxexterninstall_Click" Visibility="Hidden"/>
-        <Label x:Name="Labelextern" Content="➥" HorizontalAlignment="Left" Margin="35,66,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <Button x:Name="ButtonInstall" Content="Installieren" HorizontalAlignment="Left" Margin="231,152,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="0.5,0.5" Width="75" Visibility="Collapsed">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.476"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
+        <ProgressBar x:Name="progressDownloads" Visibility="Hidden" HorizontalAlignment="Left" Height="10" Margin="279,196,0,0" VerticalAlignment="Top" Width="200" />
+        <Button x:Name="ButtonInstall" Content="Download" HorizontalAlignment="Left" Margin="70,191,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="-0.568,-0.484" Width="170" IsEnabled="False" />
+        <Button x:Name="Buttonweiter" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Click="Buttonweiter_Click">
+            <Image Width="24" Height="24" Source="images/configuration.png"></Image>
         </Button>
-        <Button x:Name="Buttonabbrechen" Content="Zurück" HorizontalAlignment="Left" Margin="31,200,0,0" VerticalAlignment="Top" Click="Buttonabbrechen_Click" Width="73"/>
-        <Button x:Name="Buttonweiter" Content="Weiter zum Setup" HorizontalAlignment="Left" Margin="418,200,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.656,-3.806" Click="Buttonweiter_Click" Width="109"/>
-        <CheckBox x:Name="Checkboxinstallbot" Content="Autodarts.io Bot mit installieren" HorizontalAlignment="Left" Margin="76,38,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <Label x:Name="Labelbot" Content="➥" HorizontalAlignment="Left" Margin="54,32,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <Label x:Name="Labelvdz" Content="➥" HorizontalAlignment="Left" Margin="82,87,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <CheckBox x:Name="Checkboxinstallvdz" Content="Virtual Darts Zoom mit installieren" HorizontalAlignment="Left" Margin="104,93,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Visibility="Collapsed"/>
-        <CheckBox x:Name="Checkboxinstalldbo" Content="DartBoardsOnline Client mit installieren (wird für Webcam benötigt)" HorizontalAlignment="Left" Margin="104,113,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <Label x:Name="Labeldbo" Content="➥" HorizontalAlignment="Left" Margin="82,107,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-        <ProgressBar x:Name="Progressbarcaller" Visibility="Hidden" HorizontalAlignment="Left" Height="10" Margin="440,21,0,0" VerticalAlignment="Top" Width="100"/>
-
+        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts (board-client)" HorizontalAlignment="Left" Margin="67,49,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
+        <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computergegner)" HorizontalAlignment="Left" Margin="67,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (ruft geworfene punkte aus)" HorizontalAlignment="Left" Margin="67,89,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxexterninstall" Content="autodarts-extern (automatisiert dart-web-platformen mit autodarts)" HorizontalAlignment="Left" Margin="67,109,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Checked="Checkboxexterninstall_Checked"/>
+        <CheckBox x:Name="Checkboxinstallvdz" Content="virtual-darts-zoom (zoomt webcambild auf den geworfenen pfeil)" HorizontalAlignment="Left" Margin="67,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxinstalldbo" Content="dartboards-client (webcam-anbindung für dartboards.online)" HorizontalAlignment="Left" Margin="67,149,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
+        <Label x:Name="autodartsInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsBotInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsCallerInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsExternInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="virtualDartsZoomInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="dartboardsClientInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
     </Grid>
 </Window>

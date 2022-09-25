@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Autodarts-visual" MaxHeight="175" MaxWidth="325" MinWidth="325" MinHeight="175">
-    <Grid HorizontalAlignment="Center" Width="325" RenderTransformOrigin="0.531,-0.273" Height="167" Margin="0,-16,0,0" VerticalAlignment="Top">
+        Title="Autodarts-visual" Height="250" Width="325" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="Beige">
+    <Grid HorizontalAlignment="Center" Height="250" Width="325" RenderTransformOrigin="0.531,-0.273" Margin="0,-16,0,0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="28,65,0,0" VerticalAlignment="Top" Width="140" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0">
-            <ComboBoxItem Content="Auswählen..."></ComboBoxItem>
-            <ComboBoxItem Content="AutoDarts.io"></ComboBoxItem>
-            <ComboBoxItem Content="LiDarts.org"></ComboBoxItem>
-            <ComboBoxItem Content="DartBoards.online"></ComboBoxItem>
-            <ComboBoxItem Content="N01 Online"></ComboBoxItem>
-        </ComboBox>
-        <Label x:Name="labelcombobox" Content="Portal Auswählen:" HorizontalAlignment="Left" Margin="36,34,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="Buttonstart" Content="Start" HorizontalAlignment="Left" Margin="74,118,0,0" VerticalAlignment="Top" Click="Buttonstart_Click" Width="42"/>
-        <Button x:Name="Buttonsetup" Content="Setup" HorizontalAlignment="Left" Margin="254,40,0,0" VerticalAlignment="Top" Click="Buttonsetup_Click" Width="48"/>
-        <Button x:Name="Buttoninstall" Content="Install" HorizontalAlignment="Left" Margin="183,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.634,1.657" Click="Buttoninstall_Click" Width="48"/>
-        <Button x:Name="Buttonschließen" Content="Schließen" HorizontalAlignment="Left" Margin="204,118,0,0" VerticalAlignment="Top" Click="Buttonschließen_Click" Width="66"/>
-        <CheckBox x:Name="Checkboxbot" Content="Bot mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxbot_Checked" Visibility="Collapsed"/>
-        <CheckBox x:Name="Checkboxvdzobs" Content="VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxvdzobs_Checked" Visibility="Collapsed"/>
-        <CheckBox x:Name="Checkboxdbovdzobs" Content="DBO Client / VDZ / OBS mitstarten" HorizontalAlignment="Left" Margin="40,92,0,0" VerticalAlignment="Top" Checked="Checkboxdbovdzobs_Checked" Visibility="Collapsed"/>
-        <Button x:Name="Buttonrest" Content="Reset" HorizontalAlignment="Left" Margin="219,87,0,0" VerticalAlignment="Top" Click="Buttonrest_Click" Visibility="Hidden"/>
+        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="29,85,0,0" VerticalAlignment="Top" Width="270" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
+        <Label x:Name="labelcombobox" Content="Select profile:" HorizontalAlignment="Left" Margin="24,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757"/>
+        <Button x:Name="Buttonstart" Content="Start" HorizontalAlignment="Left" Margin="29,195,0,0" VerticalAlignment="Top" Click="Buttonstart_Click" Width="270" RenderTransformOrigin="0.512,1.722"/>
+        <Button x:Name="Buttonsetup" HorizontalAlignment="Left" Margin="270,22,0,0" VerticalAlignment="Top" Click="Buttonsetup_Click">
+            <Image Width="24" Height="24" Source="images/configuration.png"></Image>
+        </Button>
+        <Button x:Name="Buttoninstall" HorizontalAlignment="Left" Margin="235,22,0,0" VerticalAlignment="Top" Click="Buttoninstall_Click">
+            <Image Width="24" Height="24" Source="images/download.png"></Image>
+        </Button>
+        <CheckBox x:Name="Checkboxad" Content="autodarts-client" HorizontalAlignment="Left" Margin="32,119,0,0" VerticalAlignment="Top" />
+        <CheckBox x:Name="Checkboxbot" Content="autodarts-bot" HorizontalAlignment="Left" Margin="185,119,0,0" VerticalAlignment="Top" />
+        <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="32,139,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="Checkboxdbo" Content="dartsboards-client" HorizontalAlignment="Left" Margin="32,160,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="185,139,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

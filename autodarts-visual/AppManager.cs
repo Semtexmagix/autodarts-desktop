@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using Path = System.IO.Path;
 
 namespace autodarts_visual
@@ -18,11 +19,15 @@ namespace autodarts_visual
         nakka
     }
 
+    /// <summary>
+    /// Manages everything around apps-lifecycle.
+    /// TODO: Method for checking for valid app-configuration
+    /// </summary>
     public class AppManager
     {   
         // Attribute
         // Key = Download-Link
-        // Value = Speicherort
+        // Value = Storage-path
         private KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
         private KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.2.1/autodarts-caller.exe", "autodarts-caller");
         private KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe", "autodarts-extern");
@@ -30,7 +35,6 @@ namespace autodarts_visual
         private KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
         private KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
         private const string autodartsUrl = "https://autodarts.io";
-
 
 
         private string? pathToApps;
@@ -47,45 +51,18 @@ namespace autodarts_visual
 
 
 
-        // Methoden
+        // Methods
 
-        public List<string> GetAppsAvailable()
+        public Dictionary<string, bool> GetAppsInstallState()
         {
-            List<string> appsAvailable = new List<string>();
-
-            string executable;
-
-            executable = FindExecutable(autodarts.Value);
-            if (executable != null)
-            {
-                appsAvailable.Add(autodarts.Value);
-            }
-            executable = FindExecutable(autodartsCaller.Value);
-            if (executable != null)
-            {
-                appsAvailable.Add(autodartsCaller.Value);
-            }
-            executable = FindExecutable(autodartsExtern.Value);
-            if (executable != null)
-            {
-                appsAvailable.Add(autodartsExtern.Value);
-            }
-            executable = FindExecutable(autodartsBot.Value);
-            if (executable != null)
-            {
-                appsAvailable.Add(autodartsBot.Value);
-            }
-            executable = FindExecutable(virtualDartsZoom.Value);
-            if (executable != null)
-            {
-                appsAvailable.Add(virtualDartsZoom.Value);
-            }
-            executable = FindExecutable(dartboardsClient.Value);
-            if (executable != null)
-            {
-                appsAvailable.Add(dartboardsClient.Value);
-            }
-            return appsAvailable;
+            Dictionary<string, bool> appsInstallState = new();
+            appsInstallState.Add(autodarts.Value, FindExecutable(autodarts.Value) != null ? true : false);
+            appsInstallState.Add(autodartsCaller.Value, FindExecutable(autodartsCaller.Value) != null ? true : false);
+            appsInstallState.Add(autodartsExtern.Value, FindExecutable(autodartsExtern.Value) != null ? true : false);
+            appsInstallState.Add(autodartsBot.Value, FindExecutable(autodartsBot.Value) != null ? true : false);
+            appsInstallState.Add(virtualDartsZoom.Value, FindExecutable(virtualDartsZoom.Value) != null ? true : false);
+            appsInstallState.Add(dartboardsClient.Value, FindExecutable(dartboardsClient.Value) != null ? true : false);
+            return appsInstallState;
         }
 
         public void DownloadAutodarts()
@@ -223,15 +200,32 @@ namespace autodarts_visual
             RunApp(appPath);
         }
 
-        public void RunOpenBroadcasterSofware()
+        public static void RunCustomApp()
         {
-            RunExtraApp(Properties.Settings.Default.obs);
+            string pathToExecutable = Properties.Settings.Default.obs;
+
+            using (var process = new Process())
+            {
+                try
+                {
+                    process.StartInfo.WorkingDirectory = Path.GetFullPath(Path.GetDirectoryName(pathToExecutable));
+                    process.StartInfo.FileName = Path.GetFileName(pathToExecutable); ;
+                    process.StartInfo.UseShellExecute = true;
+                    //process.StartInfo.Verb = "runas";
+                    process.Start();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred trying to start \"{pathToExecutable}\":\n{ex.Message}");
+                    throw;
+                }
+            }
         }
 
 
 
 
-        private void DownloadApp(KeyValuePair<string, string> app)
+        private void DownloadApp(KeyValuePair<string, string> app, string specificFile = "")
         {
             try
             {
@@ -239,6 +233,16 @@ namespace autodarts_visual
                 string appPath = Path.Join(pathToApps, app.Value);
                 string downloadPath = Path.Join(appPath, appFileName);
 
+
+                // Finde die exe und kill den Prozess
+                string executable = specificFile == "" ? FindExecutable(appPath) : FindExecutable(appPath, specificFile);
+                if (executable != null)
+                {
+                    KillApp(Path.GetFileNameWithoutExtension(executable));
+                    KillApp(Path.GetFileNameWithoutExtension(executable));
+                }
+
+                // Löscht vorhandene App und erstellt einen neuen Ordner
                 if (Directory.Exists(appPath))
                 {
                     Directory.Delete(appPath, true);
@@ -264,20 +268,41 @@ namespace autodarts_visual
             webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
             webClient.QueryString.Add("pathToDownload", path);
             webClient.DownloadFileAsync(new Uri(url), path);
-            Console.WriteLine("###########################################################################");
-            Console.WriteLine("###############  Download nach: " + path + " wurde gestartet");
-            Console.WriteLine("###########################################################################");
         }
-        private static void RunApp(string workingDirectory)
+
+        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            RunApp(workingDirectory, new Dictionary<string, string> { }, " ");
+            OnDownloadAppProgressed(e);
         }
-        private static void RunApp(string workingDirectory, IDictionary<string, string> arguments, string argumentDelimitter)
+
+        private void WebClient_DownloadFileCompleted(object? sender, AsyncCompletedEventArgs e)
         {
-            string executable = FindExecutable(workingDirectory);
+            string pathToFile = (sender as WebClient).QueryString["pathToDownload"];
+            if (Path.GetExtension(pathToFile).ToLower() == ".zip")
+            {
+                ZipFile.ExtractToDirectory(pathToFile, Path.GetDirectoryName(pathToFile));
+            }
+            OnDownloadAppStopped(e);
+        }
+
+        private static void RunApp(string workingDirectory, string specificFile = "")
+        {
+            RunApp(workingDirectory, new Dictionary<string, string> { }, " ", specificFile);
+        }
+        private static void RunApp(string workingDirectory, IDictionary<string, string> arguments, string argumentDelimitter, string specificFile = "")
+        {
+            // Prüfen, ob die App existiert
+            string executable = specificFile == "" ? FindExecutable(workingDirectory) : FindExecutable(workingDirectory, specificFile);
             if (executable == null)
             {
                 throw new FileNotFoundException(workingDirectory + " not found");
+            }
+
+            // Prüfen, ob die App bereits läuft
+            if (CheckAppRunningState(Path.GetFileNameWithoutExtension(executable)))
+            {
+                Console.WriteLine($"\"{executable}\" is already running");
+                return;
             }
 
             // Wir setzen die übergebenen 'arguments' zu einen String zusammen, der dann beim Prozess starten genutzt werden kann
@@ -321,41 +346,18 @@ namespace autodarts_visual
             }
         }
 
-        private static void RunExtraApp(string pathToExecutable)
+        private static string? FindExecutable(string appPath, string filename)
         {
-            using (var process = new Process())
+            string pathToFile = Path.Join(appPath, filename);
+            if (File.Exists(pathToFile))
             {
-                try
-                {
-                    process.StartInfo.WorkingDirectory = Path.GetFullPath(Path.GetDirectoryName(pathToExecutable));
-                    process.StartInfo.FileName = Path.GetFileName(pathToExecutable); ;
-                    process.StartInfo.UseShellExecute = true;
-                    //process.StartInfo.Verb = "runas";
-                    process.Start();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An error occurred trying to start \"{pathToExecutable}\":\n{ex.Message}");
-                    throw;
-                }
+                return pathToFile;
+            }
+            else
+            {
+                return null;
             }
         }
-
-        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            OnDownloadAppProgressed(e);
-        }
-
-        private void WebClient_DownloadFileCompleted(object? sender, AsyncCompletedEventArgs e)
-        {
-            string pathToFile = (sender as WebClient).QueryString["pathToDownload"];
-            if (Path.GetExtension(pathToFile).ToLower() == ".zip")
-            {
-                ZipFile.ExtractToDirectory(pathToFile, Path.GetDirectoryName(pathToFile));
-            }
-            OnDownloadAppStopped(EventArgs.Empty);
-        }
-
         private static string? FindExecutable(string appPath)
         {
             if (!Directory.Exists(appPath))
@@ -366,6 +368,28 @@ namespace autodarts_visual
                 .EnumerateFiles(appPath, "*.*", SearchOption.AllDirectories)
                 .FirstOrDefault(s => Path.GetExtension(s).TrimStart('.').ToLowerInvariant() == "exe");
             return executable;
+        }
+
+        private static bool CheckAppRunningState(string processName)
+        {
+            return Process.GetProcessesByName(processName).FirstOrDefault(p => p.ProcessName.ToLower().Contains(processName.ToLower())) != null;
+        }
+
+        private static void KillApp(string processName)
+        {
+            try
+            {
+                var process = Process.GetProcessesByName(processName).FirstOrDefault(p => p.ProcessName.Contains(processName));
+ 
+                if (process != null)
+                    process.Kill();
+                    Thread.Sleep(300);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred trying to kill process:\n{ex.Message}");
+                throw;
+            }
         }
 
         private static string GetAppFileNameByUrl(string url)

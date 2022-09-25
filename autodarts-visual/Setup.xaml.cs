@@ -142,11 +142,6 @@ namespace autodarts_visual
             this.Close();
         }
 
-        private void Buttonabbrechen_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void Buttonobs_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

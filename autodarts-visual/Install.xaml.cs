@@ -28,6 +28,8 @@ using System.ComponentModel;
 using Exception = System.Exception;
 using File = System.IO.File;
 using Path = System.IO.Path;
+using CheckBox = System.Windows.Controls.CheckBox;
+using Control = System.Windows.Controls.Control;
 
 namespace autodarts_visual
 {
@@ -46,20 +48,151 @@ namespace autodarts_visual
             this.appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
             this.appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
             this.appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
+
+            SetInstallStateApps();
         }
 
+
+        private void Checkbox_Click(object sender, RoutedEventArgs e)
+        {
+            var list = GridMain.Children.OfType<CheckBox>().Where(x => x.IsChecked == true);
+            if (list.Any())
+            {
+                ButtonInstall.IsEnabled = true;
+            }
+            else
+            {
+                ButtonInstall.IsEnabled = false;
+            }
+        }
+
+        private void Checkboxexterninstall_Checked(object sender, RoutedEventArgs e)
+        {
+            if (autodartsCallerInstallState.IsEnabled)
+            {
+                Checkboxcallerinstall.IsChecked = false;
+            }
+            else
+            {
+                Checkboxcallerinstall.IsChecked = true;
+            }
+            if (virtualDartsZoomInstallState.IsEnabled)
+            {
+                Checkboxinstallvdz.IsChecked = false;
+            }
+            else
+            {
+                Checkboxinstallvdz.IsChecked = true;
+            }
+            if (dartboardsClientInstallState.IsEnabled)
+            {
+                Checkboxinstalldbo.IsChecked = false;
+            }
+            else
+            {
+                Checkboxinstalldbo.IsChecked = true;
+            } 
+        }
+
+        private void Buttonweiter_Click(object sender, RoutedEventArgs e)
+        {
+            Setup S1 = new Setup();
+            S1.ShowDialog();
+        }
+
+        private void ButtonInstall_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (Checkboxcallerinstall.IsChecked == true)
+                {
+                    appManager.DownloadAutodartsCaller();
+                }
+                if (Checkboxautodartsinstall.IsChecked == true)
+                {
+                    appManager.DownloadAutodarts();
+                }
+                if (Checkboxexterninstall.IsChecked == true)
+                {
+                    appManager.DownloadAutodartsExtern();
+                }
+                if (Checkboxinstallbot.IsChecked == true)
+                {
+                    appManager.DownloadAutodartsBot();
+                }
+                if (Checkboxinstallvdz.IsChecked == true)
+                {
+                    appManager.DownloadVirtualDartsZoom();
+                }
+                if (Checkboxinstalldbo.IsChecked == true)
+                {
+                    appManager.DownloadDartboardsClient();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+
+        private void SetInstallStateApps()
+        {
+            foreach (var appInstallState in appManager.GetAppsInstallState())
+            {
+                string appStateText = appInstallState.Value == true ? "✓" : "x";
+                Brush appStateColor = appInstallState.Value == true ? Brushes.Green : Brushes.Red;
+
+                switch (appInstallState.Key)
+                {
+                    case "autodarts":
+                        autodartsInstallState.Content = appStateText;
+                        autodartsInstallState.IsEnabled = appInstallState.Value;
+                        autodartsInstallState.Foreground = appStateColor;
+                        break;
+                    case "autodarts-caller":
+                        autodartsCallerInstallState.IsEnabled = appInstallState.Value;
+                        autodartsCallerInstallState.Content = appStateText;
+                        autodartsCallerInstallState.Foreground = appStateColor;
+                        break;
+                    case "autodarts-extern":
+                        autodartsExternInstallState.IsEnabled = appInstallState.Value;
+                        autodartsExternInstallState.Content = appStateText;
+                        autodartsExternInstallState.Foreground = appStateColor;
+                        break;
+                    case "autodarts-bot":
+                        autodartsBotInstallState.IsEnabled = appInstallState.Value;
+                        autodartsBotInstallState.Content = appStateText;
+                        autodartsBotInstallState.Foreground = appStateColor;
+                        break;
+                    case "virtual-darts-zoom":
+                        virtualDartsZoomInstallState.IsEnabled = appInstallState.Value;
+                        virtualDartsZoomInstallState.Content = appStateText;
+                        virtualDartsZoomInstallState.Foreground = appStateColor;
+                        break;
+                    case "dartboards-client":
+                        dartboardsClientInstallState.IsEnabled = appInstallState.Value;
+                        dartboardsClientInstallState.Content = appStateText;
+                        dartboardsClientInstallState.Foreground = appStateColor;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
         private void SetGUIForDownload(bool downloading)
         {
             if (downloading)
             {
                 GridMain.IsEnabled = false;
-                Progressbarcaller.Visibility = Visibility.Visible;
+                progressDownloads.Visibility = Visibility.Visible;
             }
             else
             {
                 GridMain.IsEnabled = true;
-                Progressbarcaller.Visibility = Visibility.Hidden;
+                progressDownloads.Visibility = Visibility.Hidden;
+                progressDownloads.Value = 0;
             }
         }
 
@@ -72,183 +205,21 @@ namespace autodarts_visual
         {
             DownloadProgressChangedEventArgs dpce = (DownloadProgressChangedEventArgs)e;
             SetGUIForDownload(true);
-            Progressbarcaller.Value = dpce.ProgressPercentage;
+            progressDownloads.Value = dpce.ProgressPercentage;
         }
 
         private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
         {
             SetGUIForDownload(false);
+            SetInstallStateApps();
+            foreach (CheckBox checkbox in GridMain.Children.OfType<CheckBox>())
+            {
+                checkbox.IsChecked = false;
+            }
+            ButtonInstall.IsEnabled = false;
         }
 
 
-
-        private void ButtonInstall_Click(object sender, RoutedEventArgs e)
-        {
-
-            /////////////////////////////// Autodarts.io Caller ///////////////////////////////
-
-            if (Checkboxcallerinstall.IsChecked == true)
-            {
-                try
-                {
-                    appManager.DownloadAutodartsCaller();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fehler beim Installieren von 'Caller': " + ex.Message);
-                }
-            }
-
-
-            /////////////////////////////// Autodarts.io Main ///////////////////////////////
-
-            if (Checkboxautodartsinstall.IsChecked == true)
-            {
-                try
-                {
-                    appManager.DownloadAutodarts();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fehler beim Installieren von 'Autodarts': " + ex.Message);
-                }
-            }
-
-            /////////////////////////////// Autodarts.io Extern ///////////////////////////////
-
-            if (Checkboxexterninstall.IsChecked == true)
-            {
-                try
-                {
-                    appManager.DownloadAutodartsExtern();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fehler beim Installieren von 'Extern': " + ex.Message);
-                }
-            }
-
-            /////////////////////////////// Autodarts.io Bot ///////////////////////////////
-
-            if (Checkboxinstallbot.IsChecked == true)
-            {
-                try
-                {
-                    appManager.DownloadAutodartsBot();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fehler beim Installieren von 'Bot': " + ex.Message);
-                } 
-            }
-
-            /////////////////////////////// Virtual Darts Zoom ///////////////////////////////
-
-            if (Checkboxinstallvdz.IsChecked == true)
-            {
-                try
-                {
-                    appManager.DownloadVirtualDartsZoom();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fehler beim Installieren von 'Virtual Darts Zoom': " + ex.Message);
-                }
-            }
-
-            /////////////////////////////// DartsBoards.Online Client (benötigt für Webcams) ///////////////////////////////
-
-            if (Checkboxinstalldbo.IsChecked == true)
-            {
-                try
-                {
-                    appManager.DownloadDartboardsClient();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fehler beim Installieren von 'Dartboards-client': " + ex.Message);
-                }
-
-            }
-        }
-
-        // Click="Checkboxautodartsinstall_Click" Checked="Checkboxautodartsinstall_Checked" Unchecked="Checkboxautodartsinstall_Unchecked"
-
-
-        private void Checkboxcallerinstall_Click(object sender, RoutedEventArgs e)
-        {
-            if (Checkboxcallerinstall.IsChecked == true)
-            {
-                Checkboxexterninstall.Visibility = Visibility.Visible;
-                Labelextern.Visibility = Visibility.Visible;
-                Checkboxinstallbot.Visibility = Visibility.Visible;
-                Labelbot.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                Checkboxexterninstall.IsChecked = false;
-                Checkboxexterninstall.Visibility = Visibility.Collapsed;
-                Labelextern.Visibility = Visibility.Collapsed;
-                Checkboxinstallbot.IsChecked = false;
-                Checkboxinstallbot.Visibility = Visibility.Collapsed;
-                Labelbot.Visibility = Visibility.Collapsed;
-                Checkboxinstallvdz.IsChecked = false;
-                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
-                Labelvdz.Visibility = Visibility.Collapsed;
-                Checkboxinstalldbo.IsChecked = false;
-                Checkboxinstalldbo.Visibility = Visibility.Collapsed;
-                Labeldbo.Visibility = Visibility.Collapsed;
-                //Properties.Settings.Default.boxcaller = false;
-            }
-        }
-
-        private void Checkboxexterninstall_Click(object sender, RoutedEventArgs e)
-        {
-
-
-            if (Checkboxexterninstall.IsChecked == true)
-            {
-                Checkboxinstallvdz.Visibility = Visibility.Visible;
-                Labelvdz.Visibility = Visibility.Visible;
-                Checkboxinstalldbo.Visibility = Visibility.Visible;
-                Labeldbo.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                Checkboxinstallvdz.IsChecked = false;
-                Checkboxinstalldbo.IsChecked = false;
-                Checkboxinstallvdz.Visibility = Visibility.Collapsed;
-                Checkboxinstalldbo.Visibility = Visibility.Collapsed;
-                Labelvdz.Visibility = Visibility.Collapsed;
-                Labeldbo.Visibility = Visibility.Collapsed;
-            }
-
-        }
-
-        private void Buttonabbrechen_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Buttonweiter_Click(object sender, RoutedEventArgs e)
-        {
-            Setup S1 = new Setup();
-            S1.ShowDialog();
-        }
-
-        private void Checkboxcallerinstall_Checked(object sender, RoutedEventArgs e)
-        {
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////// Install Button anzeigen!
-            ButtonInstall.Visibility = Visibility.Visible;
-        }
-        
-        private void Checkboxcallerinstall_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////// Install Button verstecken!
-            ButtonInstall.Visibility = Visibility.Collapsed;
-        }
 
 
     }

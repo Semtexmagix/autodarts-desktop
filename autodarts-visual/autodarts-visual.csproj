@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\configuration.png" />
+    <None Remove="images\download.png" />
+    <None Remove="images\save.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="favicon.ico" />
   </ItemGroup>
 
@@ -31,6 +37,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\configuration.png" />
+    <Resource Include="images\download.png" />
+    <Resource Include="images\save.png" />
   </ItemGroup>
 
 </Project>
