@@ -19,25 +19,27 @@ and the Autodarts-external tool:
 you can also start side programmes:
  - Like OBS / VDZ
 
+![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/OBS1.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/OBS2.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-visual/OBS3.png?raw=true)
+
 # BUGS
 Its buggy at the moment. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 
 # TODOs
  - MainWindow:
-   - Combobox bei erneutem Auswählen von "Auswählen" alle Checkboxen verstecken und unchecken
+   - 
 
  - Install:
-   - Trigger für Installertionsprobleme finden
-   - Trigger für Installertion abgeschlossen finden
-   - Infos für den Enduser (Installiere..., verschiebe etc...)
+	-
 
  - Setup:
-   - 
+	- 
 
 # Done
  - Setup:
-   - Slider für Caller Vol., Danke Wusaaa!!
-   - Checkboxen für Random Caller, Random Caller each Leg und SkipDarts
+   - 
+   - 
 
 # LAST WORDS
 Thanks to Timo for awesome https://autodarts.io. 
