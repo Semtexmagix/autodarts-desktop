@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Autodarts-visual - Download" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="Beige">
+        Title="Autodarts-visual - Download" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="AliceBlue">
     <Grid x:Name="GridMain" Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
         <ProgressBar x:Name="progressDownloads" Visibility="Hidden" HorizontalAlignment="Left" Height="10" Margin="279,196,0,0" VerticalAlignment="Top" Width="200" />
         <Button x:Name="ButtonInstall" Content="Download" HorizontalAlignment="Left" Margin="70,191,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="-0.568,-0.484" Width="170" IsEnabled="False" />
