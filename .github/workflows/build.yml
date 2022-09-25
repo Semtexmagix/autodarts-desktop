@@ -18,7 +18,7 @@ jobs:
     env:
         Solution_Path: autodarts-visual.sln
         Project_Path: autodarts-visual\autodarts-visual.csproj
-        Release_Path: autodarts-visual\bin\Release
+        Release_Path: autodarts-visual\bin\Release\net6.0-windows10.0.22621.0\win-x64
         # TestProject_Path: src\WpfApp1\WpfApp1Test\WpfApp1Test.csproj
         # NUnitConsole_Path: src\WpfApp1\packages\NUnit.ConsoleRunner.3.15.0\tools\nunit3-console.exe
         
