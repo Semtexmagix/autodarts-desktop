@@ -12,9 +12,9 @@
         <Button x:Name="Buttonweiter" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Click="Buttonweiter_Click">
             <Image Width="24" Height="24" Source="images/configuration.png"></Image>
         </Button>
-        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts (board-client)" HorizontalAlignment="Left" Margin="67,49,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
-        <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="67,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
-        <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="67,89,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts (board-client)" HorizontalAlignment="Left" Margin="67,44,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
+        <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="85,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="67,67,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
         <CheckBox x:Name="Checkboxexterninstall" Content="autodarts-extern (automates dart web platforms with autodarts)" HorizontalAlignment="Left" Margin="67,109,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Checked="Checkboxexterninstall_Checked" Unchecked="Checkboxexterninstall_Unchecked"/>
         <CheckBox x:Name="Checkboxinstallvdz" Content="virtual-darts-zoom (webcam image zooms onto the dart thrown)" HorizontalAlignment="Left" Margin="67,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Click="Checkbox_Click" />
         <CheckBox x:Name="Checkboxinstalldbo" Content="dartboards-client (webcam connection client for dartboards.online)" HorizontalAlignment="Left" Margin="67,149,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
