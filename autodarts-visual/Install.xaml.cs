@@ -196,8 +196,8 @@ namespace autodarts_visual
                 switch (appInstallState.Key)
                 {
                     case "autodarts":
-                        autodartsInstallState.Content = appStateText;
                         autodartsInstallState.IsEnabled = appInstallState.Value;
+                        autodartsInstallState.Content = appStateText;
                         autodartsInstallState.Foreground = appStateColor;
                         break;
                     case "autodarts-caller":

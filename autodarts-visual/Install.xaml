@@ -19,8 +19,8 @@
         <CheckBox x:Name="Checkboxinstallvdz" Content="virtual-darts-zoom (webcam image zooms onto the dart thrown)" HorizontalAlignment="Left" Margin="67,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Click="Checkbox_Click" />
         <CheckBox x:Name="Checkboxinstalldbo" Content="dartboards-client (webcam connection client for dartboards.online)" HorizontalAlignment="Left" Margin="67,149,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
         <Label x:Name="autodartsInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="autodartsBotInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="autodartsCallerInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsBotInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsCallerInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="autodartsExternInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="virtualDartsZoomInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="dartboardsClientInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
