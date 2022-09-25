@@ -194,7 +194,7 @@ namespace autodarts_visual
 
         private void Buttonrest_Click(object sender, RoutedEventArgs e)
         {
-            // Setup erledigt -> NEIN -> Reset TEST
+            // Setup erledigt -> NEIN
             Properties.Settings.Default.installdone = false;
             Properties.Settings.Default.setupdone = false;
             // Settings Speichern

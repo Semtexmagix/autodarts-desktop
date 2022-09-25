@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Windows.Shapes;
 using Path = System.IO.Path;
 
 namespace autodarts_visual
@@ -354,6 +355,9 @@ namespace autodarts_visual
                 ZipFile.ExtractToDirectory(pathToFile, Path.GetDirectoryName(pathToFile));
             }
             OnDownloadAppStopped(EventArgs.Empty);
+            Console.WriteLine("###########################################################################");
+            Console.WriteLine("###############  Download abgeschlossen");
+            Console.WriteLine("###########################################################################");
         }
 
         private static string? FindExecutable(string appPath)
