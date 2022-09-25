@@ -37,5 +37,5 @@ jobs:
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: autodarts-visual/bin/Release/netcoreapp6.0/win-x64/publish/*.exe
+          pattern: autodarts-visual/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish/*.exe
           release-url: ${{ steps.create_release.outputs.upload_url }}
