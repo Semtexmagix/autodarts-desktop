@@ -394,5 +394,65 @@ namespace autodarts_visual.Properties {
                 this["customappargs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ad_start_default {
+            get {
+                return ((bool)(this["ad_start_default"]));
+            }
+            set {
+                this["ad_start_default"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool bot_start_default {
+            get {
+                return ((bool)(this["bot_start_default"]));
+            }
+            set {
+                this["bot_start_default"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool vdz_start_default {
+            get {
+                return ((bool)(this["vdz_start_default"]));
+            }
+            set {
+                this["vdz_start_default"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool dboc_start_default {
+            get {
+                return ((bool)(this["dboc_start_default"]));
+            }
+            set {
+                this["dboc_start_default"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool custom_start_default {
+            get {
+                return ((bool)(this["custom_start_default"]));
+            }
+            set {
+                this["custom_start_default"] = value;
+            }
+        }
     }
 }

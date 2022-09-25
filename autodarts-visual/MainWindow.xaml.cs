@@ -68,7 +68,7 @@ namespace autodarts_visual
                 {
                     appManager.RunVirtualDartsZoom();
                 }
-                if (Checkboxdbo.IsChecked == true)
+                if (Checkboxdboc.IsChecked == true)
                 {
                     appManager.RunDartboardsClient();
                 }
@@ -101,19 +101,21 @@ namespace autodarts_visual
 
             bool appState;
 
-            Checkboxcustom.IsChecked = false;
+            
             if (String.IsNullOrEmpty(Properties.Settings.Default.obs))
             {
                 Checkboxcustom.IsEnabled = false;
+                Checkboxcustom.IsChecked = false;
             }
             else
             {
                 Checkboxcustom.IsEnabled = true;
+                Checkboxcustom.IsChecked = Properties.Settings.Default.custom_start_default;
             }
 
             appsInstallState.TryGetValue("autodarts", out appState);
             Checkboxad.IsEnabled = appState;
-            Checkboxad.IsChecked = false;
+            Checkboxad.IsChecked = appState ? Properties.Settings.Default.ad_start_default : false;
 
 
 
@@ -124,45 +126,45 @@ namespace autodarts_visual
                 case "caller":
                     appsInstallState.TryGetValue("autodarts-bot", out appState);
                     Checkboxbot.IsEnabled = appState;
-                    Checkboxbot.IsChecked = false;
+                    Checkboxbot.IsChecked = appState ? Properties.Settings.Default.bot_start_default : false;
 
                     Checkboxvdz.IsEnabled = false;
                     Checkboxvdz.IsChecked = false;
 
-                    Checkboxdbo.IsEnabled = false;
-                    Checkboxdbo.IsChecked = false;
+                    Checkboxdboc.IsEnabled = false;
+                    Checkboxdboc.IsChecked = false;
                     break;
                 case "lidarts":
                     appsInstallState.TryGetValue("virtual-darts-zoom", out appState);
                     Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = false;
+                    Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false;
 
                     Checkboxbot.IsEnabled = false;
                     Checkboxbot.IsChecked = false;
 
-                    Checkboxdbo.IsEnabled = false;
-                    Checkboxdbo.IsChecked = false;
+                    Checkboxdboc.IsEnabled = false;
+                    Checkboxdboc.IsChecked = false;
                     break;
                 case "nakka":
                     appsInstallState.TryGetValue("virtual-darts-zoom", out appState);
                     Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = false;
+                    Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false; ;
 
                     Checkboxbot.IsEnabled = false;
                     Checkboxbot.IsChecked = false;
 
-                    Checkboxdbo.IsEnabled = false;
-                    Checkboxdbo.IsChecked = false;
+                    Checkboxdboc.IsEnabled = false;
+                    Checkboxdboc.IsChecked = false;
 
                     break;
                 case "dartboards":
                     appsInstallState.TryGetValue("dartboards-client", out appState);
-                    Checkboxdbo.IsEnabled = appState;
-                    Checkboxdbo.IsChecked = false;
+                    Checkboxdboc.IsEnabled = appState;
+                    Checkboxdboc.IsChecked = appState ? Properties.Settings.Default.dboc_start_default : false;
 
                     appsInstallState.TryGetValue("virtual-darts-zoom", out appState);
                     Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = false;
+                    Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false; ;
 
                     Checkboxbot.IsEnabled = false;
                     Checkboxbot.IsChecked = false;
@@ -237,7 +239,34 @@ namespace autodarts_visual
             Comboboxportal.Items.Add(appItem);
         }
 
+        private void Checkboxad_Clicked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ad_start_default = (bool)Checkboxad.IsChecked;
+            Properties.Settings.Default.Save();
+        }
 
+        private void Checkboxbot_Clicked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.bot_start_default = (bool)Checkboxbot.IsChecked;
+            Properties.Settings.Default.Save();
+        }
 
+        private void Checkboxvdz_Clicked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.vdz_start_default = (bool)Checkboxvdz.IsChecked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Checkboxdboc_Clicked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.dboc_start_default = (bool)Checkboxdboc.IsChecked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Checkboxcustom_Clicked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.custom_start_default = (bool)Checkboxcustom.IsChecked;
+            Properties.Settings.Default.Save();
+        }
     }
 }

@@ -94,6 +94,13 @@ namespace autodarts_visual
             } 
         }
 
+        private void Checkboxexterninstall_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Checkboxcallerinstall.IsChecked = false;
+            Checkboxinstallvdz.IsChecked = false;
+            Checkboxinstalldbo.IsChecked = false;
+        }
+
         private void Buttonweiter_Click(object sender, RoutedEventArgs e)
         {
             Setup S1 = new Setup();
