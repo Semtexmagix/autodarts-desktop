@@ -62,6 +62,7 @@ namespace autodarts_visual
 
             // Settings Zusatz Programme Lidarts (OBS)
             TextBoxobs.Text = Properties.Settings.Default.obs;
+            TextBoxCustomAppArgs.Text = Properties.Settings.Default.customappargs;
         }
 
         private void Buttonspeichern_Click(object sender, RoutedEventArgs e)
@@ -133,6 +134,7 @@ namespace autodarts_visual
 
             // Settings Zusatz Programme Lidarts (OBS)
             Properties.Settings.Default.obs = TextBoxobs.Text;
+            Properties.Settings.Default.customappargs = TextBoxCustomAppArgs.Text;
 
             // Setup erledigt -> Ja
             Properties.Settings.Default.setupdone = true;

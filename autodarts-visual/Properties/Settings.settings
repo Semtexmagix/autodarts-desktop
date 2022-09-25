@@ -92,5 +92,8 @@
     <Setting Name="callerwtt" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://localhost:8080/throw</Value>
     </Setting>
+    <Setting Name="customappargs" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
