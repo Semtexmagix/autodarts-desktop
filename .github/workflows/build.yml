@@ -8,35 +8,31 @@ on:
     #   - master
 
 
-env:
-    PROJECT_PATH: autodarts-visual/autodarts-visual.csproj
-  
 jobs:
-  deploy:
+
+  build:
+
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v2
 
-      - uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 6.0.x
+    - name: Checkout code
+      uses: actions/checkout@v2.3.3
+    
+    - name: Setup NuGet
+      uses: actions/setup-dotnet@v1.7.2
+      
+    - name: Restore NuGet packages
+      run:  nuget restore autodarts-visual.sln
+      
+    - name: Setup MSBuild and Build the solution
+      uses: microsoft/setup-msbuild@v1.0.2
 
-      - run: dotnet restore ${{ env.PROJECT_PATH }}
-
-      - run: dotnet build ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true --no-restore
-
-      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true --no-build
-
-      - uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-
-      - uses: csexton/release-asset-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: autodarts-visual/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish/*.exe
-          release-url: ${{ steps.create_release.outputs.upload_url }}
+    - name: Build solution autodarts-visual.sln
+      run:  msbuild autodarts-visual.sln /p:platform="Any CPU" /p:Configuration='Release'
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: WPFApp-GitHubActionsActions
+        path: "autodarts-visual/bin/Release"
