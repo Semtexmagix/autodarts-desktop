@@ -203,13 +203,18 @@ namespace autodarts_visual
         public static void RunCustomApp()
         {
             string pathToExecutable = Properties.Settings.Default.obs;
+            string arguments = Properties.Settings.Default.customappargs;
 
             using (var process = new Process())
             {
                 try
                 {
                     process.StartInfo.WorkingDirectory = Path.GetFullPath(Path.GetDirectoryName(pathToExecutable));
-                    process.StartInfo.FileName = Path.GetFileName(pathToExecutable); ;
+                    process.StartInfo.FileName = Path.GetFileName(pathToExecutable);
+                    if (String.IsNullOrEmpty(arguments))
+                    {
+                        process.StartInfo.Arguments = arguments;
+                    }
                     process.StartInfo.UseShellExecute = true;
                     //process.StartInfo.Verb = "runas";
                     process.Start();

@@ -382,5 +382,17 @@ namespace autodarts_visual.Properties {
                 this["callerwtt"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string customappargs {
+            get {
+                return ((string)(this["customappargs"]));
+            }
+            set {
+                this["customappargs"] = value;
+            }
+        }
     }
 }

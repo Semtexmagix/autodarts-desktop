@@ -58,6 +58,7 @@
                 <CheckBox x:Name="Checkboxrandomcaller" Content="zufällig, einmalig bei Programmstart" Canvas.Left="342" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <CheckBox x:Name="Checkboxrandomcallereachleg" Content="zufällig, jedes Leg" Canvas.Left="342" Canvas.Top="326" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <CheckBox x:Name="Checkboxskipdart" Content="Automatisch Überspringen aktivieren" Canvas.Left="67" Canvas.Top="461" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.507,-0.262"/>
+                <TextBox x:Name="TextBoxCustomAppArgs" Height="20" TextWrapping="Wrap" Text="" FontSize="10" Canvas.Left="70" Canvas.Top="611" Width="194" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Canvas>
         </ScrollViewer>
     </Grid>
