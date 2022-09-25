@@ -142,6 +142,49 @@ namespace autodarts_visual
             }
         }
 
+        private void ButtonHelp_Click(object sender, RoutedEventArgs e)
+        {
+            Button helpButton = sender as Button;
+
+            switch (helpButton.Name)
+            {
+                case "autodartsHelp":
+                    VisitHelpPage("https://github.com/autodarts/docs");
+                    break;
+                case "autodartsBotHelp":
+                    VisitHelpPage("https://github.com/xinixke/autodartsbot");
+                    break;
+                case "autodartsCallerHelp":
+                    VisitHelpPage("https://github.com/lbormann/autodarts-caller");
+                    break;
+                case "autodartsExternHelp":
+                    VisitHelpPage("https://github.com/lbormann/autodarts-extern");
+                    break;
+                case "virtualDartsZoomHelp":
+                    VisitHelpPage("https://lehmann-bo.de/?p=28");
+                    break;
+                case "dartboardsClientHelp":
+                    VisitHelpPage("https://dartboards.online/client");
+                    break;
+
+            }
+        }
+
+
+        private void VisitHelpPage(string url)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(url)
+                {
+                    UseShellExecute = true
+                });
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            
+        }
 
         private void SetInstallStateApps()
         {
@@ -226,8 +269,6 @@ namespace autodarts_visual
             ButtonInstall.IsEnabled = false;
         }
 
-
-
-
+ 
     }
 }

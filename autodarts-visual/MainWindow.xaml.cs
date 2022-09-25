@@ -86,8 +86,7 @@ namespace autodarts_visual
 
         private void Buttonsetup_Click(object sender, RoutedEventArgs e)
         {
-            Setup S1 = new Setup();
-            S1.ShowDialog();
+            OpenConfigurationForm();
         }
 
         private void Buttoninstall_Click(object sender, RoutedEventArgs e)
@@ -184,9 +183,15 @@ namespace autodarts_visual
             if (Properties.Settings.Default.setupdone == false)
             {
                 MessageBox.Show("App-configuration not found - redirect to configuration page");
-                Setup S1 = new Setup();
-                S1.ShowDialog();
+                OpenConfigurationForm();
             }
+        }
+        
+        private void OpenConfigurationForm()
+        {
+            Setup S1 = new Setup();
+            S1.ShowDialog();
+            SetInstallStateApps();
         }
 
         private void SetInstallStateApps()

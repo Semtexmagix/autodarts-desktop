@@ -24,5 +24,23 @@
         <Label x:Name="autodartsExternInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="virtualDartsZoomInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="dartboardsClientInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Button x:Name="autodartsHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="213,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        </Button>
+        <Button x:Name="autodartsBotHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="278,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        </Button>
+        <Button x:Name="autodartsCallerHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="302,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        </Button>
+        <Button x:Name="autodartsExternHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="425,107,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        </Button>
+        <Button x:Name="virtualDartsZoomHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="429,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        </Button>
+        <Button x:Name="dartboardsClientHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="442,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        </Button>
     </Grid>
 </Window>
