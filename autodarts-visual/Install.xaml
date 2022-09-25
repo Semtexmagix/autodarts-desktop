@@ -12,34 +12,34 @@
         <Button x:Name="Buttonweiter" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Click="Buttonweiter_Click">
             <Image Width="24" Height="24" Source="images/configuration.png"></Image>
         </Button>
-        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts (board-client)" HorizontalAlignment="Left" Margin="67,44,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
-        <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="85,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
-        <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="67,67,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
-        <CheckBox x:Name="Checkboxexterninstall" Content="autodarts-extern (automates dart web platforms with autodarts)" HorizontalAlignment="Left" Margin="67,109,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Checked="Checkboxexterninstall_Checked" Unchecked="Checkboxexterninstall_Unchecked"/>
-        <CheckBox x:Name="Checkboxinstallvdz" Content="virtual-darts-zoom (webcam image zooms onto the dart thrown)" HorizontalAlignment="Left" Margin="67,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Click="Checkbox_Click" />
-        <CheckBox x:Name="Checkboxinstalldbo" Content="dartboards-client (webcam connection client for dartboards.online)" HorizontalAlignment="Left" Margin="67,149,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
-        <Label x:Name="autodartsInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="autodartsBotInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="autodartsCallerInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="autodartsExternInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="virtualDartsZoomInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="dartboardsClientInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts (board-client)" HorizontalAlignment="Left" Margin="67,45,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
+        <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="87,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="67,65,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxexterninstall" Content="autodarts-extern (automates dart web platforms with autodarts)" HorizontalAlignment="Left" Margin="67,105,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Checked="Checkboxexterninstall_Checked" Unchecked="Checkboxexterninstall_Unchecked"/>
+        <CheckBox x:Name="Checkboxinstallvdz" Content="virtual-darts-zoom (webcam image zooms onto the dart thrown)" HorizontalAlignment="Left" Margin="87,125,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxinstalldbo" Content="dartboards-client (webcam connection client for dartboards.online)" HorizontalAlignment="Left" Margin="87,145,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
+        <Label x:Name="autodartsInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsBotInstallState" Content="Label" HorizontalAlignment="Left" Margin="56,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsCallerInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="autodartsExternInstallState" Content="Label" HorizontalAlignment="Left" Margin="36,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="virtualDartsZoomInstallState" Content="Label" HorizontalAlignment="Left" Margin="56,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="dartboardsClientInstallState" Content="Label" HorizontalAlignment="Left" Margin="56,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Button x:Name="autodartsHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="213,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
-        <Button x:Name="autodartsBotHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="278,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
-            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        <Button x:Name="autodartsBotHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="302,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png" RenderTransformOrigin="3.181,0.722"></Image>
         </Button>
-        <Button x:Name="autodartsCallerHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="302,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+        <Button x:Name="autodartsCallerHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="298,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
         <Button x:Name="autodartsExternHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="425,107,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
-        <Button x:Name="virtualDartsZoomHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="429,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+        <Button x:Name="virtualDartsZoomHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="447,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
-        <Button x:Name="dartboardsClientHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="442,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+        <Button x:Name="dartboardsClientHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="460,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
     </Grid>
