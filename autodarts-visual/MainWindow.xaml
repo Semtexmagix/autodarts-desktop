@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_visual"
         mc:Ignorable="d"
-        Title="Autodarts-visual" Height="250" Width="325" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Autodarts-desktop" Height="250" Width="325" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Background="AliceBlue">
     <Grid HorizontalAlignment="Center" Height="250" Width="325" RenderTransformOrigin="0.531,-0.273" Margin="0,-16,0,0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
