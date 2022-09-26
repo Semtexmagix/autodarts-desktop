@@ -3,10 +3,10 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
-    <RootNamespace>autodarts_visual</RootNamespace>
+    <RootNamespace>autodarts_desktop</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <StartupObject>autodarts_visual.App</StartupObject>
+    <StartupObject>autodarts_desktop.App</StartupObject>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>

@@ -1,7 +1,7 @@
-﻿<Application x:Class="autodarts_visual.App"
+﻿<Application x:Class="autodarts_desktop.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:autodarts_visual"
+             xmlns:local="clr-namespace:autodarts_desktop"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

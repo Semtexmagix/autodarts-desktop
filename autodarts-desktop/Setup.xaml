@@ -1,9 +1,9 @@
-﻿<Window x:Class="autodarts_visual.Setup"
+﻿<Window x:Class="autodarts_desktop.Setup"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:autodarts_visual"
+        xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
         Title="Autodarts-desktop - Setup" 
         WindowStartupLocation="CenterScreen" Height="692" ResizeMode="NoResize" Background="AliceBlue" Width="880">

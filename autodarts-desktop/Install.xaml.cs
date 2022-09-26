@@ -31,7 +31,7 @@ using Path = System.IO.Path;
 using CheckBox = System.Windows.Controls.CheckBox;
 using Control = System.Windows.Controls.Control;
 
-namespace autodarts_visual
+namespace autodarts_desktop
 {
     /// <summary>
     /// Interaktionslogik für Install.xaml

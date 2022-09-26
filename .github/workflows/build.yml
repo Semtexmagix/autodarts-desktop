@@ -8,7 +8,7 @@ on:
     #   - master
 
 env:
-    PROJECT_PATH: autodarts-visual/autodarts-visual.csproj
+    PROJECT_PATH: autodarts-desktop/autodarts-desktop.csproj
 
 jobs:
   deploy:
@@ -36,11 +36,11 @@ jobs:
 
       - uses: vimtor/action-zip@v1
         with:
-          files: autodarts-visual/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish/
-          dest: autodarts-visual.zip
+          files: autodarts-desktop/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish/
+          dest: autodarts-desktop.zip
 
       - uses: csexton/release-asset-action@v2
         with:
-          file: autodarts-visual.zip
+          file: autodarts-desktop.zip
           github-token: ${{ secrets.GITHUB_TOKEN }}
           release-url: ${{ steps.create_release.outputs.upload_url }}

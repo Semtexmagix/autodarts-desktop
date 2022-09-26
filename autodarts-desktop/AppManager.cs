@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Threading;
 using Path = System.IO.Path;
 
-namespace autodarts_visual
+namespace autodarts_desktop
 {
     public enum AutodartsExternPlatforms
     {

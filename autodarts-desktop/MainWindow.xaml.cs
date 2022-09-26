@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 using Windows.ApplicationModel.Store.Preview.InstallControl;
 using Windows.Foundation.Numerics;
 
-namespace autodarts_visual
+namespace autodarts_desktop
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

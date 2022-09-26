@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace autodarts_visual
+namespace autodarts_desktop
 {
     /// <summary>
     /// Interaktionslogik für Setup.xaml
