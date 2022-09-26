@@ -29,7 +29,7 @@ namespace autodarts_visual
         // Key = Download-Link
         // Value = Storage-path
         private KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
-        private KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.2.1/autodarts-caller.exe", "autodarts-caller");
+        private KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.2.2/autodarts-caller.exe", "autodarts-caller");
         private KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe", "autodarts-extern");
         private KeyValuePair<string, string> autodartsBot = new("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip", "autodarts-bot");
         private KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
@@ -121,6 +121,7 @@ namespace autodarts_visual
             string autodartsCallerVol = Properties.Settings.Default.callervol;
             string autodartsRandomCaller = Properties.Settings.Default.randomcaller;
             string autodartsRandomCallerEachLeg = Properties.Settings.Default.randomcallereachleg;
+            string autodartsCallerPCC = Properties.Settings.Default.possiblecheckoutcall;
             string autodartsCallerWtt = Properties.Settings.Default.callerwtt;
 
             string appPath = Path.Join(pathToApps, autodartsCaller.Value);
@@ -133,6 +134,7 @@ namespace autodarts_visual
                     { "-V", autodartsCallerVol },
                     { "-R", autodartsRandomCaller },
                     { "-L", autodartsRandomCallerEachLeg },
+                    { "-PCC", autodartsCallerPCC },
                     { "-WTT", autodartsCallerWtt }
             };
             string argumentDelimitter = " ";

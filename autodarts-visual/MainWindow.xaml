@@ -20,11 +20,11 @@
         <Button x:Name="Buttoninstall" HorizontalAlignment="Left" Margin="235,22,0,0" VerticalAlignment="Top" Click="Buttoninstall_Click">
             <Image Width="24" Height="24" Source="images/download.png"></Image>
         </Button>
-        <CheckBox x:Name="Checkboxad" Content="autodarts-client" HorizontalAlignment="Left" Margin="32,119,0,0" VerticalAlignment="Top" Click="Checkboxad_Clicked" />
-        <CheckBox x:Name="Checkboxbot" Content="autodarts-bot" HorizontalAlignment="Left" Margin="185,119,0,0" VerticalAlignment="Top" Click="Checkboxbot_Clicked"/>
-        <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="32,139,0,0" VerticalAlignment="Top" Click="Checkboxvdz_Clicked"/>
-        <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="32,160,0,0" VerticalAlignment="Top" Click="Checkboxdboc_Clicked"/>
-        <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="185,139,0,0" VerticalAlignment="Top" Click="Checkboxcustom_Clicked"/>
+        <CheckBox x:Name="Checkboxad" Content="autodarts-client" HorizontalAlignment="Left" Margin="32,119,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" />
+        <CheckBox x:Name="Checkboxbot" Content="autodarts-bot" HorizontalAlignment="Left" Margin="185,119,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
+        <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="32,139,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
+        <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="32,160,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
+        <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="185,139,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
 
     </Grid>
 </Window>

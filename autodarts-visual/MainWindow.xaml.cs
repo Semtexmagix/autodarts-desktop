@@ -91,7 +91,7 @@ namespace autodarts_visual
 
         private void Buttoninstall_Click(object sender, RoutedEventArgs e)
         {
-            OpenInstallForm();
+            OpenDownloadForm();
         }
 
         private void Comboboxportal_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -167,24 +167,17 @@ namespace autodarts_visual
 
                     Checkboxbot.IsEnabled = false;
                     Checkboxbot.IsChecked = false;
-
                     break;
             }
         }
 
 
 
-        private void OpenInstallForm()
+        private void OpenDownloadForm()
         {
             Install I1 = new Install(appManager);
             I1.ShowDialog();
             SetInstallStateApps();
-
-            if (Properties.Settings.Default.setupdone == false)
-            {
-                MessageBox.Show("App-configuration not found - redirect to configuration page");
-                OpenConfigurationForm();
-            }
         }
         
         private void OpenConfigurationForm()
@@ -228,11 +221,17 @@ namespace autodarts_visual
             if (autodartsCallerInstalled == false)
             {
                 MessageBox.Show("Requirements (autodarts-caller) not satisfied - redirect to download page");
-                OpenInstallForm();
+                OpenDownloadForm();
             }
             else
             {
                 Comboboxportal.SelectedIndex = 0;
+            }
+
+            if (Properties.Settings.Default.setupdone == false)
+            {
+                MessageBox.Show("App-configuration not found - redirect to configuration page");
+                OpenConfigurationForm();
             }
         }
 
@@ -244,34 +243,31 @@ namespace autodarts_visual
             Comboboxportal.Items.Add(appItem);
         }
 
-        private void Checkboxad_Clicked(object sender, RoutedEventArgs e)
+        private void CheckboxStartApp_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ad_start_default = (bool)Checkboxad.IsChecked;
+            CheckBox checkboxStartApp = sender as CheckBox;
+
+            switch (checkboxStartApp.Name)
+            {
+                case "Checkboxad":
+                    Properties.Settings.Default.ad_start_default = (bool)Checkboxad.IsChecked;
+                    break;
+                case "Checkboxbot":
+                    Properties.Settings.Default.bot_start_default = (bool)Checkboxbot.IsChecked;
+                    break;
+                case "Checkboxvdz":
+                    Properties.Settings.Default.vdz_start_default = (bool)Checkboxvdz.IsChecked;
+                    break;
+                case "Checkboxdboc":
+                    Properties.Settings.Default.dboc_start_default = (bool)Checkboxdboc.IsChecked;
+                    break;
+                case "Checkboxcustom":
+                    Properties.Settings.Default.custom_start_default = (bool)Checkboxcustom.IsChecked;
+                    break;
+            }
             Properties.Settings.Default.Save();
         }
 
-        private void Checkboxbot_Clicked(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.bot_start_default = (bool)Checkboxbot.IsChecked;
-            Properties.Settings.Default.Save();
-        }
 
-        private void Checkboxvdz_Clicked(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.vdz_start_default = (bool)Checkboxvdz.IsChecked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void Checkboxdboc_Clicked(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.dboc_start_default = (bool)Checkboxdboc.IsChecked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void Checkboxcustom_Clicked(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.custom_start_default = (bool)Checkboxcustom.IsChecked;
-            Properties.Settings.Default.Save();
-        }
     }
 }
