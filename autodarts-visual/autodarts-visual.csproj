@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
     <StartupObject>autodarts_visual.App</StartupObject>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
