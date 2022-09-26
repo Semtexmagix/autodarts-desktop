@@ -45,7 +45,7 @@ namespace autodarts_desktop
 
         public AppManager()
         {
-            string strExeFilePath = Assembly.GetExecutingAssembly().Location;
+            string strExeFilePath = AppContext.BaseDirectory;
             pathToApps = Path.GetDirectoryName(strExeFilePath);
         }
 
