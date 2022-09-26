@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -272,6 +273,21 @@ namespace autodarts_visual
         {
             Properties.Settings.Default.custom_start_default = (bool)Checkboxcustom.IsChecked;
             Properties.Settings.Default.Save();
+        }
+
+        private void Buttonjoindiscord_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo("https://discord.gg/QWHqnzf4u3")
+                {
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
     }
 }

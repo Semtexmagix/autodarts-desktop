@@ -25,6 +25,7 @@
         <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="32,139,0,0" VerticalAlignment="Top" Click="Checkboxvdz_Clicked"/>
         <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="32,160,0,0" VerticalAlignment="Top" Click="Checkboxdboc_Clicked"/>
         <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="185,139,0,0" VerticalAlignment="Top" Click="Checkboxcustom_Clicked"/>
+        <Button x:Name="Buttonjoindiscord" Content="join Discord" HorizontalAlignment="Left" Margin="248,224,0,0" VerticalAlignment="Top" FontSize="9" Click="Buttonjoindiscord_Click"/>
 
     </Grid>
 </Window>
