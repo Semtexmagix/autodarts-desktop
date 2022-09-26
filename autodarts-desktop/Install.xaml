@@ -42,5 +42,8 @@
         <Button x:Name="dartboardsClientHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="487,145,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
+        <Button x:Name="Buttonsetupcustom" Content="Setup Custom" HorizontalAlignment="Left" Margin="393,191,0,0" VerticalAlignment="Top" Click="Buttonsetupcustom_Click"/>
+        <Button x:Name="Buttonsetupextern" Content="Setup Extern" HorizontalAlignment="Left" Margin="476,104,0,0" VerticalAlignment="Top" Click="Buttonsetupextern_Click"/>
+        <Button x:Name="Buttonsetupcaller" Content="Setup Caller" HorizontalAlignment="Left" Margin="329,87,0,0" VerticalAlignment="Top" Click="Buttonsetupcaller_Click"/>
     </Grid>
 </Window>

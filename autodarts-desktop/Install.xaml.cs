@@ -268,7 +268,21 @@ namespace autodarts_desktop
             }
             ButtonInstall.IsEnabled = false;
         }
+        private void Buttonsetupcustom_Click(object sender, RoutedEventArgs e)
+        {
+            SetupCustomApp SC1 = new SetupCustomApp();
+            SC1.ShowDialog();
+        }
+        private void Buttonsetupextern_Click(object sender, RoutedEventArgs e)
+        {
+            SetupExtern SE1 = new SetupExtern();
+            SE1.ShowDialog();
+        }
 
- 
+        private void Buttonsetupcaller_Click(object sender, RoutedEventArgs e)
+        {
+            SetupCaller SC1 = new SetupCaller();
+            SC1.ShowDialog();
+        }
     }
 }
