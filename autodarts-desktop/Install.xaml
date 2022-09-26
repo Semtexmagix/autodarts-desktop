@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Autodarts-desktop - Download" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="AliceBlue">
     <Grid x:Name="GridMain" Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
-        <ProgressBar x:Name="progressDownloads" Visibility="Hidden" HorizontalAlignment="Left" Height="10" Margin="279,196,0,0" VerticalAlignment="Top" Width="200" />
-        <Button x:Name="ButtonInstall" Content="Download" HorizontalAlignment="Left" Margin="70,191,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="-0.568,-0.484" Width="170" IsEnabled="False" />
-        <Button x:Name="Buttonweiter" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Click="Buttonweiter_Click">
-            <Image Width="24" Height="24" Source="images/configuration.png"></Image>
+        <ProgressBar x:Name="progressDownloads" HorizontalAlignment="Left" Height="10" Margin="279,219,0,0" VerticalAlignment="Top" Width="200" Visibility="Hidden" />
+        <Button x:Name="ButtonInstall" Content="Download" HorizontalAlignment="Left" Margin="70,214,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="-0.568,-0.484" Width="170" IsEnabled="False" />
+        <Button x:Name="Buttonweiter" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Click="Buttonweiter_Click" Visibility="Hidden">
+            <Image Width="24" Height="24" Source="images/configuration.png" Visibility="Hidden"></Image>
         </Button>
-        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts (board-client)" HorizontalAlignment="Left" Margin="66,49,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
+        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts windows (board-client)" HorizontalAlignment="Left" Margin="66,49,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
         <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="66,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
         <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="66,89,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
         <CheckBox x:Name="Checkboxexterninstall" Content="autodarts-extern (automates dart web platforms with autodarts)" HorizontalAlignment="Left" Margin="85,107,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Checked="Checkboxexterninstall_Checked" Unchecked="Checkboxexterninstall_Unchecked"/>
@@ -24,8 +24,8 @@
         <Label x:Name="autodartsExternInstallState" Content="Label" HorizontalAlignment="Left" Margin="64,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="virtualDartsZoomInstallState" Content="Label" HorizontalAlignment="Left" Margin="89,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="dartboardsClientInstallState" Content="Label" HorizontalAlignment="Left" Margin="89,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
-        <Button x:Name="autodartsHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="215,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
-            <Image Width="18" Height="18" Source="images/help.png"></Image>
+        <Button x:Name="autodartsHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="265,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
+            <Image Width="18" Height="18" Source="images/help.png" RenderTransformOrigin="3.352,0.623"></Image>
         </Button>
         <Button x:Name="autodartsBotHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="279,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png" RenderTransformOrigin="3.181,0.722"></Image>
@@ -42,8 +42,16 @@
         <Button x:Name="dartboardsClientHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="487,145,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
-        <Button x:Name="Buttonsetupcustom" Content="Setup Custom" HorizontalAlignment="Left" Margin="393,191,0,0" VerticalAlignment="Top" Click="Buttonsetupcustom_Click"/>
-        <Button x:Name="Buttonsetupextern" Content="Setup Extern" HorizontalAlignment="Left" Margin="476,104,0,0" VerticalAlignment="Top" Click="Buttonsetupextern_Click"/>
-        <Button x:Name="Buttonsetupcaller" Content="Setup Caller" HorizontalAlignment="Left" Margin="329,87,0,0" VerticalAlignment="Top" Click="Buttonsetupcaller_Click"/>
+        <Button x:Name="Buttonsetupcustom" HorizontalAlignment="Left" Margin="453,178,0,0" VerticalAlignment="Top" Click="Buttonsetupcustom_Click">
+            <Image Width="18" Height="18" Source="images/configuration.png"></Image>
+        </Button>
+        <Button x:Name="Buttonsetupextern" HorizontalAlignment="Left" Margin="476,104,0,0" VerticalAlignment="Top" Click="Buttonsetupextern_Click">
+            <Image Width="18" Height="18" Source="images/configuration.png"></Image>
+        </Button>
+        <Button x:Name="Buttonsetupcaller" HorizontalAlignment="Left" Margin="329,87,0,0" VerticalAlignment="Top" Click="Buttonsetupcaller_Click">
+            <Image Width="18" Height="18" Source="images/configuration.png"></Image>
+        </Button>
+        <Label x:Name="Labelcustomsetup" Content="Custom-app" HorizontalAlignment="Left" Margin="372,176,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

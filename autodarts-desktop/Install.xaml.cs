@@ -91,7 +91,7 @@ namespace autodarts_desktop
             else
             {
                 Checkboxinstalldbo.IsChecked = true;
-            } 
+            }
         }
 
         private void Checkboxexterninstall_Unchecked(object sender, RoutedEventArgs e)
@@ -179,11 +179,11 @@ namespace autodarts_desktop
                 {
                     UseShellExecute = true
                 });
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            
+
         }
 
         private void SetInstallStateApps()
