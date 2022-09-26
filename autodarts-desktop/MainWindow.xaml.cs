@@ -85,9 +85,9 @@ namespace autodarts_desktop
     
         }
 
-        private void Buttonsetup_Click(object sender, RoutedEventArgs e)
+        private void Buttonabout_Click(object sender, RoutedEventArgs e)
         {
-            OpenConfigurationForm();
+            OpenAboutForm();
         }
 
         private void Buttoninstall_Click(object sender, RoutedEventArgs e)
@@ -186,6 +186,12 @@ namespace autodarts_desktop
             Setup S1 = new Setup();
             S1.ShowDialog();
             SetInstallStateApps();
+        }
+
+        private void OpenAboutForm()
+        {
+            About S1 = new About();
+            S1.ShowDialog();
         }
 
         private void SetInstallStateApps()

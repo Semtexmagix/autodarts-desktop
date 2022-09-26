@@ -43,15 +43,15 @@
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
         <Button x:Name="Buttonsetupcustom" HorizontalAlignment="Left" Margin="453,178,0,0" VerticalAlignment="Top" Click="Buttonsetupcustom_Click">
-            <Image Width="18" Height="18" Source="images/configuration.png"></Image>
+            <Image x:Name="Imagecustomapp" Width="18" Height="18" Source="images/configuration.png"></Image>
         </Button>
         <Button x:Name="Buttonsetupextern" HorizontalAlignment="Left" Margin="476,104,0,0" VerticalAlignment="Top" Click="Buttonsetupextern_Click">
-            <Image Width="18" Height="18" Source="images/configuration.png"></Image>
+            <Image x:Name="Imageextern" Width="18" Height="18" Source="images/configuration.png"></Image>
         </Button>
         <Button x:Name="Buttonsetupcaller" HorizontalAlignment="Left" Margin="329,87,0,0" VerticalAlignment="Top" Click="Buttonsetupcaller_Click">
-            <Image Width="18" Height="18" Source="images/configuration.png"></Image>
+            <Image x:Name="Imagecaller" Width="18" Height="18" Source="images/configuration.png"></Image>
         </Button>
-        <Label x:Name="Labelcustomsetup" Content="Custom-app" HorizontalAlignment="Left" Margin="372,176,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Labelcustomsetup" Content="Custom-app" HorizontalAlignment="Left" Margin="372,176,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
 
     </Grid>
 </Window>

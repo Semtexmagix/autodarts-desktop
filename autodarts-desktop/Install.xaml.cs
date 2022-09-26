@@ -48,7 +48,6 @@ namespace autodarts_desktop
             this.appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
             this.appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
             this.appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
-
             SetInstallStateApps();
         }
 
@@ -140,6 +139,7 @@ namespace autodarts_desktop
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+            
         }
 
         private void ButtonHelp_Click(object sender, RoutedEventArgs e)
@@ -192,6 +192,7 @@ namespace autodarts_desktop
             {
                 string appStateText = appInstallState.Value == true ? "✓" : "x";
                 Brush appStateColor = appInstallState.Value == true ? Brushes.Green : Brushes.Red;
+                Visibility appStateVisibility = appInstallState.Value == true ? Visibility.Visible : Visibility.Hidden;
 
                 switch (appInstallState.Key)
                 {
@@ -204,11 +205,18 @@ namespace autodarts_desktop
                         autodartsCallerInstallState.IsEnabled = appInstallState.Value;
                         autodartsCallerInstallState.Content = appStateText;
                         autodartsCallerInstallState.Foreground = appStateColor;
+                        Buttonsetupcaller.Visibility = appStateVisibility;
+                        Imagecaller.Visibility = appStateVisibility;
                         break;
                     case "autodarts-extern":
                         autodartsExternInstallState.IsEnabled = appInstallState.Value;
                         autodartsExternInstallState.Content = appStateText;
                         autodartsExternInstallState.Foreground = appStateColor;
+                        Buttonsetupcustom.Visibility = appStateVisibility;
+                        Labelcustomsetup.Visibility = appStateVisibility;
+                        Imagecustomapp.Visibility = appStateVisibility;
+                        Buttonsetupextern.Visibility = appStateVisibility;
+                        Imageextern.Visibility = appStateVisibility;
                         break;
                     case "autodarts-bot":
                         autodartsBotInstallState.IsEnabled = appInstallState.Value;
@@ -278,7 +286,6 @@ namespace autodarts_desktop
             SetupExtern SE1 = new SetupExtern();
             SE1.ShowDialog();
         }
-
         private void Buttonsetupcaller_Click(object sender, RoutedEventArgs e)
         {
             SetupCaller SC1 = new SetupCaller();

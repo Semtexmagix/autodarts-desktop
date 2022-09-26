@@ -1,0 +1,12 @@
+﻿<Window x:Class="autodarts_desktop.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autodarts_desktop"
+        mc:Ignorable="d"
+        Title="Autodarts-desktop - About" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800">
+    <Grid>
+        
+    </Grid>
+</Window>
