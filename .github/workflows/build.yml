@@ -22,9 +22,9 @@ jobs:
 
       - run: dotnet restore ${{ env.PROJECT_PATH }}
 
-      - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+      - run: dotnet build ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true --no-restore
 
-      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained --no-build -r win-x64 -p:PublishSingleFile=true
+      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true --no-build
 
       - uses: actions/create-release@v1
         id: create_release
