@@ -34,8 +34,12 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
 
-      - uses: csexton/release-asset-action@v2
+      - uses: montudor/action-zip@v1
         with:
+          args: zip -qq -r autodarts-visual.zip autodarts-visual/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish
+
+      - name: Upload asset to release
+        uses: csexton/release-asset-action@v2
+        with:
+          file: autodarts-visual.zip
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: autodarts-visual/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish/*.*
-          release-url: ${{ steps.create_release.outputs.upload_url }}
