@@ -109,7 +109,7 @@ namespace autodarts_visual.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15000")]
         public string timetoend {
             get {
                 return ((string)(this["timetoend"]));
@@ -121,7 +121,8 @@ namespace autodarts_visual.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Hi, GD! Automated darts-scoring - powered by autodarts.io - Enter the community: " +
+            "https://discord.gg/bY5JYKbmvM")]
         public string messagestart {
             get {
                 return ((string)(this["messagestart"]));
@@ -133,7 +134,7 @@ namespace autodarts_visual.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Thanks, GG WP!")]
         public string messageend {
             get {
                 return ((string)(this["messageend"]));
@@ -157,7 +158,7 @@ namespace autodarts_visual.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string callervol {
             get {
                 return ((string)(this["callervol"]));
@@ -301,19 +302,7 @@ namespace autodarts_visual.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool installdone {
-            get {
-                return ((bool)(this["installdone"]));
-            }
-            set {
-                this["installdone"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public double sliderpos {
             get {
                 return ((double)(this["sliderpos"]));
@@ -349,7 +338,7 @@ namespace autodarts_visual.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool checkboxskipdart {
             get {
                 return ((bool)(this["checkboxskipdart"]));
@@ -452,6 +441,18 @@ namespace autodarts_visual.Properties {
             }
             set {
                 this["custom_start_default"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string possiblecheckoutcall {
+            get {
+                return ((string)(this["possiblecheckoutcall"]));
+            }
+            set {
+                this["possiblecheckoutcall"] = value;
             }
         }
     }

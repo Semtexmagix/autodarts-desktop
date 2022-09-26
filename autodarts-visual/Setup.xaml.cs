@@ -108,6 +108,14 @@ namespace autodarts_visual
                 Properties.Settings.Default.randomcallereachleg = "0";
                 Properties.Settings.Default.checkboxrandomcallereachleg = false;
             }
+            if(Checkboxpossiblecheckoutcall.IsChecked == true)
+            {
+                Properties.Settings.Default.possiblecheckoutcall = "1";
+            }
+            else
+            {
+                Properties.Settings.Default.possiblecheckoutcall = "0";
+            }
             Properties.Settings.Default.sliderpos = slValue.Value;
             Properties.Settings.Default.callerwtt = TextBoxCallerWtt.Text;
 
