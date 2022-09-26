@@ -4,7 +4,7 @@ autodarts-desktop is a tool (GUI) to handle (install/setup/use) many projects fo
 
 
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/Main.png?raw=true)
-![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/Install.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/install.png?raw=true)
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/Setup.png?raw=true)
 
 
