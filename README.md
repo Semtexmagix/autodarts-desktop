@@ -3,9 +3,9 @@
 autodarts-desktop is a tool (GUI) to handle (install/setup/use) many projects form some deverlopers for Autodarts.io.
 
 
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-desktop/Main.png?raw=true)
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-desktop/Install.png?raw=true)
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-desktop/Setup.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/Main.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/Install.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/Setup.png?raw=true)
 
 
 
@@ -21,13 +21,13 @@ you can also start side programmes:
 and custom programmes (like OBS to create a visual cam with custom theme)
 
 
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-desktop/OBS2.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS2.png?raw=true)
 With OBS it is possible to display the Autodarts.io game in the virtual camera.
 
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-desktop/OBS1.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS1.png?raw=true)
 It is also possible, for example, to integrate a player camera with OBS into the virtual camera stream.
 
-![alt text](https://github.com/Semtexmagix/autodarts-visual-wpf/blob/master/autodarts-desktop/OBS3.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS3.png?raw=true)
 A full screen mode for the board.
 
 All this can be easily realized via OBS scenes. The scenes can be easily switched during the game in OBS or e.g. via hotkey.
