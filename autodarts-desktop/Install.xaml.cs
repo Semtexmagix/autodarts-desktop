@@ -1,36 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static System.Net.WebRequestMethods;
-using System.Xml.Linq;
-using System.IO.Compression;
-using System.Reflection;
-using System.Threading;
-using System.Security.Policy;
-using System.Net.Http;
-using Windows.Media.Protection.PlayReady;
-using System.Net.Mime;
-using ABI.System;
-using System.ComponentModel;
-using Exception = System.Exception;
-using File = System.IO.File;
-using Path = System.IO.Path;
 using CheckBox = System.Windows.Controls.CheckBox;
-using Control = System.Windows.Controls.Control;
-using Windows.ApplicationModel.Store.Preview.InstallControl;
+using Exception = System.Exception;
 
 namespace autodarts_desktop
 {
@@ -94,11 +70,6 @@ namespace autodarts_desktop
             Checkboxinstalldbo.IsChecked = false;
         }
 
-        private void Buttonweiter_Click(object sender, RoutedEventArgs e)
-        {
-            Setup S1 = new Setup();
-            S1.ShowDialog();
-        }
 
         private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {

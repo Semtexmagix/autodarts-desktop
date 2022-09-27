@@ -18,7 +18,7 @@
             <Image Width="24" Height="24" Source="images/contact.png" ToolTip="Need help? or you want to contact the developers? Click here." RenderTransformOrigin="2.684,0.4"></Image>
         </Button>
         <Button x:Name="donation" Background="Transparent" BorderThickness="0" Click="Button_Click" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold">
-            <Image Width="24" Height="24" Source="images/donation.png" ToolTip="Appreciate our work? Send us some satoshi. (COMING SOON)"></Image>
+            <Image Width="24" Height="24" Source="images/donation.png" ToolTip="Appreciate our work? Send us some satoshi."></Image>
         </Button>
         <Button x:Name="bug" Background="Transparent" BorderThickness="0" Click="Button_Click" HorizontalAlignment="Left" Margin="200,130,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold">
             <Image Width="24" Height="24" Source="images/bug.png" ToolTip="Found a bug? Please create an issue on github."></Image>

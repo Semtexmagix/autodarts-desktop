@@ -185,8 +185,8 @@ namespace autodarts_desktop
 
         public static void RunCustomApp()
         {
-            string pathToExecutable = Properties.Settings.Default.obs;
-            string arguments = Properties.Settings.Default.customappargs;
+            string pathToExecutable = Settings.Default.obs;
+            string arguments = Settings.Default.customappargs;
 
             using (var process = new Process())
             {
@@ -199,7 +199,6 @@ namespace autodarts_desktop
                         process.StartInfo.Arguments = arguments;
                     }
                     process.StartInfo.UseShellExecute = true;
-                    //process.StartInfo.Verb = "runas";
                     process.Start();
                 }
                 catch (Exception ex)
@@ -236,7 +235,7 @@ namespace autodarts_desktop
                 }
                 Directory.CreateDirectory(appPath);
 
-                // Informs subscribers about a pending download
+                // Inform subscribers about a pending download
                 OnDownloadAppStarted(EventArgs.Empty);
 
                 // Start the download
@@ -330,7 +329,7 @@ namespace autodarts_desktop
                 }
             }
 
-            Console.WriteLine(composedArguments);
+            // Console.WriteLine(composedArguments);
 
             using (var process = new Process())
             {

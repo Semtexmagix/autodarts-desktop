@@ -18,7 +18,7 @@
         <TextBox x:Name="TextBoxtime" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="302,131,0,0"/>
         <Label Content="Email lidarts.org" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,297,0,0"/>
         <Label Content="Password lidarts.org" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="300,297,0,0"/>
-        <Label Content="Portals" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="231,275,0,0"/>
+        <Label Content="Platforms" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="221,275,0,0"/>
         <Label Content="Email dartboards.online" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,353,0,0"/>
         <Label Content="Password dartboards.online" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="300,353,0,0"/>
         <TextBox x:Name="TextBoxEmailLidarts" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="25,328,0,0"/>

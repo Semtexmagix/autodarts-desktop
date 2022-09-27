@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Button = System.Windows.Controls.Button;
+using Clipboard = System.Windows.Forms.Clipboard;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace autodarts_desktop
 {
@@ -20,6 +12,8 @@ namespace autodarts_desktop
     /// </summary>
     public partial class About : Window
     {
+        private const string donationAdress = "bc1qr7wsvmmgaj6dle8gae2dl0dcxu5yh8vqlv34x4";
+
         public About()
         {
             InitializeComponent();
@@ -42,7 +36,8 @@ namespace autodarts_desktop
                     VisitHelpPage("https://github.com/Semtexmagix/autodarts-desktop/issues");
                     break;
                 case "donation":
-                    VisitHelpPage("https://github.com/lbormann/autodarts-caller");
+                    Clipboard.SetDataObject(donationAdress);
+                    MessageBox.Show($"{donationAdress} copied to clipboard - Thank you!");
                     break;
             }
         }

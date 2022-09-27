@@ -11,9 +11,6 @@
         <Label Content="Choose your download(s) and click Download:" HorizontalAlignment="Left" Margin="45,15,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <ProgressBar x:Name="progressDownloads" HorizontalAlignment="Left" Height="10" Margin="279,219,0,0" VerticalAlignment="Top" Width="200" Visibility="Hidden" />
         <Button x:Name="ButtonInstall" Content="Download" HorizontalAlignment="Left" Margin="70,214,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="-0.568,-0.484" Width="170" IsEnabled="False" />
-        <Button x:Name="Buttonweiter" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Click="Buttonweiter_Click" Visibility="Hidden">
-            <Image Width="24" Height="24" Source="images/configuration.png" Visibility="Hidden"></Image>
-        </Button>
         <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts windows (board-client)" HorizontalAlignment="Left" Margin="66,49,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
         <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="66,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
         <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="66,89,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
