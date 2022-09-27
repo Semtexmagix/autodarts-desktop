@@ -12,18 +12,18 @@ The entire management of the individual functions is handled by Autodarts-visual
 For example the Autodarts-caller tool:
  - The autodarts-caller is a tool that can tell you your thrown score and also the possible checkout score. 
  ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupCaller.png?raw=true)
- for more info about autodarts-caller visit https://github.com/lbormann/autodarts-caller
+  - for more info about autodarts-caller visit https://github.com/lbormann/autodarts-caller
 
 and the Autodarts-external tool:
  - automates multiple dart-web-platforms accordingly to the state of an https://autodarts.io match.
  ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupExtern.png?raw=true)
- for more info about the autodarts-extern visit https://github.com/lbormann/autodarts-extern
+  - for more info about the autodarts-extern visit https://github.com/lbormann/autodarts-extern
 
 you can also start side programmes:
  - Dartsboard.Online Client (webcam support)
  - VDZ Visual Darts Zoom
  ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/vdz.png?raw=true)
- for more info about the VDZ Visual Darts Zoom visit https://lehmann-bo.de/
+  - for more info about the VDZ Visual Darts Zoom visit https://lehmann-bo.de/
 
 and custom programmes (like OBS - Open Brodcast System to create a visual cam with custom theme)
 
