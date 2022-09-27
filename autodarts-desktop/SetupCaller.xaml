@@ -5,27 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Setup - autodarts-caller" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Setup - autodarts-caller" ResizeMode="NoResize" Background="AliceBlue" Height="360" Width="520" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Autodarts-caller" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,25,0,0"/>
-        <Label Content="Email autodarts.io" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="94,97,0,0"/>
-        <Label Content="Password autodarts.io" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="1.218,7.116" Margin="509,97,0,0"/>
-        <Label Content="Autodarts.io board-ID" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="95,165,0,0"/>
-        <Label Content="Path to sound-files" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="509,165,0,0"/>
-        <Label Content="Caller volume" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="95,224,0,0"/>
-        <Label Content="WTT" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="95,289,0,0"/>
-        <Label Content="Random caller" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="509,262,0,0"/>
-        <TextBox x:Name="TextBoxEmailAutodarts" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="95,128,0,0"/>
-        <TextBox x:Name="TextBoxcallervol" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="25" FontSize="10" Margin="270,252,0,0" RenderTransformOrigin="0.536,-1.488"/>
-        <TextBox x:Name="TextBoxBoardID" HorizontalAlignment="Left" Height="20"  Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="95,196,0,0"/>
-        <Slider x:Name="slValue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="169" ValueChanged="Slider_ValueChanged" TickFrequency="0.01" Minimum="0.01" Maximum="1.00" Value="1.00" Margin="95,253,0,0"/>
-        <TextBox x:Name="TextBoxCallerWtt" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="95,320,0,0"/>
-        <PasswordBox x:Name="TextBoxPWAutodarts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="20" Margin="509,128,0,0"/>
-        <Button x:Name="Buttonmedia" Content="Choose..." HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonmedia_Click" Margin="516,224,0,0"/>
-        <TextBox x:Name="TextBoxmedia" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" FontSize="10" Width="200" Margin="509,196,0,0"/>
-        <CheckBox x:Name="Checkboxrandomcaller" Content="Randomly at program start" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="509,333,0,0"/>
-        <CheckBox x:Name="Checkboxrandomcallereachleg" Content="Randomly every leg" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="509,313,0,0"/>
-        <CheckBox x:Name="Checkboxpossiblecheckoutcall" Content="Possible checkout call" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="509,293,0,0"/>
+        <Label Content="Autodarts-caller" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,14,0,0"/>
+        <Label Content="Email autodarts.io" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="30,57,0,0"/>
+        <Label Content="Password autodarts.io" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="1.218,7.116" Margin="278,57,0,0"/>
+        <Label Content="Autodarts.io board-ID" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="31,125,0,0"/>
+        <Label Content="Path to sound-files" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="278,125,0,0"/>
+        <Label Content="Caller volume" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="31,184,0,0"/>
+        <Label Content="WTT" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="31,249,0,0"/>
+        <Label Content="Random caller" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="278,222,0,0"/>
+        <TextBox x:Name="TextBoxEmailAutodarts" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="31,88,0,0"/>
+        <TextBox x:Name="TextBoxcallervol" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="25" FontSize="10" Margin="206,214,0,0" RenderTransformOrigin="0.536,-1.488"/>
+        <TextBox x:Name="TextBoxBoardID" HorizontalAlignment="Left" Height="20"  Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="31,156,0,0"/>
+        <Slider x:Name="slValue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="169" ValueChanged="Slider_ValueChanged" TickFrequency="0.01" Minimum="0.01" Maximum="1.00" Value="1.00" Margin="31,215,0,0"/>
+        <TextBox x:Name="TextBoxCallerWtt" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="31,280,0,0"/>
+        <PasswordBox x:Name="TextBoxPWAutodarts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="20" Margin="278,88,0,0"/>
+        <Button x:Name="Buttonmedia" Content="Choose..." HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonmedia_Click" Margin="285,184,0,0"/>
+        <TextBox x:Name="TextBoxmedia" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" FontSize="10" Width="200" Margin="278,156,0,0"/>
+        <CheckBox x:Name="Checkboxrandomcaller" Content="Randomly at program start" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="278,293,0,0"/>
+        <CheckBox x:Name="Checkboxrandomcallereachleg" Content="Randomly every leg" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="278,273,0,0"/>
+        <CheckBox x:Name="Checkboxpossiblecheckoutcall" Content="Possible checkout call" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="278,253,0,0"/>
         <Button x:Name="Buttonspeichern" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Buttonspeichern_Click">
             <Image Width="24" Height="24" Source="images/save.png"></Image>
         </Button>
