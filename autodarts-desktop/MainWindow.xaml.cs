@@ -37,11 +37,11 @@ namespace autodarts_desktop
             appManager = new AppManager();
             appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
             appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
+            appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
             appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
             appManager.CheckDefaultRequirements();
             SetInstallStateApps();
         }
-
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
@@ -202,6 +202,13 @@ namespace autodarts_desktop
             Settings.Default.Save();
         }
 
+
+
+        private void AppManager_DownloadAppProgressed(object? sender, EventArgs e)
+        {
+            GridMain.IsEnabled = false;
+            Waiting.Visibility = Visibility.Visible;
+        }
 
         private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
         {
