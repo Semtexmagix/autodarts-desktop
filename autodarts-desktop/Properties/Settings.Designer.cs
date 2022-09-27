@@ -97,7 +97,7 @@ namespace autodarts_desktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
         public string skipdarts {
             get {
                 return ((string)(this["skipdarts"]));
@@ -170,7 +170,7 @@ namespace autodarts_desktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string randomcaller {
             get {
                 return ((string)(this["randomcaller"]));
@@ -182,25 +182,13 @@ namespace autodarts_desktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string randomcallereachleg {
             get {
                 return ((string)(this["randomcallereachleg"]));
             }
             set {
                 this["randomcallereachleg"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string webhook {
-            get {
-                return ((string)(this["webhook"]));
-            }
-            set {
-                this["webhook"] = value;
             }
         }
         
@@ -285,18 +273,6 @@ namespace autodarts_desktop.Properties {
             }
             set {
                 this["dbopw"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool setupdone {
-            get {
-                return ((bool)(this["setupdone"]));
-            }
-            set {
-                this["setupdone"] = value;
             }
         }
         
@@ -446,7 +422,7 @@ namespace autodarts_desktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string possiblecheckoutcall {
             get {
                 return ((string)(this["possiblecheckoutcall"]));

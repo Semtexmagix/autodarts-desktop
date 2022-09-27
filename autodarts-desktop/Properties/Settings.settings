@@ -21,7 +21,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="skipdarts" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">true</Value>
     </Setting>
     <Setting Name="timetoend" Type="System.String" Scope="User">
       <Value Profile="(Default)">15000</Value>
@@ -39,13 +39,10 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="randomcaller" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="randomcallereachleg" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="webhook" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="obs" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -67,9 +64,6 @@
     </Setting>
     <Setting Name="dbopw" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="setupdone" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="sliderpos" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -108,7 +102,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="possiblecheckoutcall" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="setupcallerdone" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
