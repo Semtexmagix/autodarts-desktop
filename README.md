@@ -53,5 +53,6 @@ It may be buggy. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 
 
 # LAST WORDS
-Thanks to Timo for awesome https://autodarts.io. 
+Thanks to Timo for awesome https://autodarts.io.
+
 Thanks to Wusaaa for the caller and the extern tools and also for the many help =D 
