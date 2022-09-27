@@ -266,12 +266,20 @@ namespace autodarts_desktop
 
         private void WebClient_DownloadFileCompleted(object? sender, AsyncCompletedEventArgs e)
         {
-            string pathToFile = (sender as WebClient).QueryString["pathToDownload"];
-            if (Path.GetExtension(pathToFile).ToLower() == ".zip")
+            try
             {
-                ZipFile.ExtractToDirectory(pathToFile, Path.GetDirectoryName(pathToFile));
+                string pathToFile = (sender as WebClient).QueryString["pathToDownload"];
+                if (Path.GetExtension(pathToFile).ToLower() == ".zip")
+                {
+                    ZipFile.ExtractToDirectory(pathToFile, Path.GetDirectoryName(pathToFile));
+                }
+                OnDownloadAppStopped(e);
             }
-            OnDownloadAppStopped(e);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occured: {ex.Message}");
+                OnDownloadAppStopped(e);
+            }
         }
 
         private bool RunApp(KeyValuePair<string, string> app, Dictionary<string, string> dynamicArguments = null)
