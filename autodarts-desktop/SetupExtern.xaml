@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-desktop - Setup - Extern" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800">
+        Title="Setup - autodarts-extern" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Autodarts-extern" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,26,0,0"/>
         <Label Content="Chat-message on match start" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="114,58,0,0"/>

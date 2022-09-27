@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-desktop - Setup - Caller" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800">
+        Title="Setup - autodarts-caller" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Autodarts-caller" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,25,0,0"/>
         <Label Content="Email autodarts.io" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="94,97,0,0"/>

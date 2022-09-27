@@ -30,6 +30,7 @@ using File = System.IO.File;
 using Path = System.IO.Path;
 using CheckBox = System.Windows.Controls.CheckBox;
 using Control = System.Windows.Controls.Control;
+using Windows.ApplicationModel.Store.Preview.InstallControl;
 
 namespace autodarts_desktop
 {
@@ -55,14 +56,7 @@ namespace autodarts_desktop
         private void Checkbox_Click(object sender, RoutedEventArgs e)
         {
             var list = GridMain.Children.OfType<CheckBox>().Where(x => x.IsChecked == true);
-            if (list.Any())
-            {
-                ButtonInstall.IsEnabled = true;
-            }
-            else
-            {
-                ButtonInstall.IsEnabled = false;
-            }
+            ButtonInstall.IsEnabled = list.Any() ? true : false;
         }
 
         private void Checkboxexterninstall_Checked(object sender, RoutedEventArgs e)
@@ -145,7 +139,6 @@ namespace autodarts_desktop
         private void ButtonHelp_Click(object sender, RoutedEventArgs e)
         {
             Button helpButton = sender as Button;
-
             switch (helpButton.Name)
             {
                 case "autodartsHelp":
@@ -170,6 +163,24 @@ namespace autodarts_desktop
             }
         }
 
+        private void Buttonsetupcustom_Click(object sender, RoutedEventArgs e)
+        {
+            SetupCustomApp SC1 = new SetupCustomApp();
+            SC1.ShowDialog();
+        }
+
+        private void Buttonsetupextern_Click(object sender, RoutedEventArgs e)
+        {
+            SetupExtern SE1 = new SetupExtern();
+            SE1.ShowDialog();
+        }
+
+        private void Buttonsetupcaller_Click(object sender, RoutedEventArgs e)
+        {
+            SetupCaller SC1 = new SetupCaller();
+            SC1.ShowDialog();
+        }
+
 
         private void VisitHelpPage(string url)
         {
@@ -183,7 +194,6 @@ namespace autodarts_desktop
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
         }
 
         private void SetInstallStateApps()
@@ -194,47 +204,43 @@ namespace autodarts_desktop
                 Brush appStateColor = appInstallState.Value == true ? Brushes.Green : Brushes.Red;
                 Visibility appStateVisibility = appInstallState.Value == true ? Visibility.Visible : Visibility.Hidden;
 
-                switch (appInstallState.Key)
+                if(appInstallState.Key == appManager.autodarts.Value)
                 {
-                    case "autodarts":
-                        autodartsInstallState.IsEnabled = appInstallState.Value;
-                        autodartsInstallState.Content = appStateText;
-                        autodartsInstallState.Foreground = appStateColor;
-                        break;
-                    case "autodarts-caller":
-                        autodartsCallerInstallState.IsEnabled = appInstallState.Value;
-                        autodartsCallerInstallState.Content = appStateText;
-                        autodartsCallerInstallState.Foreground = appStateColor;
-                        Buttonsetupcaller.Visibility = appStateVisibility;
-                        Imagecaller.Visibility = appStateVisibility;
-                        break;
-                    case "autodarts-extern":
-                        autodartsExternInstallState.IsEnabled = appInstallState.Value;
-                        autodartsExternInstallState.Content = appStateText;
-                        autodartsExternInstallState.Foreground = appStateColor;
-                        Buttonsetupcustom.Visibility = appStateVisibility;
-                        Labelcustomsetup.Visibility = appStateVisibility;
-                        Imagecustomapp.Visibility = appStateVisibility;
-                        Buttonsetupextern.Visibility = appStateVisibility;
-                        Imageextern.Visibility = appStateVisibility;
-                        break;
-                    case "autodarts-bot":
-                        autodartsBotInstallState.IsEnabled = appInstallState.Value;
-                        autodartsBotInstallState.Content = appStateText;
-                        autodartsBotInstallState.Foreground = appStateColor;
-                        break;
-                    case "virtual-darts-zoom":
-                        virtualDartsZoomInstallState.IsEnabled = appInstallState.Value;
-                        virtualDartsZoomInstallState.Content = appStateText;
-                        virtualDartsZoomInstallState.Foreground = appStateColor;
-                        break;
-                    case "dartboards-client":
-                        dartboardsClientInstallState.IsEnabled = appInstallState.Value;
-                        dartboardsClientInstallState.Content = appStateText;
-                        dartboardsClientInstallState.Foreground = appStateColor;
-                        break;
-                    default:
-                        break;
+                    autodartsInstallState.IsEnabled = appInstallState.Value;
+                    autodartsInstallState.Content = appStateText;
+                    autodartsInstallState.Foreground = appStateColor;
+                }
+                else if(appInstallState.Key == appManager.autodartsCaller.Value)
+                {
+                    autodartsCallerInstallState.IsEnabled = appInstallState.Value;
+                    autodartsCallerInstallState.Content = appStateText;
+                    autodartsCallerInstallState.Foreground = appStateColor;
+                    Buttonsetupcaller.Visibility = appStateVisibility;
+                }
+                else if (appInstallState.Key == appManager.autodartsExtern.Value)
+                {
+                    autodartsExternInstallState.IsEnabled = appInstallState.Value;
+                    autodartsExternInstallState.Content = appStateText;
+                    autodartsExternInstallState.Foreground = appStateColor;
+                    Buttonsetupextern.Visibility = appStateVisibility;
+                }
+                else if (appInstallState.Key == appManager.autodartsBot.Value)
+                {
+                    autodartsBotInstallState.IsEnabled = appInstallState.Value;
+                    autodartsBotInstallState.Content = appStateText;
+                    autodartsBotInstallState.Foreground = appStateColor;
+                }
+                else if (appInstallState.Key == appManager.virtualDartsZoom.Value)
+                {
+                    virtualDartsZoomInstallState.IsEnabled = appInstallState.Value;
+                    virtualDartsZoomInstallState.Content = appStateText;
+                    virtualDartsZoomInstallState.Foreground = appStateColor;
+                }
+                else if (appInstallState.Key == appManager.dartboardsClient.Value)
+                {
+                    dartboardsClientInstallState.IsEnabled = appInstallState.Value;
+                    dartboardsClientInstallState.Content = appStateText;
+                    dartboardsClientInstallState.Foreground = appStateColor;
                 }
             }
         }
@@ -276,20 +282,7 @@ namespace autodarts_desktop
             }
             ButtonInstall.IsEnabled = false;
         }
-        private void Buttonsetupcustom_Click(object sender, RoutedEventArgs e)
-        {
-            SetupCustomApp SC1 = new SetupCustomApp();
-            SC1.ShowDialog();
-        }
-        private void Buttonsetupextern_Click(object sender, RoutedEventArgs e)
-        {
-            SetupExtern SE1 = new SetupExtern();
-            SE1.ShowDialog();
-        }
-        private void Buttonsetupcaller_Click(object sender, RoutedEventArgs e)
-        {
-            SetupCaller SC1 = new SetupCaller();
-            SC1.ShowDialog();
-        }
+
+
     }
 }

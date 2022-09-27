@@ -1,30 +1,39 @@
 ﻿<Window x:Class="autodarts_desktop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-desktop" Height="250" Width="325" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
+        Title="Autodarts-Desktop" Width="325" Height="250" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
         Background="AliceBlue">
-    <Grid HorizontalAlignment="Center" Height="250" Width="325" RenderTransformOrigin="0.531,-0.273" Margin="0,-16,0,0" VerticalAlignment="Top">
+    <Grid x:Name="GridMain" HorizontalAlignment="Center" Width="325" Height="250" RenderTransformOrigin="0.531,-0.273" Margin="0,-16,0,0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="29,85,0,0" VerticalAlignment="Top" Width="270" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
-        <Label x:Name="labelcombobox" Content="Select profile:" HorizontalAlignment="Left" Margin="24,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757"/>
-        <Button x:Name="Buttonstart" Content="Start" HorizontalAlignment="Left" Margin="29,195,0,0" VerticalAlignment="Top" Click="Buttonstart_Click" Width="270" RenderTransformOrigin="0.512,1.722"/>
-        <Button x:Name="Buttonabout" HorizontalAlignment="Left" Margin="270,22,0,0" VerticalAlignment="Top" Click="Buttonabout_Click">
-            <Image Width="24" Height="24" Source="images/configuration.png"></Image>
+        <Button x:Name="Buttonabout" HorizontalAlignment="Left" Margin="272,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonabout_Click">
+            <Image Width="24" Height="24" Source="images/about.png"></Image>
         </Button>
-        <Button x:Name="Buttoninstall" HorizontalAlignment="Left" Margin="235,22,0,0" VerticalAlignment="Top" Click="Buttoninstall_Click">
+        <Button x:Name="Buttoninstall" HorizontalAlignment="Left" Margin="235,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttoninstall_Click">
             <Image Width="24" Height="24" Source="images/download.png"></Image>
         </Button>
+
+        <Button x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="270,79,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
+            <Image Width="32" Height="32" Source="images/dart.png"></Image>
+        </Button>
+
+        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="29,85,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
+        <Label x:Name="labelcombobox" Content="Select profile:" HorizontalAlignment="Left" Margin="24,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757"/>
+
         <CheckBox x:Name="Checkboxad" Content="autodarts-client" HorizontalAlignment="Left" Margin="32,119,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" />
         <CheckBox x:Name="Checkboxbot" Content="autodarts-bot" HorizontalAlignment="Left" Margin="185,119,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
         <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="32,139,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
         <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="32,160,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
         <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="185,139,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click"/>
 
+        <Image x:Name="Waiting" Width="150" gif:ImageBehavior.RepeatBehavior="1"
+               gif:ImageBehavior.AnimateInDesignMode="False"
+               gif:ImageBehavior.AutoStart="True" Height="150" gif:ImageBehavior.AnimatedSource="images/spinner.gif" Visibility="Hidden" />
     </Grid>
 </Window>

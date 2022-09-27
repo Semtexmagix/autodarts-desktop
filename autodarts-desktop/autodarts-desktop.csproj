@@ -12,10 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\about.png" />
+    <None Remove="images\bug.png" />
     <None Remove="images\configuration.png" />
+    <None Remove="images\contact.png" />
+    <None Remove="images\dart.png" />
+    <None Remove="images\donation.png" />
     <None Remove="images\download.png" />
     <None Remove="images\help.png" />
     <None Remove="images\save.png" />
+    <None Remove="images\spinner.gif" />
+    <None Remove="images\spinner_back.gif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,10 +50,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\about.png" />
+    <Resource Include="images\bug.png" />
     <Resource Include="images\configuration.png" />
+    <Resource Include="images\contact.png" />
+    <Resource Include="images\dart.png" />
+    <Resource Include="images\donation.png" />
     <Resource Include="images\download.png" />
     <Resource Include="images\help.png" />
     <Resource Include="images\save.png" />
+    <Resource Include="images\spinner.gif" />
   </ItemGroup>
 
 </Project>

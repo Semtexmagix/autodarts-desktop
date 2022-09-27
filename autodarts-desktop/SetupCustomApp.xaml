@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-desktop - Setup - Custom-App" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800">
+        Title="Setup - custom-app" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Custom-app" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,59,0,0"/>
         <Label Content="Path to custom-app" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="100,137,0,0"/>

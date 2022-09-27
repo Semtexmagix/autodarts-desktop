@@ -1,4 +1,5 @@
-﻿using System;
+﻿using autodarts_desktop.Properties;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
@@ -19,6 +20,7 @@ using System.Windows.Shapes;
 using Windows.ApplicationModel.Store.Preview.InstallControl;
 using Windows.Foundation.Numerics;
 
+
 namespace autodarts_desktop
 {
     /// <summary>
@@ -33,6 +35,10 @@ namespace autodarts_desktop
         {
             InitializeComponent();
             appManager = new AppManager();
+            appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
+            appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
+            appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
+            appManager.CheckDefaultRequirements();
             SetInstallStateApps();
         }
 
@@ -43,7 +49,7 @@ namespace autodarts_desktop
 
             try
             {
-                appManager.RunAutodartsCaller();
+                if (!appManager.RunAutodartsCaller()) return;
 
                 switch (selectedTag)
                 {
@@ -51,27 +57,27 @@ namespace autodarts_desktop
                         appManager.RunAutodartsPortal();
                         break;
                     case "lidarts":
-                        appManager.RunAutodartsExtern(AutodartsExternPlatforms.lidarts);
+                        if (!appManager.RunAutodartsExtern(AutodartsExternPlatforms.lidarts)) return;
                         break;
                     case "nakka":
-                        appManager.RunAutodartsExtern(AutodartsExternPlatforms.nakka);
+                        if (!appManager.RunAutodartsExtern(AutodartsExternPlatforms.nakka)) return;
                         break;
                     case "dartboards":
-                        appManager.RunAutodartsExtern(AutodartsExternPlatforms.dartboards);
+                        if (!appManager.RunAutodartsExtern(AutodartsExternPlatforms.dartboards)) return;
                         break;
                 }
 
                 if (Checkboxbot.IsChecked == true)
                 {
-                    appManager.RunAutodartsBot();
+                    if (!appManager.RunAutodartsBot()) return;
                 }
                 if (Checkboxvdz.IsChecked == true)
                 {
-                    appManager.RunVirtualDartsZoom();
+                    if (!appManager.RunVirtualDartsZoom()) return;
                 }
                 if (Checkboxdboc.IsChecked == true)
                 {
-                    appManager.RunDartboardsClient();
+                    if (!appManager.RunDartboardsClient()) return;
                 }
                 if (Checkboxcustom.IsChecked == true)
                 {
@@ -87,21 +93,20 @@ namespace autodarts_desktop
 
         private void Buttonabout_Click(object sender, RoutedEventArgs e)
         {
-            OpenAboutForm();
+            About S1 = new About();
+            S1.ShowDialog();
         }
 
         private void Buttoninstall_Click(object sender, RoutedEventArgs e)
         {
-            OpenDownloadForm();
+            Install I1 = new Install(appManager);
+            I1.ShowDialog();
         }
 
         private void Comboboxportal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Comboboxportal.SelectedIndex == -1) return;
 
-            bool appState;
-
-            
             if (String.IsNullOrEmpty(Properties.Settings.Default.obs))
             {
                 Checkboxcustom.IsEnabled = false;
@@ -113,10 +118,10 @@ namespace autodarts_desktop
                 Checkboxcustom.IsChecked = Properties.Settings.Default.custom_start_default;
             }
 
-            appsInstallState.TryGetValue("autodarts", out appState);
+            bool appState;
+            appsInstallState.TryGetValue(appManager.autodarts.Value, out appState);
             Checkboxad.IsEnabled = appState;
             Checkboxad.IsChecked = appState ? Properties.Settings.Default.ad_start_default : false;
-
 
 
             var selectedTag = ((ComboBoxItem)Comboboxportal.SelectedItem).Tag.ToString();
@@ -124,7 +129,7 @@ namespace autodarts_desktop
             switch (selectedTag)
             {
                 case "caller":
-                    appsInstallState.TryGetValue("autodarts-bot", out appState);
+                    appsInstallState.TryGetValue(appManager.autodartsBot.Value, out appState);
                     Checkboxbot.IsEnabled = appState;
                     Checkboxbot.IsChecked = appState ? Properties.Settings.Default.bot_start_default : false;
 
@@ -135,7 +140,7 @@ namespace autodarts_desktop
                     Checkboxdboc.IsChecked = false;
                     break;
                 case "lidarts":
-                    appsInstallState.TryGetValue("virtual-darts-zoom", out appState);
+                    appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
                     Checkboxvdz.IsEnabled = appState;
                     Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false;
 
@@ -146,7 +151,7 @@ namespace autodarts_desktop
                     Checkboxdboc.IsChecked = false;
                     break;
                 case "nakka":
-                    appsInstallState.TryGetValue("virtual-darts-zoom", out appState);
+                    appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
                     Checkboxvdz.IsEnabled = appState;
                     Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false; ;
 
@@ -158,11 +163,11 @@ namespace autodarts_desktop
 
                     break;
                 case "dartboards":
-                    appsInstallState.TryGetValue("dartboards-client", out appState);
+                    appsInstallState.TryGetValue(appManager.dartboardsClient.Value, out appState);
                     Checkboxdboc.IsEnabled = appState;
                     Checkboxdboc.IsChecked = appState ? Properties.Settings.Default.dboc_start_default : false;
 
-                    appsInstallState.TryGetValue("virtual-darts-zoom", out appState);
+                    appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
                     Checkboxvdz.IsEnabled = appState;
                     Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false; ;
 
@@ -172,74 +177,96 @@ namespace autodarts_desktop
             }
         }
 
-
-
-        private void OpenDownloadForm()
+        private void CheckboxStartApp_Click(object sender, RoutedEventArgs e)
         {
-            Install I1 = new Install(appManager);
-            I1.ShowDialog();
-            SetInstallStateApps();
+            CheckBox checkboxStartApp = sender as CheckBox;
+
+            switch (checkboxStartApp.Name)
+            {
+                case "Checkboxad":
+                    Settings.Default.ad_start_default = (bool)Checkboxad.IsChecked;
+                    break;
+                case "Checkboxbot":
+                    Settings.Default.bot_start_default = (bool)Checkboxbot.IsChecked;
+                    break;
+                case "Checkboxvdz":
+                    Settings.Default.vdz_start_default = (bool)Checkboxvdz.IsChecked;
+                    break;
+                case "Checkboxdboc":
+                    Settings.Default.dboc_start_default = (bool)Checkboxdboc.IsChecked;
+                    break;
+                case "Checkboxcustom":
+                    Settings.Default.custom_start_default = (bool)Checkboxcustom.IsChecked;
+                    break;
+            }
+            Settings.Default.Save();
         }
-        
-        private void OpenConfigurationForm()
+
+
+        private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
         {
-            Setup S1 = new Setup();
-            S1.ShowDialog();
             SetInstallStateApps();
+            GridMain.IsEnabled = true;
+            Waiting.Visibility = Visibility.Hidden;
         }
 
-        private void OpenAboutForm()
+        private void AppManager_AppDownloadRequired(object? sender, AppConfigurationRequiredEventArgs e)
         {
-            About S1 = new About();
-            S1.ShowDialog();
+            GridMain.IsEnabled = false;
+            Waiting.Visibility = Visibility.Visible;
+            //MessageBox.Show(e.Message + " - downloading.. please wait.");
+        }
+
+        private void AppManager_AppConfigurationRequired(object? sender, AppConfigurationRequiredEventArgs e)
+        {
+            MessageBox.Show(e.Message);
+            if (e.App == appManager.autodarts.Value)
+            {
+                
+            }
+            else if(e.App == appManager.autodartsBot.Value)
+            {
+            }
+            else if (e.App == appManager.autodartsCaller.Value)
+            {
+                SetupCaller SC1 = new SetupCaller();
+                SC1.ShowDialog();
+            }
+            else if (e.App == appManager.autodartsExtern.Value)
+            {
+                SetupExtern SE1 = new SetupExtern();
+                SE1.ShowDialog();
+            }
+            else if (e.App == appManager.virtualDartsZoom.Value)
+            {
+            }
+            else if (e.App == appManager.dartboardsClient.Value)
+            {
+            }
         }
 
         private void SetInstallStateApps()
         {
-            Comboboxportal.Items.Clear();
             appsInstallState = appManager.GetAppsInstallState();
-            
+
+            Comboboxportal.Items.Clear();
             foreach (var appInstallState in appsInstallState)
             {
-                switch (appInstallState.Key)
+                if(appInstallState.Value == true)
                 {
-                    case "autodarts-caller":
-                        if(appInstallState.Value == true)
-                        {
-                            AddComboBoxItem("autodarts.io + autodarts-caller", "caller");
-                        }
-                        break;
-                    case "autodarts-extern":
-                        if (appInstallState.Value == true)
-                        {
-                            AddComboBoxItem("autodarts-extern: lidarts.org", "lidarts");
-                            AddComboBoxItem("autodarts-extern: nakka.com/n01/online", "nakka");
-                            AddComboBoxItem("autodarts-extern: dartboards.online", "dartboards");
-                        }
-                        break;
-
-                    default:
-                        break;
+                    if (appInstallState.Key == appManager.autodartsCaller.Value)
+                    {
+                        AddComboBoxItem("autodarts.io + autodarts-caller", "caller");
+                    }
+                    else if (appInstallState.Key == appManager.autodartsExtern.Value)
+                    {
+                        AddComboBoxItem("autodarts-extern: lidarts.org", "lidarts");
+                        AddComboBoxItem("autodarts-extern: nakka.com/n01/online", "nakka");
+                        AddComboBoxItem("autodarts-extern: dartboards.online", "dartboards");
+                    }
                 }
             }
-
-            bool autodartsCallerInstalled = false;
-            appsInstallState.TryGetValue("autodarts-caller", out autodartsCallerInstalled);
-            if (autodartsCallerInstalled == false)
-            {
-                MessageBox.Show("Requirements (autodarts-caller) not satisfied - redirect to download page");
-                OpenDownloadForm();
-            }
-            else
-            {
-                Comboboxportal.SelectedIndex = 0;
-            }
-
-            if (Properties.Settings.Default.setupdone == false)
-            {
-                MessageBox.Show("App-configuration not found - redirect to configuration page");
-                OpenConfigurationForm();
-            }
+            Comboboxportal.SelectedIndex = 0;
         }
 
         private void AddComboBoxItem(string content, String value)
@@ -250,30 +277,7 @@ namespace autodarts_desktop
             Comboboxportal.Items.Add(appItem);
         }
 
-        private void CheckboxStartApp_Click(object sender, RoutedEventArgs e)
-        {
-            CheckBox checkboxStartApp = sender as CheckBox;
 
-            switch (checkboxStartApp.Name)
-            {
-                case "Checkboxad":
-                    Properties.Settings.Default.ad_start_default = (bool)Checkboxad.IsChecked;
-                    break;
-                case "Checkboxbot":
-                    Properties.Settings.Default.bot_start_default = (bool)Checkboxbot.IsChecked;
-                    break;
-                case "Checkboxvdz":
-                    Properties.Settings.Default.vdz_start_default = (bool)Checkboxvdz.IsChecked;
-                    break;
-                case "Checkboxdboc":
-                    Properties.Settings.Default.dboc_start_default = (bool)Checkboxdboc.IsChecked;
-                    break;
-                case "Checkboxcustom":
-                    Properties.Settings.Default.custom_start_default = (bool)Checkboxcustom.IsChecked;
-                    break;
-            }
-            Properties.Settings.Default.Save();
-        }
 
 
     }

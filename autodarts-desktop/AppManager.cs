@@ -1,6 +1,8 @@
-﻿using System;
+﻿using autodarts_desktop.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -8,6 +10,10 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
+using System.Windows;
+using Windows.ApplicationModel.Store.Preview.InstallControl;
+using Windows.Foundation.Metadata;
+using Windows.Services.Maps;
 using Path = System.IO.Path;
 
 namespace autodarts_desktop
@@ -19,28 +25,58 @@ namespace autodarts_desktop
         nakka
     }
 
+    public class AppConfigurationRequiredEventArgs : EventArgs
+    {
+        private readonly string _app;
+        private readonly string _message;
+
+        public AppConfigurationRequiredEventArgs(string app, string message)
+        {
+            _app = app;
+            _message = message;
+        }
+
+        public string App
+        {
+            get { return _app; }
+        }
+        public string Message
+        {
+            get { return _message; }
+        }
+
+    }
+
+
     /// <summary>
     /// Manages everything around apps-lifecycle.
     /// TODO: Method for checking for valid app-configuration
     /// </summary>
     public class AppManager
-    {   
+    {
         // Attribute
         // Key = Download-Link
         // Value = Storage-path
-        private KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
-        private KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.2.2/autodarts-caller.exe", "autodarts-caller");
-        private KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe", "autodarts-extern");
-        private KeyValuePair<string, string> autodartsBot = new("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip", "autodarts-bot");
-        private KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
-        private KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
-        private const string autodartsUrl = "https://autodarts.io";
+        public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
+        public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.2.2/autodarts-caller.exe", "autodarts-caller");
+        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe", "autodarts-extern");
+        public KeyValuePair<string, string> autodartsBot = new("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip", "autodarts-bot");
+        public KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
+        public KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
+        public const string autodartsUrl = "https://autodarts.io";
 
 
         private string? pathToApps;
+        public event EventHandler<AppConfigurationRequiredEventArgs> AppDownloadRequired;
+        public event EventHandler<AppConfigurationRequiredEventArgs> AppConfigurationRequired;
         public event EventHandler<EventArgs> DownloadAppStarted;
         public event EventHandler<EventArgs> DownloadAppProgressed;
         public event EventHandler<EventArgs> DownloadAppStopped;
+        private const string argumentPrefixKey = "argumentPrefixKey";
+        private const string argumentDelimiterKey = "argumentDelimiterKey";
+        private const string specificFileKey = "specificFile";
+        private const string argumentErrorKey = "ArgumentValidateParse-Error";
+
 
 
         public AppManager()
@@ -52,6 +88,18 @@ namespace autodarts_desktop
 
 
         // Methods
+
+        public void CheckDefaultRequirements()
+        {
+            Dictionary<string, bool> appsInstallState = GetAppsInstallState();
+            bool autodartsCallerInstalled = false;
+            appsInstallState.TryGetValue(autodartsCaller.Value, out autodartsCallerInstalled);
+            if (autodartsCallerInstalled == false)
+            {
+                DownloadAutodartsCaller();
+                OnAppDownloadRequired(new AppConfigurationRequiredEventArgs(autodartsCaller.Value, "Requirements (autodarts-caller) not satisfied"));
+            }
+        }
 
         public Dictionary<string, bool> GetAppsInstallState()
         {
@@ -106,100 +154,34 @@ namespace autodarts_desktop
             Process.Start(ps);
         }
 
-        public void RunAutodarts()
+        public bool RunAutodarts()
         {
-            string appPath = Path.Join(pathToApps, autodarts.Value);
-            RunApp(appPath);
+            return RunApp(autodarts);
         }
 
-        public void RunAutodartsCaller()
+        public bool RunAutodartsCaller()
         {
-            string autodartsUser = Properties.Settings.Default.emailautodarts;
-            string autodartsPassword = Properties.Settings.Default.pwautodarts;
-            string autodartsBoardId = Properties.Settings.Default.boardid;
-            string autodartsSounds = Properties.Settings.Default.media;
-            string autodartsCallerVol = Properties.Settings.Default.callervol;
-            string autodartsRandomCaller = Properties.Settings.Default.randomcaller;
-            string autodartsRandomCallerEachLeg = Properties.Settings.Default.randomcallereachleg;
-            string autodartsCallerPCC = Properties.Settings.Default.possiblecheckoutcall;
-            string autodartsCallerWtt = Properties.Settings.Default.callerwtt;
-
-            string appPath = Path.Join(pathToApps, autodartsCaller.Value);
-            IDictionary<string, string> arguments = new Dictionary<string, string>
-            {
-                 { "-U", autodartsUser },
-                    { "-P", autodartsPassword },
-                    { "-B", autodartsBoardId },
-                    { "-M", autodartsSounds },
-                    { "-V", autodartsCallerVol },
-                    { "-R", autodartsRandomCaller },
-                    { "-L", autodartsRandomCallerEachLeg },
-                    { "-PCC", autodartsCallerPCC },
-                    { "-WTT", autodartsCallerWtt }
-            };
-            string argumentDelimitter = " ";
-
-            RunApp(appPath, arguments, argumentDelimitter);
+            return RunApp(autodartsCaller);
         }
 
-        public void RunAutodartsExtern(AutodartsExternPlatforms platform)
+        public bool RunAutodartsExtern(AutodartsExternPlatforms platform)
         {
-            string port = Properties.Settings.Default.hostport;
-            string autodartsUser = Properties.Settings.Default.emailautodarts;
-            string autodartsPassword = Properties.Settings.Default.pwautodarts;
-            string autodartsBoardId = Properties.Settings.Default.boardid;
-            string lidartsUser = Properties.Settings.Default.emaillidarts;
-            string lidartsPassword = Properties.Settings.Default.pwlidarts;
-            string skipdarts = Properties.Settings.Default.skipdarts;
-            string timer = Properties.Settings.Default.timetoend;
-            string messagestart = Properties.Settings.Default.messagestart;
-            string messageend = Properties.Settings.Default.messageend;
-            string browserpath = Properties.Settings.Default.browserpath;
-            string dboUser = Properties.Settings.Default.dbouser;
-            string dboPassword = Properties.Settings.Default.dbopw;
-            
-            string appPath = Path.Join(pathToApps, autodartsExtern.Value);
-            string argumentDelimitter = " ";
-
-            IDictionary<string, string> arguments = new Dictionary<string, string>
-            {
-                { "--browser_path", browserpath },
-                { "--host_port", port },
-                { "--autodarts_user", autodartsUser },
-                { "--autodarts_password", autodartsPassword },
-                { "--autodarts_board_id", autodartsBoardId },
-                { "--extern_platform", platform.ToString() },
-                { "--time_before_exit", timer },
-                { "--lidarts_user", lidartsUser },
-                { "--lidarts_password", lidartsPassword },
-                { "--lidarts_skip_dart_modals", skipdarts },
-                { "--lidarts_chat_message_start", messagestart },
-                { "--lidarts_chat_message_end", messageend },
-                { "--nakka_skip_dart_modals", skipdarts },
-                { "--dartboards_user", dboUser },
-                { "--dartboards_password", dboPassword },
-                { "--dartboards_skip_dart_modals", skipdarts }
-            };
-
-            RunApp(appPath, arguments, argumentDelimitter);
+            return RunApp(autodartsExtern, new Dictionary<string, string> { { "extern_platform", platform.ToString() } });
         }
 
-        public void RunAutodartsBot()
+        public bool RunAutodartsBot()
         {
-            string appPath = Path.Join(pathToApps, autodartsBot.Value);
-            RunApp(appPath);
+            return RunApp(autodartsBot);
         }
 
-        public void RunVirtualDartsZoom()
+        public bool RunVirtualDartsZoom()
         {
-            string appPath = Path.Join(pathToApps, virtualDartsZoom.Value);
-            RunApp(appPath);
+            return RunApp(virtualDartsZoom);
         }
 
-        public void RunDartboardsClient()
+        public bool RunDartboardsClient()
         {
-            string appPath = Path.Join(pathToApps,dartboardsClient.Value);
-            RunApp(appPath);
+            return RunApp(dartboardsClient);
         }
 
         public static void RunCustomApp()
@@ -242,7 +224,7 @@ namespace autodarts_desktop
 
 
                 // Finde die exe und kill den Prozess
-                string executable = specificFile == "" ? FindExecutable(appPath) : FindExecutable(appPath, specificFile);
+                string executable = String.IsNullOrEmpty(specificFile) ? FindExecutable(appPath) : FindExecutable(appPath, specificFile);
                 if (executable != null)
                 {
                     KillApp(Path.GetFileNameWithoutExtension(executable));
@@ -292,31 +274,41 @@ namespace autodarts_desktop
             OnDownloadAppStopped(e);
         }
 
-        private static void RunApp(string workingDirectory, string specificFile = "")
+        private bool RunApp(KeyValuePair<string, string> app, Dictionary<string, string> dynamicArguments = null)
         {
-            RunApp(workingDirectory, new Dictionary<string, string> { }, " ", specificFile);
-        }
-        private static void RunApp(string workingDirectory, IDictionary<string, string> arguments, string argumentDelimitter, string specificFile = "")
-        {
-            // Prüfen, ob die App existiert
-            string executable = specificFile == "" ? FindExecutable(workingDirectory) : FindExecutable(workingDirectory, specificFile);
+            // Get Configuration setup by user
+            Dictionary<string, string> configuration = GetConfiguration(app, dynamicArguments);
+            if (configuration == null) return false;
+            string argumentPrefix;
+            configuration.TryGetValue(argumentPrefixKey, out argumentPrefix);
+            string argumentDelimitter;
+            configuration.TryGetValue(argumentDelimiterKey, out argumentDelimitter);
+            string specificFile;
+            configuration.TryGetValue(specificFileKey, out specificFile);
+            configuration.Remove(argumentPrefixKey);
+            configuration.Remove(argumentDelimiterKey);
+            configuration.Remove(specificFileKey);
+
+            // Check if app exists
+            string workingDirectory = Path.Join(pathToApps, app.Value);
+            string executable = String.IsNullOrEmpty(specificFile) ? FindExecutable(workingDirectory) : FindExecutable(workingDirectory, specificFile);
             if (executable == null)
             {
                 throw new FileNotFoundException(workingDirectory + " not found");
             }
 
-            // Prüfen, ob die App bereits läuft
+            // Check if app is already running
             if (CheckAppRunningState(Path.GetFileNameWithoutExtension(executable)))
             {
                 Console.WriteLine($"\"{executable}\" is already running");
-                return;
+                return true;
             }
 
             // Wir setzen die übergebenen 'arguments' zu einen String zusammen, der dann beim Prozess starten genutzt werden kann
             string composedArguments = "";
 
             // Wir durchlaufen alle übergebenen Argumente und hängen diese dem String an
-            foreach (KeyValuePair<string, string> a in arguments)
+            foreach (KeyValuePair<string, string> a in configuration)
             {
                 // Das Start Argument hat kein Key-Value, deshalb unterscheiden wir hier und nehmen an,
                 // dass es kein Value gibt, wenn der Wert ein leerer String ist.
@@ -327,11 +319,11 @@ namespace autodarts_desktop
                 // ... sonst hängen wir den Value an
                 else
                 {
-                    composedArguments += " " + a.Key + argumentDelimitter + "\"" + a.Value + "\"";
+                    composedArguments += " " + argumentPrefix + a.Key + argumentDelimitter + "\"" + a.Value + "\"";
                 }
             }
 
-            //Console.WriteLine(composedArguments);
+            Console.WriteLine(composedArguments);
 
             using (var process = new Process())
             {
@@ -351,6 +343,151 @@ namespace autodarts_desktop
                     throw;
                 }
             }
+            return true;
+        }
+
+        private Dictionary<string, string> GetConfiguration(KeyValuePair<string, string> app, Dictionary<string, string> dynamicArguments = null)
+        {
+            try
+            {
+                Dictionary<string, string> configuration = new();
+
+                if (app.Value == autodarts.Value)
+                {
+                    configuration.Add(argumentPrefixKey, "-");
+                    configuration.Add(argumentDelimiterKey, " ");
+                    configuration.Add(specificFileKey, "");
+                }
+                else if (app.Value == autodartsCaller.Value)
+                {
+                    configuration.Add(argumentPrefixKey, "-");
+                    configuration.Add(argumentDelimiterKey, " ");
+                    configuration.Add(specificFileKey, "");
+
+                    string autodartsUser = ValidateParseArgument(nameof(Settings.Default.emailautodarts), Settings.Default.emailautodarts, true);
+                    string autodartsPassword = ValidateParseArgument(nameof(Settings.Default.pwautodarts), Settings.Default.pwautodarts, true);
+                    string autodartsBoardId = ValidateParseArgument(nameof(Settings.Default.boardid), Settings.Default.boardid, true);
+                    string autodartsSounds = ValidateParseArgument(nameof(Settings.Default.media), Settings.Default.media, true);
+                    string autodartsCallerVol = ValidateParseArgument(nameof(Settings.Default.callervol), Settings.Default.callervol, false);
+                    string autodartsRandomCaller = ValidateParseArgument(nameof(Settings.Default.randomcaller), Settings.Default.randomcaller, false);
+                    string autodartsRandomCallerEachLeg = ValidateParseArgument(nameof(Settings.Default.randomcallereachleg), Settings.Default.randomcallereachleg, false);
+                    string autodartsCallerPCC = ValidateParseArgument(nameof(Settings.Default.possiblecheckoutcall), Settings.Default.possiblecheckoutcall, false);
+                    string autodartsCallerWtt = ValidateParseArgument(nameof(Settings.Default.callerwtt), Settings.Default.callerwtt, false);
+
+                    configuration.Add("U", autodartsUser);
+                    configuration.Add("P", autodartsPassword);
+                    configuration.Add("B", autodartsBoardId);
+                    configuration.Add("M", autodartsSounds);
+                    configuration.Add("V", autodartsCallerVol);
+                    configuration.Add("R", autodartsRandomCaller);
+                    configuration.Add("L", autodartsRandomCallerEachLeg);
+                    configuration.Add("PCC", autodartsCallerPCC);
+                    configuration.Add("WTT", autodartsCallerWtt);
+                }
+                else if (app.Value == autodartsExtern.Value)
+                {
+                    configuration.Add(argumentPrefixKey, "--");
+                    configuration.Add(argumentDelimiterKey, " ");
+                    configuration.Add(specificFileKey, "");
+
+                    // dynamic-arguments, like extern_platform
+                    Dictionary<string, string> parsedValidatedDynamicArguments = new();
+                    foreach (var dynamicArgument in dynamicArguments)
+                    {
+                        string dynamicArgumentParsed = ValidateParseArgument(nameof(dynamicArgument.Key), dynamicArgument.Value, true);
+                        parsedValidatedDynamicArguments.Add(dynamicArgument.Key, dynamicArgumentParsed);
+                    }
+
+                    string externPlatform;
+                    parsedValidatedDynamicArguments.TryGetValue("extern_platform", out externPlatform);
+
+                    // normal arguments
+                    string browserpath = ValidateParseArgument(nameof(Settings.Default.browserpath), Settings.Default.browserpath);
+                    string port = ValidateParseArgument(nameof(Settings.Default.hostport), Settings.Default.hostport);
+                    string autodartsUser = ValidateParseArgument(nameof(Settings.Default.emailautodarts), Settings.Default.emailautodarts, true);
+                    string autodartsPassword = ValidateParseArgument(nameof(Settings.Default.pwautodarts), Settings.Default.pwautodarts, true);
+                    string autodartsBoardId = ValidateParseArgument(nameof(Settings.Default.boardid), Settings.Default.boardid, true);
+
+                    bool lidartsRequired = externPlatform == AutodartsExternPlatforms.lidarts.ToString();
+                    string lidartsUser = ValidateParseArgument(nameof(Settings.Default.emaillidarts), Settings.Default.emaillidarts, lidartsRequired);
+                    string lidartsPassword = ValidateParseArgument(nameof(Settings.Default.pwlidarts), Settings.Default.pwlidarts, lidartsRequired);
+                    string skipdarts = ValidateParseArgument(nameof(Settings.Default.skipdarts), Settings.Default.skipdarts);
+                    string timer = ValidateParseArgument(nameof(Settings.Default.timetoend), Settings.Default.timetoend);
+                    string messagestart = ValidateParseArgument(nameof(Settings.Default.messagestart), Settings.Default.messagestart);
+                    string messageend = ValidateParseArgument(nameof(Settings.Default.messageend), Settings.Default.messageend);
+
+                    bool dartboardsRequired = externPlatform == AutodartsExternPlatforms.dartboards.ToString();
+                    string dboUser = ValidateParseArgument(nameof(Settings.Default.dbouser), Settings.Default.dbouser, dartboardsRequired);
+                    string dboPassword = ValidateParseArgument(nameof(Settings.Default.dbopw), Settings.Default.dbopw, dartboardsRequired);
+
+                    configuration.Add("browser_path", browserpath);
+                    configuration.Add("host_port", port);
+                    configuration.Add("autodarts_user", autodartsUser);
+                    configuration.Add("autodarts_password", autodartsPassword);
+                    configuration.Add("autodarts_board_id", autodartsBoardId);
+                    configuration.Add("extern_platform", externPlatform);
+                    configuration.Add("time_before_exit", timer);
+                    configuration.Add("lidarts_user", lidartsUser);
+                    configuration.Add("lidarts_password", lidartsPassword);
+                    configuration.Add("lidarts_skip_dart_modals", skipdarts);
+                    configuration.Add("lidarts_chat_message_start", messagestart);
+                    configuration.Add("lidarts_chat_message_end", messageend);
+                    configuration.Add("nakka_skip_dart_modals", skipdarts);
+                    configuration.Add("dartboards_user", dboUser);
+                    configuration.Add("dartboards_password", dboPassword);
+                    configuration.Add("dartboards_skip_dart_modals", skipdarts);
+                }
+                else if (app.Value == autodartsBot.Value)
+                {
+                    configuration.Add(argumentPrefixKey, "-");
+                    configuration.Add(argumentDelimiterKey, " ");
+                    configuration.Add(specificFileKey, "");
+                }
+                else if (app.Value == virtualDartsZoom.Value)
+                {
+                    configuration.Add(argumentPrefixKey, "-");
+                    configuration.Add(argumentDelimiterKey, " ");
+                    configuration.Add(specificFileKey, "");
+                }
+                else if (app.Value == dartboardsClient.Value)
+                {
+                    configuration.Add(argumentPrefixKey, "-");
+                    configuration.Add(argumentDelimiterKey, " ");
+                    configuration.Add(specificFileKey, "");
+                }
+                else
+                {
+                    throw new ArgumentException($"{app.Value} is not a valid app.");
+                }
+                return configuration;
+            }
+            catch (ArgumentException ae)
+            {
+                if (ae.Message.StartsWith(argumentErrorKey))
+                {
+                    string invalidArgumentErrorMessage = ae.Message.Substring(argumentErrorKey.Length, ae.Message.Length - argumentErrorKey.Length - 1);
+                    invalidArgumentErrorMessage += " is required. Please go to the app-settings and fill it.";
+                    AppConfigurationRequiredEventArgs eventArgs = new AppConfigurationRequiredEventArgs(app.Value, invalidArgumentErrorMessage);
+                    OnAppConfigurationRequired(eventArgs);
+                    return null;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            
+        }
+    
+
+        private string ValidateParseArgument(string argumentName, string argumentValue, bool required = false)
+        {
+            string parsedArgumentValue = argumentValue;
+            if (required && String.IsNullOrEmpty(parsedArgumentValue))
+            {
+                throw new ArgumentException(argumentErrorKey + argumentName);
+            }
+            return parsedArgumentValue;
         }
 
         private static string? FindExecutable(string appPath, string filename)
@@ -403,6 +540,19 @@ namespace autodarts_desktop
         {
             string[] urlSplitted = url.Split("/");
             return urlSplitted[urlSplitted.Length - 1];
+        }
+
+
+        protected virtual void OnAppDownloadRequired(AppConfigurationRequiredEventArgs e)
+        {
+            if (AppDownloadRequired != null)
+                AppDownloadRequired(this, e);
+        }
+
+        protected virtual void OnAppConfigurationRequired(AppConfigurationRequiredEventArgs e)
+        {
+            if (AppConfigurationRequired != null)
+                AppConfigurationRequired(this, e);
         }
 
         protected virtual void OnDownloadAppStarted(EventArgs e)
