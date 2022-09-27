@@ -28,8 +28,6 @@ you can also start side programmes:
 and custom programmes (like OBS - Open Brodcast System to create a visual cam with custom theme)
 
 # Custom theme example:
-![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupCustomApp.png?raw=true)
-
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS2.png?raw=true)
 With OBS it is possible to display the Autodarts.io game in the virtual camera.
 
@@ -41,6 +39,7 @@ A full screen mode for the board.
 
 All this can be easily realized via OBS scenes. The scenes can be easily switched during the game in OBS or e.g. via hotkey.
 If you use obs and start it with the custom app function you can enter "--startvirtualcam" as start argument so that obs goes directly into the visual cam mode at startup. 
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupCustomApp.png?raw=true)
 
 # BUGS
 You can give us feedback in Discord (Autodarts.io) or create a Git issue ---> wusaaa / Reepa86
