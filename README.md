@@ -25,17 +25,23 @@ you can also start side programmes:
  ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/vdz.png?raw=true)
   - for more info about the VDZ Visual Darts Zoom visit https://lehmann-bo.de/
 
+
 and custom programmes (like OBS - Open Brodcast System to create a visual cam with custom theme)
 
 # Custom theme example:
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS2.png?raw=true)
 With OBS it is possible to display the Autodarts.io game in the virtual camera.
 
+
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS1.png?raw=true)
 It is also possible, for example, to integrate a player camera with OBS into the virtual camera stream.
 
+
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS3.png?raw=true)
 A full screen mode for the board.
+
+
+
 
 All this can be easily realized via OBS scenes. The scenes can be easily switched during the game in OBS or e.g. via hotkey.
 If you use obs and start it with the custom app function you can enter "--startvirtualcam" as start argument so that obs goes directly into the visual cam mode at startup. 
