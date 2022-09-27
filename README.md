@@ -39,6 +39,7 @@ A full screen mode for the board.
 
 All this can be easily realized via OBS scenes. The scenes can be easily switched during the game in OBS or e.g. via hotkey.
 If you use obs and start it with the custom app function you can enter "--startvirtualcam" as start argument so that obs goes directly into the visual cam mode at startup. 
+
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupCustomApp.png?raw=true)
 
 # BUGS
