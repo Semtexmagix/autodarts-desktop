@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using autodarts_desktop.Properties;
+using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
@@ -32,20 +33,20 @@ namespace autodarts_desktop
             // Extern / Portale
 
             // Settings Lidarts.org
-            TextBoxEmailLidarts.Text = Properties.Settings.Default.emaillidarts;
-            TextBoxPWLidarts.Password = Properties.Settings.Default.pwlidarts;
+            TextBoxEmailLidarts.Text = Settings.Default.emaillidarts;
+            TextBoxPWLidarts.Password = Settings.Default.pwlidarts;
 
             // Settings Dartboards.online
-            TextBoxEmaildbo.Text = Properties.Settings.Default.dbouser;
-            TextBoxPWdbo.Password = Properties.Settings.Default.dbopw;
+            TextBoxEmaildbo.Text = Settings.Default.dbouser;
+            TextBoxPWdbo.Password = Settings.Default.dbopw;
 
             // Settings Extern
-            TextBoxmessagestart.Text = Properties.Settings.Default.messagestart;
-            TextBoxmessageend.Text = Properties.Settings.Default.messageend;
-            Checkboxskipdart.IsChecked = Properties.Settings.Default.checkboxskipdart;
-            TextBoxtime.Text = Properties.Settings.Default.timetoend;
-            TextBoxbrowser.Text = Properties.Settings.Default.browserpath;
-            TextBoxExternHostPort.Text = Properties.Settings.Default.hostport;
+            TextBoxmessagestart.Text = Settings.Default.messagestart;
+            TextBoxmessageend.Text = Settings.Default.messageend;
+            Checkboxskipdart.IsChecked = Settings.Default.checkboxskipdart;
+            TextBoxtime.Text = Settings.Default.timetoend;
+            TextBoxbrowser.Text = Settings.Default.browserpath;
+            TextBoxExternHostPort.Text = Settings.Default.hostport;
         }
 
         private void Buttonspeichern_Click(object sender, RoutedEventArgs e)
@@ -55,35 +56,35 @@ namespace autodarts_desktop
             //----------------------------------------------------------------------------------------------
 
             // Settings Lidarts.org
-            Properties.Settings.Default.emaillidarts = TextBoxEmailLidarts.Text;
-            Properties.Settings.Default.pwlidarts = TextBoxPWLidarts.Password;
+            Settings.Default.emaillidarts = TextBoxEmailLidarts.Text;
+            Settings.Default.pwlidarts = TextBoxPWLidarts.Password;
 
             // Settings Dartboards.online
-            Properties.Settings.Default.dbouser = TextBoxEmaildbo.Text;
-            Properties.Settings.Default.dbopw = TextBoxPWdbo.Password;
+            Settings.Default.dbouser = TextBoxEmaildbo.Text;
+            Settings.Default.dbopw = TextBoxPWdbo.Password;
 
             // Settings Extern
-            Properties.Settings.Default.messagestart = TextBoxmessagestart.Text;
-            Properties.Settings.Default.messageend = TextBoxmessageend.Text;
+            Settings.Default.messagestart = TextBoxmessagestart.Text;
+            Settings.Default.messageend = TextBoxmessageend.Text;
             if (Checkboxskipdart.IsChecked == true)
             {
-                Properties.Settings.Default.skipdarts = "true";
-                Properties.Settings.Default.checkboxskipdart = true;
+                Settings.Default.skipdarts = "true";
+                Settings.Default.checkboxskipdart = true;
             }
             else
             {
-                Properties.Settings.Default.skipdarts = "false";
-                Properties.Settings.Default.checkboxskipdart = false;
+                Settings.Default.skipdarts = "false";
+                Settings.Default.checkboxskipdart = false;
             }
-            Properties.Settings.Default.timetoend = TextBoxtime.Text;
-            Properties.Settings.Default.browserpath = TextBoxbrowser.Text;
-            Properties.Settings.Default.hostport = TextBoxExternHostPort.Text;
+            Settings.Default.timetoend = TextBoxtime.Text;
+            Settings.Default.browserpath = TextBoxbrowser.Text;
+            Settings.Default.hostport = TextBoxExternHostPort.Text;
 
             // Setup Extern erledigt -> Ja
-            Properties.Settings.Default.setupexterndone = true;
+            Settings.Default.setupexterndone = true;
 
             // Settings Speichern
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
             this.Close();
         }
 

@@ -410,8 +410,8 @@ namespace autodarts_desktop
                     parsedValidatedDynamicArguments.TryGetValue("extern_platform", out externPlatform);
 
                     // normal arguments
-                    string browserpath = ValidateParseArgument(nameof(Settings.Default.browserpath), Settings.Default.browserpath);
-                    string port = ValidateParseArgument(nameof(Settings.Default.hostport), Settings.Default.hostport);
+                    string browserpath = ValidateParseArgument(nameof(Settings.Default.browserpath), Settings.Default.browserpath, true);
+                    string port = ValidateParseArgument(nameof(Settings.Default.hostport), Settings.Default.hostport, true);
                     string autodartsUser = ValidateParseArgument(nameof(Settings.Default.emailautodarts), Settings.Default.emailautodarts, true);
                     string autodartsPassword = ValidateParseArgument(nameof(Settings.Default.pwautodarts), Settings.Default.pwautodarts, true);
                     string autodartsBoardId = ValidateParseArgument(nameof(Settings.Default.boardid), Settings.Default.boardid, true);
@@ -473,7 +473,7 @@ namespace autodarts_desktop
             {
                 if (ae.Message.StartsWith(argumentErrorKey))
                 {
-                    string invalidArgumentErrorMessage = ae.Message.Substring(argumentErrorKey.Length, ae.Message.Length - argumentErrorKey.Length - 1);
+                    string invalidArgumentErrorMessage = ae.Message.Substring(argumentErrorKey.Length, ae.Message.Length - argumentErrorKey.Length);
                     invalidArgumentErrorMessage += " is required. Please go to the app-settings and fill it.";
                     AppConfigurationRequiredEventArgs eventArgs = new AppConfigurationRequiredEventArgs(app.Value, invalidArgumentErrorMessage);
                     OnAppConfigurationRequired(eventArgs);
@@ -486,7 +486,6 @@ namespace autodarts_desktop
             }
             
         }
-    
 
         private string ValidateParseArgument(string argumentName, string argumentValue, bool required = false)
         {

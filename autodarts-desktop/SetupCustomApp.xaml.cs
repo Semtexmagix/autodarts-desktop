@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using autodarts_desktop.Properties;
+using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,8 @@ namespace autodarts_desktop
             //----------------------------------------------------------------------------------------------
 
             // Settings Zusatz Programme (OBS)
-            TextBoxobs.Text = Properties.Settings.Default.obs;
-            TextBoxCustomAppArgs.Text = Properties.Settings.Default.customappargs;
+            TextBoxobs.Text = Settings.Default.obs;
+            TextBoxCustomAppArgs.Text = Settings.Default.customappargs;
         }
 
         private void Buttonspeichern_Click(object sender, RoutedEventArgs e)
@@ -40,14 +41,14 @@ namespace autodarts_desktop
             //----------------------------------------------------------------------------------------------
 
             // Settings Zusatz Programme Lidarts (OBS)
-            Properties.Settings.Default.obs = TextBoxobs.Text;
-            Properties.Settings.Default.customappargs = TextBoxCustomAppArgs.Text;
+            Settings.Default.obs = TextBoxobs.Text;
+            Settings.Default.customappargs = TextBoxCustomAppArgs.Text;
 
             // Setup Custom app erledigt -> Ja
-            Properties.Settings.Default.setupcustomappdone = true;
+            Settings.Default.setupcustomappdone = true;
 
             // Settings Speichern
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
             this.Close();
         }
 
