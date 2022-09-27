@@ -50,16 +50,15 @@ namespace autodarts_desktop
 
     /// <summary>
     /// Manages everything around apps-lifecycle.
-    /// TODO: Method for checking for valid app-configuration
     /// </summary>
     public class AppManager
     {
-        // Attribute
+        // Attributes
         // Key = Download-Link
         // Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
         public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.2.2/autodarts-caller.exe", "autodarts-caller");
-        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.0/autodarts-extern.exe", "autodarts-extern");
+        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.1/autodarts-extern.exe", "autodarts-extern");
         public KeyValuePair<string, string> autodartsBot = new("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip", "autodarts-bot");
         public KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
         public KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
@@ -222,8 +221,7 @@ namespace autodarts_desktop
                 string appPath = Path.Join(pathToApps, app.Value);
                 string downloadPath = Path.Join(appPath, appFileName);
 
-
-                // Finde die exe und kill den Prozess
+                // Find the executable and kill running process
                 string executable = String.IsNullOrEmpty(specificFile) ? FindExecutable(appPath) : FindExecutable(appPath, specificFile);
                 if (executable != null)
                 {
@@ -231,17 +229,17 @@ namespace autodarts_desktop
                     KillApp(Path.GetFileNameWithoutExtension(executable));
                 }
 
-                // Löscht vorhandene App und erstellt einen neuen Ordner
+                // Removes existing app and creates a new directory
                 if (Directory.Exists(appPath))
                 {
                     Directory.Delete(appPath, true);
                 }
                 Directory.CreateDirectory(appPath);
 
-                // Informiere die GUI, das ein Download gestartet wird
+                // Informs subscribers about a pending download
                 OnDownloadAppStarted(EventArgs.Empty);
 
-                // Starte den Download
+                // Start the download
                 DownloadApp(app.Key, downloadPath);
             }
             catch (Exception)
@@ -268,6 +266,7 @@ namespace autodarts_desktop
         {
             try
             {
+                // Extract download if zip-file
                 string pathToFile = (sender as WebClient).QueryString["pathToDownload"];
                 if (Path.GetExtension(pathToFile).ToLower() == ".zip")
                 {
