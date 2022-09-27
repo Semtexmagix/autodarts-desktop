@@ -5,33 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Setup - autodarts-extern" ResizeMode="NoResize" Background="AliceBlue" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Setup - autodarts-extern" ResizeMode="NoResize" Background="AliceBlue" Height="470" Width="560" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Autodarts-extern" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,26,0,0"/>
-        <Label Content="Chat-message on match start" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="114,58,0,0"/>
-        <Label Content="Chat-message on match end" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="527,58,0,0"/>
-        <Label Content="Retention time after match ended" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="527,115,0,0"/>
-        <CheckBox x:Name="Checkboxskipdart" Content="Automatic skipping of dart-thrown request" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.507,-0.262" Margin="114,146,0,0"/>
-        <TextBox x:Name="TextBoxmessagestart" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="114,89,0,0" />
-        <TextBox x:Name="TextBoxmessageend" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="527,89,0,0"/>
-        <Label Content="Dart thrown requests" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="114,115,0,0"/>
-        <TextBox x:Name="TextBoxtime" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="527,146,0,0"/>
-        <Label Content="Email lidarts.org" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="114,282,0,0"/>
-        <Label Content="Password lidarts.org" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="527,282,0,0"/>
-        <Label Content="Portals" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,260,0,0"/>
-        <Label Content="Email dartboards.online" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="114,338,0,0"/>
-        <Label Content="Password dartboards.online" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="527,338,0,0"/>
-        <TextBox x:Name="TextBoxEmailLidarts" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="114,313,0,0"/>
-        <PasswordBox x:Name="TextBoxPWLidarts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="20" Margin="527,313,0,0"/>
-        <TextBox x:Name="TextBoxEmaildbo" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="114,369,0,0"/>
-        <PasswordBox x:Name="TextBoxPWdbo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="20" Margin="527,369,0,0"/>
+        <Label Content="Autodarts-extern" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="192,12,0,0" RenderTransformOrigin="1.023,0.636"/>
+        <Label Content="Chat-message on match start" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,48,0,0"/>
+        <Label Content="Chat-message on match end" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="300,48,0,0"/>
+        <Label Content="Retention time after match ended" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="300,104,0,0"/>
+        <CheckBox x:Name="Checkboxskipdart" Content="Automatic skipping" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.507,-0.262" Margin="25,136,0,0"/>
+        <TextBox x:Name="TextBoxmessagestart" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="25,79,0,0" />
+        <TextBox x:Name="TextBoxmessageend" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="300,79,0,0"/>
+        <Label Content="Dart thrown requests" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,105,0,0"/>
+        <TextBox x:Name="TextBoxtime" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="302,131,0,0"/>
+        <Label Content="Email lidarts.org" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,297,0,0"/>
+        <Label Content="Password lidarts.org" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="300,297,0,0"/>
+        <Label Content="Portals" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="231,275,0,0"/>
+        <Label Content="Email dartboards.online" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,353,0,0"/>
+        <Label Content="Password dartboards.online" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="300,353,0,0"/>
+        <TextBox x:Name="TextBoxEmailLidarts" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="25,328,0,0"/>
+        <PasswordBox x:Name="TextBoxPWLidarts" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="20" Margin="302,328,0,0"/>
+        <TextBox x:Name="TextBoxEmaildbo" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="25,384,0,0"/>
+        <PasswordBox x:Name="TextBoxPWdbo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="20" Margin="302,384,0,0"/>
         <Button x:Name="Buttonspeichern" HorizontalAlignment="right" VerticalAlignment="Top" Click="Buttonspeichern_Click" Canvas.Left="580" Canvas.Top="15">
             <Image Width="24" Height="24" Source="images/save.png"></Image>
         </Button>
-        <Label Content="Host-Port" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="114,176,0,0"/>
-        <TextBox x:Name="TextBoxExternHostPort" HorizontalAlignment="Left" Height="20" Text="Host-Port" VerticalAlignment="Center" FontSize="10" Width="194" Margin="114,0,0,0"/>
-        <Label Content="Browser e.g. chrome.exe" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="527,176,0,0"/>
-        <Button x:Name="Buttonbrowser" Content="Choose..." HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonbrowser_Click" Width="60" Margin="527,245,0,0"/>
-        <TextBox x:Name="TextBoxbrowser" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Center" FontSize="10" Width="200" Margin="527,0,0,0"/>
+        <Label Content="Host-Port" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,166,0,0"/>
+        <TextBox x:Name="TextBoxExternHostPort" HorizontalAlignment="Left" Height="20" Text="Host-Port" VerticalAlignment="Top" FontSize="10" Width="194" Margin="25,197,0,0"/>
+        <Label Content="Browser e.g. chrome.exe" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="300,166,0,0"/>
+        <Button x:Name="Buttonbrowser" Content="Choose..." HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonbrowser_Click" Width="60" Margin="302,222,0,0"/>
+        <TextBox x:Name="TextBoxbrowser" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" FontSize="10" Width="200" Margin="302,197,0,0"/>
     </Grid>
 </Window>
