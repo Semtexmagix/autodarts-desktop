@@ -12,14 +12,19 @@ autodarts-desktop is a tool (GUI) to handle (install/setup/use) many projects fo
 for example the Autodarts-caller tool:
  - tool to have a caller at Autodarts.io
 
+ ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupCaller.png?raw=true)
+
 and the Autodarts-external tool:
  - automates multiple dart-web-platforms accordingly to the state of an https://autodarts.io match.
+
+ ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupExtern.png?raw=true)
 
 you can also start side programmes:
  - Like Dartsboard.Online Client (webcam support) / VDZ Visual Darts Zoom
 
 and custom programmes (like OBS to create a visual cam with custom theme)
 
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/SetupCustomApp.png?raw=true)
 
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS2.png?raw=true)
 With OBS it is possible to display the Autodarts.io game in the virtual camera.
