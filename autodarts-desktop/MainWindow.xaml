@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-Desktop" Width="325" Height="250" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Autodarts-Desktop" Width="325" Height="220" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="/images/background.png" Stretch="UniformToFill"/>
     </Window.Background>
@@ -24,18 +24,18 @@
             <Image Width="24" Height="24" Source="images/download.png"></Image>
         </Button>
 
-        <Button x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="270,79,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
+        <Button x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="270,65,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
             <Image x:Name="darts_png" Width="32" Height="32" Source="/images/darts.png" Stretch="Fill"/>
         </Button>
 
-        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="29,85,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
-        <Label x:Name="labelcombobox" Content="Select profile:" HorizontalAlignment="Left" Margin="24,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757" Foreground="White"/>
+        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="27,71,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
+        <Label x:Name="labelcombobox" Content="Select profile:" HorizontalAlignment="Left" Margin="22,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757" Foreground="White"/>
 
-        <CheckBox x:Name="Checkboxad" Content="autodarts-client" HorizontalAlignment="Left" Margin="32,119,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White" />
-        <CheckBox x:Name="Checkboxbot" Content="autodarts-bot" HorizontalAlignment="Left" Margin="185,119,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-        <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="32,139,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-        <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="32,160,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-        <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="185,139,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
+        <CheckBox x:Name="Checkboxad" Content="autodarts-client" HorizontalAlignment="Left" Margin="30,105,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White" />
+        <CheckBox x:Name="Checkboxbot" Content="autodarts-bot" HorizontalAlignment="Left" Margin="183,105,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
+        <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="30,125,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
+        <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="30,146,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
+        <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="183,125,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
 
         <Image x:Name="Waiting" Width="150" gif:ImageBehavior.RepeatBehavior="1"
                gif:ImageBehavior.AnimateInDesignMode="False"
