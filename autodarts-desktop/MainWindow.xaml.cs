@@ -19,17 +19,22 @@ namespace autodarts_desktop
         {
             InitializeComponent();
             appManager = new AppManager();
+            appManager.ConfigurationChanged += AppManager_ConfigurationChanged;
             appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
             appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
             appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
             appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
             appManager.CheckDefaultRequirements();
-            SetInstallStateApps();
+            UpdateAppsInstallState();
         }
+
+
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
             var selectedTag = ((ComboBoxItem)Comboboxportal.SelectedItem).Tag.ToString();
+            Settings.Default.selectedProfile = Comboboxportal.SelectedIndex;
+            Settings.Default.Save();
 
             try
             {
@@ -91,31 +96,21 @@ namespace autodarts_desktop
         {
             if (Comboboxportal.SelectedIndex == -1) return;
 
-            if (String.IsNullOrEmpty(Properties.Settings.Default.obs))
-            {
-                Checkboxcustom.IsEnabled = false;
-                Checkboxcustom.IsChecked = false;
-            }
-            else
-            {
-                Checkboxcustom.IsEnabled = true;
-                Checkboxcustom.IsChecked = Properties.Settings.Default.custom_start_default;
-            }
+            UpdateCustomAppState();
 
             bool appState;
             appsInstallState.TryGetValue(appManager.autodarts.Value, out appState);
             Checkboxad.IsEnabled = appState;
-            Checkboxad.IsChecked = appState ? Properties.Settings.Default.ad_start_default : false;
+            Checkboxad.IsChecked = appState ? Settings.Default.ad_start_default : false;
 
 
             var selectedTag = ((ComboBoxItem)Comboboxportal.SelectedItem).Tag.ToString();
-
             switch (selectedTag)
             {
                 case "caller":
                     appsInstallState.TryGetValue(appManager.autodartsBot.Value, out appState);
                     Checkboxbot.IsEnabled = appState;
-                    Checkboxbot.IsChecked = appState ? Properties.Settings.Default.bot_start_default : false;
+                    Checkboxbot.IsChecked = appState ? Settings.Default.bot_start_default : false;
 
                     Checkboxvdz.IsEnabled = false;
                     Checkboxvdz.IsChecked = false;
@@ -126,7 +121,7 @@ namespace autodarts_desktop
                 case "lidarts":
                     appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
                     Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false;
+                    Checkboxvdz.IsChecked = appState ? Settings.Default.vdz_start_default : false;
 
                     Checkboxbot.IsEnabled = false;
                     Checkboxbot.IsChecked = false;
@@ -137,7 +132,7 @@ namespace autodarts_desktop
                 case "nakka":
                     appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
                     Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false; ;
+                    Checkboxvdz.IsChecked = appState ? Settings.Default.vdz_start_default : false;
 
                     Checkboxbot.IsEnabled = false;
                     Checkboxbot.IsChecked = false;
@@ -149,11 +144,11 @@ namespace autodarts_desktop
                 case "dartboards":
                     appsInstallState.TryGetValue(appManager.dartboardsClient.Value, out appState);
                     Checkboxdboc.IsEnabled = appState;
-                    Checkboxdboc.IsChecked = appState ? Properties.Settings.Default.dboc_start_default : false;
+                    Checkboxdboc.IsChecked = appState ? Settings.Default.dboc_start_default : false;
 
                     appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
                     Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = appState ? Properties.Settings.Default.vdz_start_default : false; ;
+                    Checkboxvdz.IsChecked = appState ? Settings.Default.vdz_start_default : false;
 
                     Checkboxbot.IsEnabled = false;
                     Checkboxbot.IsChecked = false;
@@ -187,6 +182,10 @@ namespace autodarts_desktop
         }
 
 
+        private void AppManager_ConfigurationChanged(object? sender, EventArgs e)
+        {
+            UpdateCustomAppState();
+        }
 
         private void AppManager_DownloadAppProgressed(object? sender, EventArgs e)
         {
@@ -196,7 +195,7 @@ namespace autodarts_desktop
 
         private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
         {
-            SetInstallStateApps();
+            UpdateAppsInstallState();
             GridMain.IsEnabled = true;
             Waiting.Visibility = Visibility.Hidden;
         }
@@ -236,7 +235,7 @@ namespace autodarts_desktop
             }
         }
 
-        private void SetInstallStateApps()
+        private void UpdateAppsInstallState()
         {
             appsInstallState = appManager.GetAppsInstallState();
 
@@ -257,7 +256,28 @@ namespace autodarts_desktop
                     }
                 }
             }
-            Comboboxportal.SelectedIndex = 0;
+            if(Settings.Default.selectedProfile > -1 && Settings.Default.selectedProfile < Comboboxportal.Items.Count)
+            {
+                Comboboxportal.SelectedIndex = Settings.Default.selectedProfile;
+            }
+            else if(Settings.Default.selectedProfile > -1)
+            {
+                Comboboxportal.SelectedIndex = 0;
+            }
+        }
+
+        private void UpdateCustomAppState()
+        {
+            if (String.IsNullOrEmpty(Settings.Default.obs))
+            {
+                Checkboxcustom.IsEnabled = false;
+                Checkboxcustom.IsChecked = false;
+            }
+            else
+            {
+                Checkboxcustom.IsEnabled = true;
+                Checkboxcustom.IsChecked = Settings.Default.custom_start_default;
+            }
         }
 
         private void AddComboBoxItem(string content, String value)

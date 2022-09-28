@@ -1,4 +1,5 @@
 ﻿using autodarts_desktop.Properties;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,25 +59,25 @@ namespace autodarts_desktop
         // Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
         public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.2.2/autodarts-caller.exe", "autodarts-caller");
-        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.1/autodarts-extern.exe", "autodarts-extern");
+        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.3.2/autodarts-extern.exe", "autodarts-extern");
         public KeyValuePair<string, string> autodartsBot = new("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip", "autodarts-bot");
         public KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
         public KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
         public const string autodartsUrl = "https://autodarts.io";
 
-
-        private string? pathToApps;
         public event EventHandler<AppConfigurationRequiredEventArgs> AppDownloadRequired;
         public event EventHandler<AppConfigurationRequiredEventArgs> AppConfigurationRequired;
         public event EventHandler<EventArgs> DownloadAppStarted;
         public event EventHandler<EventArgs> DownloadAppProgressed;
         public event EventHandler<EventArgs> DownloadAppStopped;
+        public event EventHandler<EventArgs> ConfigurationChanged;
         private const string argumentPrefixKey = "argumentPrefixKey";
         private const string argumentDelimiterKey = "argumentDelimiterKey";
         private const string specificFileKey = "specificFile";
         private const string argumentErrorKey = "ArgumentValidateParse-Error";
+        private string? pathToApps;
 
-
+        
 
         public AppManager()
         {
@@ -87,6 +88,13 @@ namespace autodarts_desktop
 
 
         // Methods
+
+        public void SaveConfigurationCustomApp(string pathToCustomApp, string customAppArguments)
+        {
+            Settings.Default.obs = pathToCustomApp;
+            Settings.Default.customappargs = customAppArguments;
+            OnConfigurationChanged(EventArgs.Empty);
+        }
 
         public void CheckDefaultRequirements()
         {
@@ -532,7 +540,7 @@ namespace autodarts_desktop
  
                 if (process != null)
                     process.Kill();
-                    Thread.Sleep(300);
+                    Thread.Sleep(175);
             }
             catch (Exception ex)
             {
@@ -547,6 +555,12 @@ namespace autodarts_desktop
             return urlSplitted[urlSplitted.Length - 1];
         }
 
+
+        protected virtual void OnConfigurationChanged(EventArgs e)
+        {
+            if (ConfigurationChanged != null)
+                ConfigurationChanged(this, e);
+        }
 
         protected virtual void OnAppDownloadRequired(AppConfigurationRequiredEventArgs e)
         {

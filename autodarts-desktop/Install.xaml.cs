@@ -136,7 +136,7 @@ namespace autodarts_desktop
 
         private void Buttonsetupcustom_Click(object sender, RoutedEventArgs e)
         {
-            SetupCustomApp SC1 = new SetupCustomApp();
+            SetupCustomApp SC1 = new SetupCustomApp(appManager);
             SC1.ShowDialog();
         }
 

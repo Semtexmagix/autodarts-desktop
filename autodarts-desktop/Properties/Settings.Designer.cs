@@ -467,5 +467,17 @@ namespace autodarts_desktop.Properties {
                 this["setupcustomappdone"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int selectedProfile {
+            get {
+                return ((int)(this["selectedProfile"]));
+            }
+            set {
+                this["selectedProfile"] = value;
+            }
+        }
     }
 }

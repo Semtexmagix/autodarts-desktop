@@ -1,4 +1,5 @@
 ﻿using autodarts_desktop.Properties;
+using Microsoft.VisualBasic.Devices;
 using Microsoft.Win32;
 using System.Windows;
 
@@ -9,14 +10,17 @@ namespace autodarts_desktop
     /// </summary>
     public partial class SetupCustomApp : Window
     {
-        public SetupCustomApp()
+        private AppManager appManager;
+
+        public SetupCustomApp(AppManager appManager)
         {
             InitializeComponent();
+            this.appManager = appManager;
+
             //----------------------------------------------------------------------------------------------
             //------------------->>>>> Laden der Settings als Input für die Textboxen
             //----------------------------------------------------------------------------------------------
 
-            // Settings Zusatz Programme (OBS)
             TextBoxobs.Text = Settings.Default.obs;
             TextBoxCustomAppArgs.Text = Settings.Default.customappargs;
         }
@@ -27,15 +31,8 @@ namespace autodarts_desktop
             //------------------->>>>> Speichern der Textboxen als Settings 
             //----------------------------------------------------------------------------------------------
 
-            // Settings Zusatz Programme Lidarts (OBS)
-            Settings.Default.obs = TextBoxobs.Text;
-            Settings.Default.customappargs = TextBoxCustomAppArgs.Text;
+            appManager.SaveConfigurationCustomApp(TextBoxobs.Text, TextBoxCustomAppArgs.Text);
 
-            // Setup Custom app erledigt -> Ja
-            Settings.Default.setupcustomappdone = true;
-
-            // Settings Speichern
-            Settings.Default.Save();
             this.Close();
         }
 
