@@ -67,8 +67,6 @@ namespace autodarts_desktop
             Settings.Default.browserpath = TextBoxbrowser.Text;
             Settings.Default.hostport = TextBoxExternHostPort.Text;
 
-            // Setup Extern erledigt -> Ja
-            Settings.Default.setupexterndone = true;
 
             // Settings Speichern
             Settings.Default.Save();

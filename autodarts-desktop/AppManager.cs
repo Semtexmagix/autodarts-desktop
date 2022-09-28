@@ -93,6 +93,7 @@ namespace autodarts_desktop
         {
             Settings.Default.obs = pathToCustomApp;
             Settings.Default.customappargs = customAppArguments;
+            Settings.Default.Save();
             OnConfigurationChanged(EventArgs.Empty);
         }
 

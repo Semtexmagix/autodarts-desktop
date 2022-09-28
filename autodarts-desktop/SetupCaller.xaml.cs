@@ -78,9 +78,6 @@ namespace autodarts_desktop
             Settings.Default.sliderpos = slValue.Value;
             Settings.Default.callerwtt = TextBoxCallerWtt.Text;
 
-            // Setup Caller erledigt -> Ja
-            Settings.Default.setupcallerdone = true;
-
             // Settings Speichern
             Settings.Default.Save();
             Close();

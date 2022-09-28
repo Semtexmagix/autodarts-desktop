@@ -434,42 +434,6 @@ namespace autodarts_desktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool setupcallerdone {
-            get {
-                return ((bool)(this["setupcallerdone"]));
-            }
-            set {
-                this["setupcallerdone"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool setupexterndone {
-            get {
-                return ((bool)(this["setupexterndone"]));
-            }
-            set {
-                this["setupexterndone"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool setupcustomappdone {
-            get {
-                return ((bool)(this["setupcustomappdone"]));
-            }
-            set {
-                this["setupcustomappdone"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public int selectedProfile {
             get {
