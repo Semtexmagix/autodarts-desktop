@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Setup - custom-app" ResizeMode="NoResize" Background="AliceBlue" Height="280" Width="340" WindowStartupLocation="CenterScreen">
+        Title="Setup - custom-app" ResizeMode="NoResize" Height="280" Width="340" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="/images/background.png"/>
+    </Window.Background>
     <Grid>
-        <Label Content="Custom-app" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="113,22,0,0"/>
-        <Label Content="Path to custom-app" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="33,69,0,0"/>
+        <Label Content="Custom-app" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="113,22,0,0" Foreground="White"/>
+        <Label Content="Path to custom-app" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="33,69,0,0" Foreground="White"/>
         <Button x:Name="Buttonobs" Content="Choose..." HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.492,-0.399" Click="Buttonobs_Click" Width="63" Margin="33,129,0,0"/>
         <TextBox x:Name="TextBoxobs" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" FontSize="10" RenderTransformOrigin="0.529,-0.698" Width="263" Margin="33,100,0,0"/>
-        <Label Content="Custom-app start-arguments" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,166,0,0"/>
+        <Label Content="Custom-app start-arguments" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,166,0,0" Foreground="White"/>
         <TextBox x:Name="TextBoxCustomAppArgs" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="10" Width="263" Margin="33,197,0,0"/>
         <Button x:Name="Buttonspeichern" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Buttonspeichern_Click">
             <Image Width="24" Height="24" Source="images/save.png"></Image>

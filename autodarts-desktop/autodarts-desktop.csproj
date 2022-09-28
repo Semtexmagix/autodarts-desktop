@@ -16,13 +16,14 @@
     <None Remove="images\bug.png" />
     <None Remove="images\configuration.png" />
     <None Remove="images\contact.png" />
-    <None Remove="images\dart.png" />
+    <None Remove="images\darts.png" />
     <None Remove="images\donation.png" />
     <None Remove="images\download.png" />
     <None Remove="images\help.png" />
     <None Remove="images\save.png" />
     <None Remove="images\spinner.gif" />
     <None Remove="images\spinner_back.gif" />
+    <None Remove="wallpaperflare.com_wallpaper.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,12 +55,13 @@
     <Resource Include="images\bug.png" />
     <Resource Include="images\configuration.png" />
     <Resource Include="images\contact.png" />
-    <Resource Include="images\dart.png" />
+    <Resource Include="images\darts.png" />
     <Resource Include="images\donation.png" />
     <Resource Include="images\download.png" />
     <Resource Include="images\help.png" />
     <Resource Include="images\save.png" />
     <Resource Include="images\spinner.gif" />
+    <Resource Include="images\background.png" />
   </ItemGroup>
 
 </Project>

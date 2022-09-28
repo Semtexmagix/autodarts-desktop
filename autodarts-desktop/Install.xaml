@@ -5,18 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Downloads" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="AliceBlue">
+        Title="Downloads" MaxHeight="281" MinHeight="281" MaxWidth="558" MinWidth="558" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="/images/background.png" Stretch="UniformToFill"/>
+    </Window.Background>
     <Grid x:Name="GridMain" Margin="0,-2,0,0" HorizontalAlignment="Center" Width="558" Height="260" VerticalAlignment="Top">
 
-        <Label Content="Choose your download(s) and click Download:" HorizontalAlignment="Left" Margin="45,15,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Choose your download(s) and click Download:" HorizontalAlignment="Left" Margin="45,15,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
         <ProgressBar x:Name="progressDownloads" HorizontalAlignment="Left" Height="10" Margin="279,219,0,0" VerticalAlignment="Top" Width="200" Visibility="Hidden" />
         <Button x:Name="ButtonInstall" Content="Download" HorizontalAlignment="Left" Margin="70,214,0,0" VerticalAlignment="Top" Click="ButtonInstall_Click" RenderTransformOrigin="-0.568,-0.484" Width="170" IsEnabled="False" />
-        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts windows (board-client)" HorizontalAlignment="Left" Margin="66,49,0,0" VerticalAlignment="Top" Click="Checkbox_Click"/>
-        <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="66,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" />
-        <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="66,89,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
-        <CheckBox x:Name="Checkboxexterninstall" Content="autodarts-extern (automates dart web platforms with autodarts)" HorizontalAlignment="Left" Margin="85,107,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Checked="Checkboxexterninstall_Checked" Unchecked="Checkboxexterninstall_Unchecked"/>
-        <CheckBox x:Name="Checkboxinstallvdz" Content="virtual-darts-zoom (zooms webcam image onto the thrown darts)" HorizontalAlignment="Left" Margin="110,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Click="Checkbox_Click" />
-        <CheckBox x:Name="Checkboxinstalldbo" Content="dartboards-client (webcam connection client for dartboards.online)" HorizontalAlignment="Left" Margin="110,147,0,0" VerticalAlignment="Top" Click="Checkbox_Click" />
+        <CheckBox x:Name="Checkboxautodartsinstall" Content="autodarts windows (board-client)" HorizontalAlignment="Left" Margin="66,49,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Foreground="White"/>
+        <CheckBox x:Name="Checkboxinstallbot" Content="autodarts-bot (computer opponent)" HorizontalAlignment="Left" Margin="66,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.155,4.051" Click="Checkbox_Click" Foreground="White" />
+        <CheckBox x:Name="Checkboxcallerinstall" Content="autodarts-caller (calls out thrown points)" HorizontalAlignment="Left" Margin="66,89,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Foreground="White" />
+        <CheckBox x:Name="Checkboxexterninstall" Content="autodarts-extern (automates dart web platforms with autodarts)" HorizontalAlignment="Left" Margin="85,107,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Checked="Checkboxexterninstall_Checked" Unchecked="Checkboxexterninstall_Unchecked" Foreground="White"/>
+        <CheckBox x:Name="Checkboxinstallvdz" Content="virtual-darts-zoom (zooms webcam image onto the thrown darts)" HorizontalAlignment="Left" Margin="110,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.336,-0.527" Click="Checkbox_Click" Foreground="White" />
+        <CheckBox x:Name="Checkboxinstalldbo" Content="dartboards-client (webcam connection client for dartboards.online)" HorizontalAlignment="Left" Margin="110,147,0,0" VerticalAlignment="Top" Click="Checkbox_Click" Foreground="White" />
         <Label x:Name="autodartsInstallState" Content="Label" HorizontalAlignment="Left" Margin="45,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="autodartsBotInstallState" Content="Label" HorizontalAlignment="Left" Margin="45,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="autodartsCallerInstallState" Content="Label" HorizontalAlignment="Left" Margin="45,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold"/>
@@ -43,7 +46,7 @@
         <Button x:Name="Buttonsetupextern" HorizontalAlignment="Left" Margin="445,105,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonsetupextern_Click">
             <Image x:Name="Imageextern" Width="18" Height="18" Source="images/configuration.png"></Image>
         </Button>
-       
+
         <Button x:Name="virtualDartsZoomHelp" Background="Transparent" BorderThickness="0" Click="ButtonHelp_Click" HorizontalAlignment="Left" Margin="475,125,0,0" VerticalAlignment="Top" RenderTransformOrigin="6.26,0.071" FontSize="14" FontWeight="Bold">
             <Image Width="18" Height="18" Source="images/help.png"></Image>
         </Button>
@@ -55,7 +58,7 @@
         <Button x:Name="Buttonsetupcustom" HorizontalAlignment="Left" Margin="514,18,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonsetupcustom_Click">
             <Image x:Name="Imagecustomapp" Width="18" Height="18" Source="images/configuration.png"></Image>
         </Button>
-        <Label x:Name="Labelcustomsetup" Content="Customize" HorizontalAlignment="Left" Margin="452,14,0,0" VerticalAlignment="Top" Visibility="Visible"/>
+        <Label x:Name="Labelcustomsetup" Content="Customize" HorizontalAlignment="Left" Margin="452,14,0,0" VerticalAlignment="Top" Visibility="Visible" Foreground="White"/>
 
     </Grid>
 </Window>
