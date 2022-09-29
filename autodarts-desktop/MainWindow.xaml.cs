@@ -260,7 +260,7 @@ namespace autodarts_desktop
             {
                 Comboboxportal.SelectedIndex = Settings.Default.selectedProfile;
             }
-            else if(Settings.Default.selectedProfile > -1)
+            else
             {
                 Comboboxportal.SelectedIndex = 0;
             }

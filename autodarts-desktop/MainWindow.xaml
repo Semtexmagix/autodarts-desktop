@@ -17,15 +17,38 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="Buttonabout" HorizontalAlignment="Left" Margin="272,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonabout_Click">
+
+        <Grid.Resources>
+            <Style x:Key="BtnStyle" TargetType="Button">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="gd" Background="{TemplateBinding Background}">
+                                <ContentPresenter></ContentPresenter>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Button.IsFocused" Value="True">
+                                    <Setter Property="Background" Value="Transparent" TargetName="gd"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <Button Style="{StaticResource BtnStyle}" x:Name="Buttonabout" HorizontalAlignment="Left" Margin="272,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonabout_Click">
             <Image Width="24" Height="24" Source="images/about.png"></Image>
         </Button>
-        <Button x:Name="Buttoninstall" HorizontalAlignment="Left" Margin="235,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttoninstall_Click">
+        <Button Style="{StaticResource BtnStyle}" x:Name="Buttoninstall" HorizontalAlignment="Left" Margin="235,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttoninstall_Click">
             <Image Width="24" Height="24" Source="images/download.png"></Image>
         </Button>
-
-        <Button x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="270,65,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
-            <Image x:Name="darts_png" Width="32" Height="32" Source="/images/darts.png" Stretch="Fill"/>
+        <Button Style="{StaticResource BtnStyle}" x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="270,65,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
+            <Image x:Name="darts_png" Width="32" Height="32" Source="/images/go.png" Stretch="Fill"/>
         </Button>
 
         <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="27,71,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
@@ -36,9 +59,8 @@
         <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="30,125,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
         <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="30,146,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
         <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="183,125,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-
-        <Image x:Name="Waiting" Width="150" gif:ImageBehavior.RepeatBehavior="1"
+        <Image x:Name="Waiting" Width="40" Margin="0,-165,0,0" gif:ImageBehavior.RepeatBehavior="1"
                gif:ImageBehavior.AnimateInDesignMode="False"
-               gif:ImageBehavior.AutoStart="True" Height="150" gif:ImageBehavior.AnimatedSource="images/spinner.gif" Visibility="Hidden" />
+               gif:ImageBehavior.AutoStart="True" gif:ImageBehavior.AnimatedSource="images/spinner.gif" Visibility="Hidden" />
     </Grid>
 </Window>

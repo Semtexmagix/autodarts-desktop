@@ -19,6 +19,7 @@
     <None Remove="images\darts.png" />
     <None Remove="images\donation.png" />
     <None Remove="images\download.png" />
+    <None Remove="images\go.png" />
     <None Remove="images\help.png" />
     <None Remove="images\save.png" />
     <None Remove="images\spinner.gif" />
@@ -55,9 +56,9 @@
     <Resource Include="images\bug.png" />
     <Resource Include="images\configuration.png" />
     <Resource Include="images\contact.png" />
-    <Resource Include="images\darts.png" />
     <Resource Include="images\donation.png" />
     <Resource Include="images\download.png" />
+    <Resource Include="images\go.png" />
     <Resource Include="images\help.png" />
     <Resource Include="images\save.png" />
     <Resource Include="images\spinner.gif" />
