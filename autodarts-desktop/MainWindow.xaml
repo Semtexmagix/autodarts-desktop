@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-Desktop" Width="325" Height="220" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Autodarts-Desktop" Width="325" Height="220" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Window.Background>
         <ImageBrush ImageSource="/images/background.png" Stretch="UniformToFill"/>
     </Window.Background>

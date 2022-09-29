@@ -29,6 +29,17 @@ namespace autodarts_desktop
         }
 
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                appManager.CloseRunningApps();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error occured: " + ex.Message);
+            }
+        }
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
@@ -287,9 +298,6 @@ namespace autodarts_desktop
             appItem.Tag = value;
             Comboboxportal.Items.Add(appItem);
         }
-
-
-
 
     }
 }

@@ -3,18 +3,12 @@ using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Threading;
-using System.Windows;
-using Windows.ApplicationModel.Store.Preview.InstallControl;
-using Windows.Foundation.Metadata;
-using Windows.Services.Maps;
 using Path = System.IO.Path;
 
 namespace autodarts_desktop
@@ -107,6 +101,15 @@ namespace autodarts_desktop
                 DownloadAutodartsCaller();
                 OnAppDownloadRequired(new AppConfigurationRequiredEventArgs(autodartsCaller.Value, "Requirements (autodarts-caller) not satisfied"));
             }
+        }
+
+        public void CloseRunningApps(){
+            CloseRunningApp(autodarts);
+            CloseRunningApp(autodartsCaller);
+            CloseRunningApp(autodartsExtern);
+            CloseRunningApp(autodartsBot);
+            CloseRunningApp(virtualDartsZoom);
+            CloseRunningApp(dartboardsClient);
         }
 
         public Dictionary<string, bool> GetAppsInstallState()
@@ -531,6 +534,19 @@ namespace autodarts_desktop
         private static bool CheckAppRunningState(string processName)
         {
             return Process.GetProcessesByName(processName).FirstOrDefault(p => p.ProcessName.ToLower().Contains(processName.ToLower())) != null;
+        }
+
+        private void CloseRunningApp(KeyValuePair<string, string> app, string specificFile = "")
+        {
+            string appPath = Path.Join(pathToApps, app.Value);
+
+            // Find the executable and kill running process
+            string executable = String.IsNullOrEmpty(specificFile) ? FindExecutable(appPath) : FindExecutable(appPath, specificFile);
+            if (executable != null)
+            {
+                KillApp(Path.GetFileNameWithoutExtension(executable));
+                KillApp(Path.GetFileNameWithoutExtension(executable));
+            }
         }
 
         private static void KillApp(string processName)
