@@ -37,30 +37,9 @@ namespace autodarts_desktop
 
         private void Checkboxexterninstall_Checked(object sender, RoutedEventArgs e)
         {
-            if (autodartsCallerInstallState.IsEnabled)
-            {
-                Checkboxcallerinstall.IsChecked = false;
-            }
-            else
-            {
-                Checkboxcallerinstall.IsChecked = true;
-            }
-            if (virtualDartsZoomInstallState.IsEnabled)
-            {
-                Checkboxinstallvdz.IsChecked = false;
-            }
-            else
-            {
-                Checkboxinstallvdz.IsChecked = true;
-            }
-            if (dartboardsClientInstallState.IsEnabled)
-            {
-                Checkboxinstalldbo.IsChecked = false;
-            }
-            else
-            {
-                Checkboxinstalldbo.IsChecked = true;
-            }
+            Checkboxcallerinstall.IsChecked = true;
+            Checkboxinstallvdz.IsChecked = true;
+            Checkboxinstalldbo.IsChecked = true;
         }
 
         private void Checkboxexterninstall_Unchecked(object sender, RoutedEventArgs e)

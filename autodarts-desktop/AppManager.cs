@@ -554,10 +554,11 @@ namespace autodarts_desktop
             try
             {
                 var process = Process.GetProcessesByName(processName).FirstOrDefault(p => p.ProcessName.Contains(processName));
- 
                 if (process != null)
+                {
                     process.Kill();
                     Thread.Sleep(175);
+                }
             }
             catch (Exception ex)
             {
