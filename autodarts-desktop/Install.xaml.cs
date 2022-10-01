@@ -210,7 +210,7 @@ namespace autodarts_desktop
             }
         }
 
-        private void AppManager_DownloadAppStarted(object? sender, EventArgs e)
+        private void AppManager_DownloadAppStarted(object? sender, AppEventArgs e)
         {
             SetGUIForDownload(true);
         }

@@ -1,6 +1,8 @@
 ﻿using autodarts_desktop.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,6 +27,7 @@ namespace autodarts_desktop
                 appManager.ConfigurationChanged += AppManager_ConfigurationChanged;
                 appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
                 appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
+                appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
                 appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
                 appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
                 appManager.CheckDefaultRequirements();
@@ -33,6 +36,12 @@ namespace autodarts_desktop
                 appManager.NewReleaseFound += AppManager_NewReleaseFound;
                 appManager.NewReleaseReady += AppManager_NewReleaseReady;
                 appManager.CheckNewVersion();
+
+                string[] args = Environment.GetCommandLineArgs();
+                if (args.Length > 0 && args[0] == "-U")
+                {
+                    appManager.UpdateInstalledApps();
+                }
             }
             catch (Exception ex)
             {
@@ -40,7 +49,6 @@ namespace autodarts_desktop
                 Close();
             }
         }
-
 
 
 
@@ -209,9 +217,9 @@ namespace autodarts_desktop
 
 
 
-        private void AppManager_NewReleaseFound(object? sender, EventArgs e)
+        private void AppManager_NewReleaseFound(object? sender, AppEventArgs e)
         {
-            if (MessageBox.Show("New Version available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"New Version '{e.Message}' available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
@@ -225,7 +233,7 @@ namespace autodarts_desktop
             }
         }
 
-        private void AppManager_NewReleaseReady(object? sender, EventArgs e)
+        private void AppManager_NewReleaseReady(object? sender, AppEventArgs e)
         {
             Close();
         }
@@ -235,27 +243,28 @@ namespace autodarts_desktop
             UpdateCustomAppState();
         }
 
+        private void AppManager_DownloadAppStarted(object? sender, AppEventArgs e)
+        {
+            SetGUIForDownload(true, "Downloading " + e.App + "..");
+        }
+
         private void AppManager_DownloadAppProgressed(object? sender, EventArgs e)
         {
-            GridMain.IsEnabled = false;
-            Waiting.Visibility = Visibility.Visible;
+            SetGUIForDownload(true);
         }
 
         private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
         {
             UpdateAppsInstallState();
-            GridMain.IsEnabled = true;
-            Waiting.Visibility = Visibility.Hidden;
+            SetGUIForDownload(false);
         }
 
-        private void AppManager_AppDownloadRequired(object? sender, AppConfigurationRequiredEventArgs e)
+        private void AppManager_AppDownloadRequired(object? sender, AppEventArgs e)
         {
-            GridMain.IsEnabled = false;
-            Waiting.Visibility = Visibility.Visible;
-            //MessageBox.Show(e.Message + " - downloading.. please wait.");
+            SetGUIForDownload(true, "Downloading " + e.App + "..");
         }
 
-        private void AppManager_AppConfigurationRequired(object? sender, AppConfigurationRequiredEventArgs e)
+        private void AppManager_AppConfigurationRequired(object? sender, AppEventArgs e)
         {
             MessageBox.Show(e.Message);
             if (e.App == appManager.autodarts.Value)
@@ -334,6 +343,23 @@ namespace autodarts_desktop
             appItem.Content = content;
             appItem.Tag = value;
             Comboboxportal.Items.Add(appItem);
+        }
+
+        private void SetGUIForDownload(bool downloading, string waitingText = "")
+        {
+            if (downloading)
+            {
+                GridMain.IsEnabled = false;
+                Waiting.Visibility = Visibility.Visible;
+                WaitingText.Content = String.IsNullOrEmpty(waitingText) ? WaitingText.Content : waitingText;
+                WaitingText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                GridMain.IsEnabled = true;
+                Waiting.Visibility = Visibility.Hidden;
+                WaitingText.Visibility = Visibility.Hidden;
+            }
         }
 
     }

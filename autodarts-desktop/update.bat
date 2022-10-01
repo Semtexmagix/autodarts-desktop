@@ -4,4 +4,4 @@ PUSHD .
 xcopy /s/e/v/y/z .\Updates\ .
 rmdir /s /q .\Updates
 
-start "Autodarts-Desktop" autodarts-desktop.exe
+start "Autodarts-Desktop" autodarts-desktop.exe "-U"

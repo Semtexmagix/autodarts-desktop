@@ -10,6 +10,8 @@ using System.Net;
 using System.Threading;
 using Path = System.IO.Path;
 using System.Net.Http;
+using Windows.ApplicationModel.Store.Preview.InstallControl;
+using Windows.Services.Maps;
 
 
 namespace autodarts_desktop
@@ -21,12 +23,12 @@ namespace autodarts_desktop
         nakka
     }
 
-    public class AppConfigurationRequiredEventArgs : EventArgs
+    public class AppEventArgs : EventArgs
     {
         private readonly string _app;
         private readonly string _message;
 
-        public AppConfigurationRequiredEventArgs(string app, string message)
+        public AppEventArgs(string app, string message)
         {
             _app = app;
             _message = message;
@@ -51,7 +53,7 @@ namespace autodarts_desktop
     {
         // ATTRIBUTES
 
-        private const string V = "v0.8.0";
+        private const string V = "v0.8.1";
 
         private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
         private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
@@ -69,11 +71,11 @@ namespace autodarts_desktop
         public const string autodartsUrl = "https://autodarts.io";
 
         public static string version = V;
-        public event EventHandler<EventArgs> NewReleaseReady;
-        public event EventHandler<EventArgs> NewReleaseFound;
-        public event EventHandler<AppConfigurationRequiredEventArgs> AppDownloadRequired;
-        public event EventHandler<AppConfigurationRequiredEventArgs> AppConfigurationRequired;
-        public event EventHandler<EventArgs> DownloadAppStarted;
+        public event EventHandler<AppEventArgs> NewReleaseReady;
+        public event EventHandler<AppEventArgs> NewReleaseFound;
+        public event EventHandler<AppEventArgs> AppDownloadRequired;
+        public event EventHandler<AppEventArgs> AppConfigurationRequired;
+        public event EventHandler<AppEventArgs> DownloadAppStarted;
         public event EventHandler<EventArgs> DownloadAppProgressed;
         public event EventHandler<EventArgs> DownloadAppStopped;
         public event EventHandler<EventArgs> ConfigurationChanged;
@@ -104,7 +106,7 @@ namespace autodarts_desktop
             if (autodartsCallerInstalled == false)
             {
                 DownloadAutodartsCaller();
-                OnAppDownloadRequired(new AppConfigurationRequiredEventArgs(autodartsCaller.Value, "Requirements (autodarts-caller) not satisfied"));
+                OnAppDownloadRequired(new AppEventArgs(autodartsCaller.Value, "Requirements (autodarts-caller) not satisfied"));
             }
         }
 
@@ -124,7 +126,7 @@ namespace autodarts_desktop
             if (version != latestGithubVersion)
             {
                 latestRepoVersion = latestGithubVersion;
-                OnNewReleaseFound(EventArgs.Empty);
+                OnNewReleaseFound(new AppEventArgs("release", latestRepoVersion));
             }
         }
 
@@ -146,7 +148,7 @@ namespace autodarts_desktop
                     Directory.CreateDirectory(downloadDirectory);
 
 
-                    OnDownloadAppStarted(EventArgs.Empty);
+                    OnDownloadAppStarted(new AppEventArgs(latestRepoVersion, latestRepoVersion));
 
                     // Start the download
                     WebClient webClient = new WebClient();
@@ -161,6 +163,41 @@ namespace autodarts_desktop
             {
                 OnDownloadAppStopped(EventArgs.Empty);
                 throw;
+            }
+        }
+
+        public void UpdateInstalledApps()
+        {
+            Dictionary<string, bool> appsInstallState = GetAppsInstallState();
+            foreach(KeyValuePair<string, bool> app in appsInstallState)
+            {
+                if (app.Value)
+                {
+                    if (app.Key == autodarts.Value)
+                    {
+                        DownloadAutodarts();
+                    }
+                    else if (app.Key == autodartsCaller.Value)
+                    {
+                        DownloadAutodartsCaller();
+                    }
+                    else if (app.Key == autodartsExtern.Value)
+                    {
+                        DownloadAutodartsExtern();
+                    }
+                    else if (app.Key == autodartsBot.Value)
+                    {
+                        DownloadAutodartsBot();
+                    }
+                    else if (app.Key == virtualDartsZoom.Value)
+                    {
+                        DownloadVirtualDartsZoom();
+                    }
+                    else if (app.Key == dartboardsClient.Value)
+                    {
+                        DownloadDartboardsClient();
+                    }
+                }
             }
         }
 
@@ -321,7 +358,7 @@ namespace autodarts_desktop
                         throw;
                     }
                 }
-                OnNewReleaseReady(EventArgs.Empty);
+                OnNewReleaseReady(new AppEventArgs("release", pathToFile));
             }
             catch (Exception ex)
             {
@@ -354,7 +391,7 @@ namespace autodarts_desktop
                 Directory.CreateDirectory(appPath);
 
                 // Inform subscribers about a pending download
-                OnDownloadAppStarted(EventArgs.Empty);
+                OnDownloadAppStarted(new AppEventArgs(app.Value, ""));
 
                 // Start the download
                 DownloadApp(app.Key, downloadPath);
@@ -591,8 +628,7 @@ namespace autodarts_desktop
                 {
                     string invalidArgumentErrorMessage = ae.Message.Substring(argumentErrorKey.Length, ae.Message.Length - argumentErrorKey.Length);
                     invalidArgumentErrorMessage += " is required. Please go to the app-settings and fill it.";
-                    AppConfigurationRequiredEventArgs eventArgs = new AppConfigurationRequiredEventArgs(app.Value, invalidArgumentErrorMessage);
-                    OnAppConfigurationRequired(eventArgs);
+                    OnAppConfigurationRequired(new AppEventArgs(app.Value, invalidArgumentErrorMessage));
                     return null;
                 }
                 else
@@ -683,13 +719,13 @@ namespace autodarts_desktop
 
 
         
-        protected virtual void OnNewReleaseReady(EventArgs e)
+        protected virtual void OnNewReleaseReady(AppEventArgs e)
         {
             if (NewReleaseReady != null)
                 NewReleaseReady(this, e);
         }
 
-        protected virtual void OnNewReleaseFound(EventArgs e)
+        protected virtual void OnNewReleaseFound(AppEventArgs e)
         {
             if (NewReleaseFound != null)
                 NewReleaseFound(this, e);
@@ -701,19 +737,19 @@ namespace autodarts_desktop
                 ConfigurationChanged(this, e);
         }
 
-        protected virtual void OnAppDownloadRequired(AppConfigurationRequiredEventArgs e)
+        protected virtual void OnAppDownloadRequired(AppEventArgs e)
         {
             if (AppDownloadRequired != null)
                 AppDownloadRequired(this, e);
         }
 
-        protected virtual void OnAppConfigurationRequired(AppConfigurationRequiredEventArgs e)
+        protected virtual void OnAppConfigurationRequired(AppEventArgs e)
         {
             if (AppConfigurationRequired != null)
                 AppConfigurationRequired(this, e);
         }
 
-        protected virtual void OnDownloadAppStarted(EventArgs e)
+        protected virtual void OnDownloadAppStarted(AppEventArgs e)
         {
             if (DownloadAppStarted != null)
                 DownloadAppStarted(this, e);
