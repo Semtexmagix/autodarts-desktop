@@ -9,8 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using Path = System.IO.Path;
-using AutoUpdateViaGitHubRelease;
-using System.Windows;
+using System.Net.Http;
+
 
 namespace autodarts_desktop
 {
@@ -49,14 +49,17 @@ namespace autodarts_desktop
     /// </summary>
     public class AppManager
     {
-        private const string V = "v0.7.8";
-        private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
-        private const string appSourceFile = "autodarts-desktop.zip";
-        private string latestNewVersion;
+        // ATTRIBUTES
 
-        // Attributes
-        // Key = Download-Link
-        // Value = Storage-path
+        private const string V = "v0.8.0";
+
+        private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
+        private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
+        private const string appSourceFile = "autodarts-desktop.zip";
+        private const string appDestination = "updates";
+        private string latestRepoVersion;
+
+        // Key = Download-Link   -   Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
         public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.3.0/autodarts-caller.exe", "autodarts-caller");
         public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.4.0/autodarts-extern.exe", "autodarts-extern");
@@ -66,6 +69,7 @@ namespace autodarts_desktop
         public const string autodartsUrl = "https://autodarts.io";
 
         public static string version = V;
+        public event EventHandler<EventArgs> NewReleaseReady;
         public event EventHandler<EventArgs> NewReleaseFound;
         public event EventHandler<AppConfigurationRequiredEventArgs> AppDownloadRequired;
         public event EventHandler<AppConfigurationRequiredEventArgs> AppConfigurationRequired;
@@ -85,71 +89,12 @@ namespace autodarts_desktop
         {
             string strExeFilePath = AppContext.BaseDirectory;
             pathToApps = Path.GetDirectoryName(strExeFilePath);
+            latestRepoVersion = "";
         }
 
 
 
-        // Methods
-
-        private Update update;
-
-        public void CheckNewVersionAsync()
-        {
-
-            //latestNewVersion = version;
-            //GetLatestVersion(version);
-
-
-            //Version v = new Version(V);
-            //update.CheckDownloadNewVersionAsync("Semtexmagix", "autodarts-desktop", v, "./Updates");
-
-            //GithubUpdateCheck update = new GithubUpdateCheck("Semtexmagix", "autodarts-desktop", CompareType.Incremental);
-            //bool isUpdate = update.IsUpdateAvailable(V, VersionChange.Revision);
-            //bool isAsyncUpdate = await update.IsUpdateAvailable(V, VersionChange.Revision);
-
-            //if (isUpdate)
-            //{
-            //    OnNewReleaseFound(EventArgs.Empty);
-            //}
-            //bool isAsyncUpdate = await update.IsUpdateAvailable("1.0.0.5", VersionChange.Revision);
-
-
-
-            update = new Update();
-            update.PropertyChanged += Update_PropertyChanged;
-
-            //var assembly = Assembly.GetExecutingAssembly();
-            //var version = assembly.GetName().Version;
-            //"0.7.7"
-            //var version = new Version(0, 7, 7);
-            var version = new Version("0.7.7");
-
-            update.CheckDownloadNewVersionAsync("Semtexmagix", "autodarts-desktop", version, "./Updates");
-        }
-
-        private void Update_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (update.Available)
-            {
-                update.StartInstall(pathToApps);
-                OnNewReleaseFound(EventArgs.Empty);
-                //Application.Close();
-            }
-            else
-            {
-                MessageBox.Show("No Updates");
-            }
-        }
-
-
-
-        public void SaveConfigurationCustomApp(string pathToCustomApp, string customAppArguments)
-        {
-            Settings.Default.obs = pathToCustomApp;
-            Settings.Default.customappargs = customAppArguments;
-            Settings.Default.Save();
-            OnConfigurationChanged(EventArgs.Empty);
-        }
+        // METHODS
 
         public void CheckDefaultRequirements()
         {
@@ -160,6 +105,62 @@ namespace autodarts_desktop
             {
                 DownloadAutodartsCaller();
                 OnAppDownloadRequired(new AppConfigurationRequiredEventArgs(autodartsCaller.Value, "Requirements (autodarts-caller) not satisfied"));
+            }
+        }
+
+        public async void CheckNewVersion()
+        {
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+            var result = await client.GetStringAsync(appSourceUrlLatest);
+            int tagNameIndex = result.IndexOf("tag_name");
+            if (tagNameIndex == -1) throw new ArgumentException("github-tagName-Index not found");
+            result = result.Substring(tagNameIndex);
+            int tagNameCommaIndex = result.IndexOf(',');
+            if (tagNameCommaIndex == -1) throw new ArgumentException("github-tagNameComma-Index not found");
+            result = result.Substring("tag_name: \"".Length, tagNameCommaIndex - "tag_name: \"".Length);
+            var latestGithubVersion = result.Replace("\"", "");
+
+            if (version != latestGithubVersion)
+            {
+                latestRepoVersion = latestGithubVersion;
+                OnNewReleaseFound(EventArgs.Empty);
+            }
+        }
+
+        public void UpdateToNewVersion()
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(latestRepoVersion))
+                {
+                    string downloadUrl = appSourceUrl + "/" + latestRepoVersion + "/" + appSourceFile;
+                    string downloadPath = Path.Join(pathToApps, appDestination, appSourceFile);
+                    string downloadDirectory = Path.GetDirectoryName(downloadPath);
+
+                    // Removes existing download-directory and creates a new one
+                    if (Directory.Exists(downloadDirectory))
+                    {
+                        Directory.Delete(downloadDirectory, true);
+                    }
+                    Directory.CreateDirectory(downloadDirectory);
+
+
+                    OnDownloadAppStarted(EventArgs.Empty);
+
+                    // Start the download
+                    WebClient webClient = new WebClient();
+                    webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
+                    webClient.DownloadFileCompleted += WebClient_DownloadReleaseCompleted;
+                    webClient.QueryString.Add("pathToDownload", downloadPath);
+                    webClient.QueryString.Add("version", latestRepoVersion);
+                    webClient.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
+                }
+            }
+            catch (Exception)
+            {
+                OnDownloadAppStopped(EventArgs.Empty);
+                throw;
             }
         }
 
@@ -281,8 +282,53 @@ namespace autodarts_desktop
             }
         }
 
+        public void SaveConfigurationCustomApp(string pathToCustomApp, string customAppArguments)
+        {
+            Settings.Default.obs = pathToCustomApp;
+            Settings.Default.customappargs = customAppArguments;
+            Settings.Default.Save();
+            OnConfigurationChanged(EventArgs.Empty);
+        }
 
 
+
+        private void WebClient_DownloadReleaseCompleted(object? sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+                WebClient wc = (sender as WebClient);
+                string pathToFile = wc.QueryString["pathToDownload"];
+                //string version = wc.QueryString["version"];
+
+                ZipFile.ExtractToDirectory(pathToFile, Path.GetDirectoryName(pathToFile), true);
+                File.Delete(pathToFile);
+
+                // start update-batch, that waits until files are accessible; then copy new release to assembly location and delete temp files
+                using (var process = new Process())
+                {
+                    try
+                    {
+                        process.StartInfo.WorkingDirectory = pathToApps;
+                        process.StartInfo.FileName = "update.bat";
+                        process.StartInfo.RedirectStandardOutput = false;
+                        process.StartInfo.RedirectStandardError = false;
+                        process.StartInfo.UseShellExecute = true;
+                        process.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"An error occurred trying to start \"update.bat\":\n{ex.Message}");
+                        throw;
+                    }
+                }
+                OnNewReleaseReady(EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occured: {ex.Message}");
+                OnDownloadAppStopped(e);
+            }
+        }
 
         private void DownloadApp(KeyValuePair<string, string> app, string specificFile = "")
         {
@@ -635,6 +681,13 @@ namespace autodarts_desktop
 
 
 
+
+        
+        protected virtual void OnNewReleaseReady(EventArgs e)
+        {
+            if (NewReleaseReady != null)
+                NewReleaseReady(this, e);
+        }
 
         protected virtual void OnNewReleaseFound(EventArgs e)
         {

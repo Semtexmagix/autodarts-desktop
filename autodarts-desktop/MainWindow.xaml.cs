@@ -18,24 +18,30 @@ namespace autodarts_desktop
         public MainWindow()
         {
             InitializeComponent();
-            appManager = new AppManager();
-            appManager.ConfigurationChanged += AppManager_ConfigurationChanged;
-            appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
-            appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
-            appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
-            appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
-            appManager.CheckDefaultRequirements();
-            UpdateAppsInstallState();
 
-            //appManager.NewReleaseFound += AppManager_NewReleaseFound;
-            //appManager.CheckNewVersionAsync();
+            try
+            {
+                appManager = new AppManager();
+                appManager.ConfigurationChanged += AppManager_ConfigurationChanged;
+                appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
+                appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
+                appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
+                appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
+                appManager.CheckDefaultRequirements();
+                UpdateAppsInstallState();
+
+                appManager.NewReleaseFound += AppManager_NewReleaseFound;
+                appManager.NewReleaseReady += AppManager_NewReleaseReady;
+                appManager.CheckNewVersion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong: " + ex.Message);
+                Close();
+            }
         }
 
-        private void AppManager_NewReleaseFound(object? sender, EventArgs e)
-        {
-            //MessageBox.Show("new release found!");
-            Close();
-        }
+
 
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -201,6 +207,28 @@ namespace autodarts_desktop
             Settings.Default.Save();
         }
 
+
+
+        private void AppManager_NewReleaseFound(object? sender, EventArgs e)
+        {
+            if (MessageBox.Show("New Version available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    appManager.UpdateToNewVersion();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Update to new version failed: " + ex.Message);
+                }
+                
+            }
+        }
+
+        private void AppManager_NewReleaseReady(object? sender, EventArgs e)
+        {
+            Close();
+        }
 
         private void AppManager_ConfigurationChanged(object? sender, EventArgs e)
         {
