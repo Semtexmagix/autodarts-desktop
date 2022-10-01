@@ -17,6 +17,7 @@ namespace autodarts_desktop
         public About()
         {
             InitializeComponent();
+            appVersion.Content = AppManager.version;
         }
 
 

@@ -34,6 +34,7 @@
             </Style>
         </Grid.Resources>
 
+        <Label x:Name="appVersion" Content="Label" HorizontalAlignment="Left" Margin="12,23,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Foreground="White"/>
         <Label FontSize="20" FontWeight="Bold" Content="Autodarts-Desktop" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.422,0.449" Foreground="White"/>
         <Label Content="Developed and maintained by:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Reepa86" HorizontalAlignment="Left" Margin="23,65,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Foreground="White"/>

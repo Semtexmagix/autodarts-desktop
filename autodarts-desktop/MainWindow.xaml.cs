@@ -26,6 +26,15 @@ namespace autodarts_desktop
             appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
             appManager.CheckDefaultRequirements();
             UpdateAppsInstallState();
+
+            //appManager.NewReleaseFound += AppManager_NewReleaseFound;
+            //appManager.CheckNewVersionAsync();
+        }
+
+        private void AppManager_NewReleaseFound(object? sender, EventArgs e)
+        {
+            //MessageBox.Show("new release found!");
+            Close();
         }
 
 

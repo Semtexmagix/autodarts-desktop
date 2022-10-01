@@ -1,5 +1,4 @@
 ﻿using autodarts_desktop.Properties;
-using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using Path = System.IO.Path;
+using AutoUpdateViaGitHubRelease;
+using System.Windows;
 
 namespace autodarts_desktop
 {
@@ -48,6 +49,11 @@ namespace autodarts_desktop
     /// </summary>
     public class AppManager
     {
+        private const string V = "v0.7.8";
+        private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
+        private const string appSourceFile = "autodarts-desktop.zip";
+        private string latestNewVersion;
+
         // Attributes
         // Key = Download-Link
         // Value = Storage-path
@@ -59,6 +65,8 @@ namespace autodarts_desktop
         public KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
         public const string autodartsUrl = "https://autodarts.io";
 
+        public static string version = V;
+        public event EventHandler<EventArgs> NewReleaseFound;
         public event EventHandler<AppConfigurationRequiredEventArgs> AppDownloadRequired;
         public event EventHandler<AppConfigurationRequiredEventArgs> AppConfigurationRequired;
         public event EventHandler<EventArgs> DownloadAppStarted;
@@ -82,6 +90,58 @@ namespace autodarts_desktop
 
 
         // Methods
+
+        private Update update;
+
+        public void CheckNewVersionAsync()
+        {
+
+            //latestNewVersion = version;
+            //GetLatestVersion(version);
+
+
+            //Version v = new Version(V);
+            //update.CheckDownloadNewVersionAsync("Semtexmagix", "autodarts-desktop", v, "./Updates");
+
+            //GithubUpdateCheck update = new GithubUpdateCheck("Semtexmagix", "autodarts-desktop", CompareType.Incremental);
+            //bool isUpdate = update.IsUpdateAvailable(V, VersionChange.Revision);
+            //bool isAsyncUpdate = await update.IsUpdateAvailable(V, VersionChange.Revision);
+
+            //if (isUpdate)
+            //{
+            //    OnNewReleaseFound(EventArgs.Empty);
+            //}
+            //bool isAsyncUpdate = await update.IsUpdateAvailable("1.0.0.5", VersionChange.Revision);
+
+
+
+            update = new Update();
+            update.PropertyChanged += Update_PropertyChanged;
+
+            //var assembly = Assembly.GetExecutingAssembly();
+            //var version = assembly.GetName().Version;
+            //"0.7.7"
+            //var version = new Version(0, 7, 7);
+            var version = new Version("0.7.7");
+
+            update.CheckDownloadNewVersionAsync("Semtexmagix", "autodarts-desktop", version, "./Updates");
+        }
+
+        private void Update_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (update.Available)
+            {
+                update.StartInstall(pathToApps);
+                OnNewReleaseFound(EventArgs.Empty);
+                //Application.Close();
+            }
+            else
+            {
+                MessageBox.Show("No Updates");
+            }
+        }
+
+
 
         public void SaveConfigurationCustomApp(string pathToCustomApp, string customAppArguments)
         {
@@ -573,6 +633,14 @@ namespace autodarts_desktop
             return urlSplitted[urlSplitted.Length - 1];
         }
 
+
+
+
+        protected virtual void OnNewReleaseFound(EventArgs e)
+        {
+            if (NewReleaseFound != null)
+                NewReleaseFound(this, e);
+        }
 
         protected virtual void OnConfigurationChanged(EventArgs e)
         {
