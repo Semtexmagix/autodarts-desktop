@@ -38,7 +38,7 @@ namespace autodarts_desktop
                 appManager.CheckNewVersion();
 
                 string[] args = Environment.GetCommandLineArgs();
-                if (args.Length > 0 && args[0] == "-U")
+                if (args.Length > 1 && args[1] == "-U")
                 {
                     appManager.UpdateInstalledApps();
                 }

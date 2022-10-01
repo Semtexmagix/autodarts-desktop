@@ -53,7 +53,7 @@ namespace autodarts_desktop
     {
         // ATTRIBUTES
 
-        private const string V = "v0.8.1";
+        private const string V = "v0.8.2";
 
         private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
         private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
