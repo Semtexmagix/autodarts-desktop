@@ -443,5 +443,41 @@ namespace autodarts_desktop.Properties {
                 this["selectedProfile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string calleverydart {
+            get {
+                return ((string)(this["calleverydart"]));
+            }
+            set {
+                this["calleverydart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkboxpossiblecheckoutcall {
+            get {
+                return ((bool)(this["checkboxpossiblecheckoutcall"]));
+            }
+            set {
+                this["checkboxpossiblecheckoutcall"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkboxcalleverydart {
+            get {
+                return ((bool)(this["checkboxcalleverydart"]));
+            }
+            set {
+                this["checkboxcalleverydart"] = value;
+            }
+        }
     }
 }

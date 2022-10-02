@@ -28,6 +28,8 @@ namespace autodarts_desktop
             TextBoxcallervol.Text = Settings.Default.callervol;
             Checkboxrandomcaller.IsChecked = Settings.Default.checkboxrandomcaller;
             Checkboxrandomcallereachleg.IsChecked = Settings.Default.checkboxrandomcallereachleg;
+            Checkboxpossiblecheckoutcall.IsChecked = Settings.Default.checkboxpossiblecheckoutcall;
+            Checkboxcalleverydart.IsChecked = Settings.Default.checkboxcalleverydart;
             slValue.Value = Settings.Default.sliderpos;
             TextBoxCallerWtt.Text = Settings.Default.callerwtt;
         }
@@ -70,11 +72,24 @@ namespace autodarts_desktop
             if (Checkboxpossiblecheckoutcall.IsChecked == true)
             {
                 Settings.Default.possiblecheckoutcall = "1";
+                Settings.Default.checkboxpossiblecheckoutcall = true;
             }
             else
             {
                 Settings.Default.possiblecheckoutcall = "0";
+                Settings.Default.checkboxpossiblecheckoutcall = false;
             }
+            if (Checkboxcalleverydart.IsChecked == true)
+            {
+                Settings.Default.calleverydart = "1";
+                Settings.Default.checkboxcalleverydart = true;
+            }
+            else
+            {
+                Settings.Default.calleverydart = "0";
+                Settings.Default.checkboxcalleverydart = false;
+            }
+
             Settings.Default.sliderpos = slValue.Value;
             Settings.Default.callerwtt = TextBoxCallerWtt.Text;
 

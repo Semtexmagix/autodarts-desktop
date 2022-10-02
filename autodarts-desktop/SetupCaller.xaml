@@ -32,8 +32,10 @@
         <CheckBox x:Name="Checkboxrandomcaller" Content="Randomly at program start" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="282,296,0,0" Foreground="White"/>
         <CheckBox x:Name="Checkboxrandomcallereachleg" Content="Randomly every leg" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="282,276,0,0" Background="White" Foreground="White"/>
         <CheckBox x:Name="Checkboxpossiblecheckoutcall" Content="Possible checkout call" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,276,0,0" Foreground="White"/>
+        <CheckBox x:Name="Checkboxcalleverydart" Content="Call every dart" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,296,0,0" Foreground="White"/>
         <Button x:Name="Buttonspeichern" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Buttonspeichern_Click">
             <Image Width="24" Height="24" Source="images/save.png" Cursor=""/>
         </Button>
+        
     </Grid>
 </Window>

@@ -10,8 +10,6 @@ using System.Net;
 using System.Threading;
 using Path = System.IO.Path;
 using System.Net.Http;
-using Windows.ApplicationModel.Store.Preview.InstallControl;
-using Windows.Services.Maps;
 
 
 namespace autodarts_desktop
@@ -53,23 +51,25 @@ namespace autodarts_desktop
     {
         // ATTRIBUTES
 
-        private const string V = "v0.8.2";
+        private const string V = "v0.8.3";
 
         private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
         private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
         private const string appSourceFile = "autodarts-desktop.zip";
         private const string appDestination = "updates";
-        private string latestRepoVersion;
-
+        
         // Key = Download-Link   -   Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
-        public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.3.0/autodarts-caller.exe", "autodarts-caller");
-        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.4.0/autodarts-extern.exe", "autodarts-extern");
+        public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.3.1/autodarts-caller.exe", "autodarts-caller");
+        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.4.1/autodarts-extern.exe", "autodarts-extern");
         public KeyValuePair<string, string> autodartsBot = new("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip", "autodarts-bot");
         public KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
         public KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
         public const string autodartsUrl = "https://autodarts.io";
 
+
+
+        private string latestRepoVersion;
         public static string version = V;
         public event EventHandler<AppEventArgs> NewReleaseReady;
         public event EventHandler<AppEventArgs> NewReleaseFound;
@@ -532,6 +532,7 @@ namespace autodarts_desktop
                     string autodartsCallerVol = ValidateParseArgument(nameof(Settings.Default.callervol), Settings.Default.callervol, false);
                     string autodartsRandomCaller = ValidateParseArgument(nameof(Settings.Default.randomcaller), Settings.Default.randomcaller, false);
                     string autodartsRandomCallerEachLeg = ValidateParseArgument(nameof(Settings.Default.randomcallereachleg), Settings.Default.randomcallereachleg, false);
+                    string autodartsCallerEveryDart = ValidateParseArgument(nameof(Settings.Default.calleverydart), Settings.Default.calleverydart, false);
                     string autodartsCallerPCC = ValidateParseArgument(nameof(Settings.Default.possiblecheckoutcall), Settings.Default.possiblecheckoutcall, false);
                     string autodartsCallerWtt = ValidateParseArgument(nameof(Settings.Default.callerwtt), Settings.Default.callerwtt, false);
 
@@ -542,6 +543,7 @@ namespace autodarts_desktop
                     configuration.Add("V", autodartsCallerVol);
                     configuration.Add("R", autodartsRandomCaller);
                     configuration.Add("L", autodartsRandomCallerEachLeg);
+                    configuration.Add("E", autodartsCallerEveryDart);
                     configuration.Add("PCC", autodartsCallerPCC);
                     configuration.Add("WTT", autodartsCallerWtt);
                 }
