@@ -692,8 +692,11 @@ namespace autodarts_desktop
 
         private void CloseRunningApp()
         {
-            KillApp(customAppProcessId);
-            KillApp(customAppProcessId);
+            if(customAppProcessId != -1)
+            {
+                KillApp(customAppProcessId);
+                KillApp(customAppProcessId);
+            }
         }
         private void CloseRunningApp(KeyValuePair<string, string> app, string specificFile = "")
         {
