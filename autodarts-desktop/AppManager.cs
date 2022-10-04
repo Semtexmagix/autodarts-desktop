@@ -50,7 +50,7 @@ namespace autodarts_desktop
     {
         // ATTRIBUTES
 
-        public static readonly string version = "v0.8.6";
+        public static readonly string version = "v0.8.7";
    
         // Key = Download-Link   -   Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
@@ -494,8 +494,6 @@ namespace autodarts_desktop
                 }
             }
 
-            // Console.WriteLine(composedArguments);
-
             using (var process = new Process())
             {
                 try
@@ -506,6 +504,7 @@ namespace autodarts_desktop
                     process.StartInfo.RedirectStandardOutput = false;
                     process.StartInfo.RedirectStandardError = false;
                     process.StartInfo.UseShellExecute = true;
+                    process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
                     process.Start();
                 }
                 catch (Exception ex)

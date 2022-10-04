@@ -43,7 +43,7 @@ It is also possible, to integrate a player camera into the view.
 or .. a full screen mode for the board.
 
 All of this can be easily realized via OBS scenes: The scenes can be switched during the game or via hotkeys.
-If you start OBS by the custom-app function, you can use "--startvirtualcam" as start-agument so obs automatically starts in visual-camera mode. 
+Hint: If you start OBS by the custom-app function, use "--startvirtualcam --disable-updater --minimize-to-tray" as start-arguments; OBS starts in an optimized mode. 
 
 
 ## BUGS

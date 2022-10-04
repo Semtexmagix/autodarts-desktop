@@ -49,17 +49,6 @@ namespace autodarts_desktop
 
 
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            try
-            {
-                appManager.CloseRunningApps();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error occured: " + ex.Message);
-            }
-        }
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
@@ -103,6 +92,8 @@ namespace autodarts_desktop
                 {
                     AppManager.RunCustomApp();
                 }
+
+                WindowState = WindowState.Minimized;
             }
             catch(Exception ex)
             {
@@ -212,7 +203,17 @@ namespace autodarts_desktop
             Settings.Default.Save();
         }
 
-
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                appManager.CloseRunningApps();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occured: " + ex.Message);
+            }
+        }
 
 
 
