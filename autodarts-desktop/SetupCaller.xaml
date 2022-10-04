@@ -22,7 +22,7 @@
         <Label Content="Webhook (http://your-ip:your-port/throw" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="25,201,0,0" Foreground="White"/>
         <Label Content="Random caller" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.1,0.483" FontWeight="Bold" Margin="282,250,0,0" Foreground="White"/>
         <TextBox x:Name="TextBoxEmailAutodarts" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="25,88,0,0"/>
-        <TextBox x:Name="TextBoxcallervol" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="25" FontSize="10" Margin="453,223,0,0" RenderTransformOrigin="0.536,-1.488"/>
+        <TextBox x:Name="TextBoxcallervol" IsEnabled="False" HorizontalAlignment="Left" Height="20" Text="" VerticalAlignment="Top" Width="25" FontSize="10" Margin="453,223,0,0" RenderTransformOrigin="0.536,-1.488"/>
         <TextBox x:Name="TextBoxBoardID" HorizontalAlignment="Left" Height="20"  Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="25,146,0,0"/>
         <Slider x:Name="slValue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="169" ValueChanged="Slider_ValueChanged" TickFrequency="0.01" Minimum="0.01" Maximum="1.00" Value="1.00" Margin="278,224,0,0"/>
         <TextBox x:Name="TextBoxCallerWtt" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="10" Margin="25,232,0,0"/>

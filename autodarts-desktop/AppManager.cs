@@ -51,7 +51,7 @@ namespace autodarts_desktop
     {
         // ATTRIBUTES
 
-        private const string V = "v0.8.3";
+        private const string V = "v0.8.4";
 
         private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
         private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
@@ -295,7 +295,7 @@ namespace autodarts_desktop
 
         public static void RunCustomApp()
         {
-            string pathToExecutable = Settings.Default.obs;
+            string pathToExecutable = Settings.Default.customapp;
             string arguments = Settings.Default.customappargs;
 
             using (var process = new Process())
@@ -321,7 +321,7 @@ namespace autodarts_desktop
 
         public void SaveConfigurationCustomApp(string pathToCustomApp, string customAppArguments)
         {
-            Settings.Default.obs = pathToCustomApp;
+            Settings.Default.customapp = pathToCustomApp;
             Settings.Default.customappargs = customAppArguments;
             Settings.Default.Save();
             OnConfigurationChanged(EventArgs.Empty);

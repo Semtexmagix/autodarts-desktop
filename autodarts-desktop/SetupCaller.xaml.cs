@@ -1,6 +1,5 @@
 ﻿using autodarts_desktop.Properties;
 using Ookii.Dialogs.Wpf;
-using System;
 using System.Windows;
 
 namespace autodarts_desktop
@@ -13,87 +12,31 @@ namespace autodarts_desktop
         public SetupCaller()
         {
             InitializeComponent();
-            //----------------------------------------------------------------------------------------------
-            //------------------->>>>> Laden der Settings als Input für die Textboxen
-            //----------------------------------------------------------------------------------------------
 
-
-            // Settings Autodarts.io
             TextBoxEmailAutodarts.Text = Settings.Default.emailautodarts;
             TextBoxPWAutodarts.Password = Settings.Default.pwautodarts;
-
-            // Settings Caller
             TextBoxBoardID.Text = Settings.Default.boardid;
             TextBoxmedia.Text = Settings.Default.media;
-            TextBoxcallervol.Text = Settings.Default.callervol;
-            Checkboxrandomcaller.IsChecked = Settings.Default.checkboxrandomcaller;
-            Checkboxrandomcallereachleg.IsChecked = Settings.Default.checkboxrandomcallereachleg;
-            Checkboxpossiblecheckoutcall.IsChecked = Settings.Default.checkboxpossiblecheckoutcall;
-            Checkboxcalleverydart.IsChecked = Settings.Default.checkboxcalleverydart;
-            slValue.Value = Settings.Default.sliderpos;
+            slValue.Value = WindowHelper.GetDoubleByString(Settings.Default.callervol);
+            Checkboxrandomcaller.IsChecked = WindowHelper.GetBoolByString(Settings.Default.randomcaller);
+            Checkboxrandomcallereachleg.IsChecked = WindowHelper.GetBoolByString(Settings.Default.randomcallereachleg);
+            Checkboxpossiblecheckoutcall.IsChecked = WindowHelper.GetBoolByString(Settings.Default.possiblecheckoutcall);
+            Checkboxcalleverydart.IsChecked = WindowHelper.GetBoolByString(Settings.Default.calleverydart);
             TextBoxCallerWtt.Text = Settings.Default.callerwtt;
         }
 
         private void Buttonspeichern_Click(object sender, RoutedEventArgs e)
         {
-            //----------------------------------------------------------------------------------------------
-            //------------------->>>>> Speichern der Textboxen als Settings 
-            //----------------------------------------------------------------------------------------------
-
-            // Settings Autodarts.io
             Settings.Default.emailautodarts = TextBoxEmailAutodarts.Text;
             Settings.Default.pwautodarts = TextBoxPWAutodarts.Password;
-
-            // Settings Caller
             Settings.Default.boardid = TextBoxBoardID.Text;
             Settings.Default.media = TextBoxmedia.Text;
             Settings.Default.callervol = TextBoxcallervol.Text;
-            if (Checkboxrandomcaller.IsChecked == true)
-            {
-                Settings.Default.randomcaller = "1";
-                Settings.Default.checkboxrandomcaller = true;
-            }
-            else
-            {
-                Settings.Default.randomcaller = "0";
-                Settings.Default.checkboxrandomcaller = false;
-            }
-
-            if (Checkboxrandomcallereachleg.IsChecked == true)
-            {
-                Settings.Default.randomcallereachleg = "1";
-                Settings.Default.checkboxrandomcallereachleg = true;
-            }
-            else
-            {
-                Settings.Default.randomcallereachleg = "0";
-                Settings.Default.checkboxrandomcallereachleg = false;
-            }
-            if (Checkboxpossiblecheckoutcall.IsChecked == true)
-            {
-                Settings.Default.possiblecheckoutcall = "1";
-                Settings.Default.checkboxpossiblecheckoutcall = true;
-            }
-            else
-            {
-                Settings.Default.possiblecheckoutcall = "0";
-                Settings.Default.checkboxpossiblecheckoutcall = false;
-            }
-            if (Checkboxcalleverydart.IsChecked == true)
-            {
-                Settings.Default.calleverydart = "1";
-                Settings.Default.checkboxcalleverydart = true;
-            }
-            else
-            {
-                Settings.Default.calleverydart = "0";
-                Settings.Default.checkboxcalleverydart = false;
-            }
-
-            Settings.Default.sliderpos = slValue.Value;
+            Settings.Default.randomcaller = WindowHelper.GetStringByBool((bool)Checkboxrandomcaller.IsChecked);
+            Settings.Default.randomcallereachleg = WindowHelper.GetStringByBool((bool)Checkboxrandomcallereachleg.IsChecked);
+            Settings.Default.possiblecheckoutcall = WindowHelper.GetStringByBool((bool)Checkboxpossiblecheckoutcall.IsChecked);
+            Settings.Default.calleverydart = WindowHelper.GetStringByBool((bool)Checkboxcalleverydart.IsChecked);
             Settings.Default.callerwtt = TextBoxCallerWtt.Text;
-
-            // Settings Speichern
             Settings.Default.Save();
             Close();
         }
@@ -109,8 +52,11 @@ namespace autodarts_desktop
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            String slidValAsStr = Math.Round(slValue.Value, 2).ToString().Replace(",", ".");
-            TextBoxcallervol.Text = slidValAsStr;
+            TextBoxcallervol.Text = WindowHelper.GetStringByDouble(slValue.Value);
         }
+
+
+
+
     }
 }

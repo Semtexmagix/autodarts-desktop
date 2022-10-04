@@ -44,7 +44,7 @@
     <Setting Name="randomcallereachleg" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="obs" Type="System.String" Scope="User">
+    <Setting Name="customapp" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="vdz" Type="System.String" Scope="User">
@@ -64,18 +64,6 @@
     </Setting>
     <Setting Name="dbopw" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="sliderpos" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="checkboxrandomcaller" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="checkboxrandomcallereachleg" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="checkboxskipdart" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="hostport" Type="System.String" Scope="User">
       <Value Profile="(Default)">8080</Value>
@@ -109,12 +97,6 @@
     </Setting>
     <Setting Name="calleverydart" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="checkboxpossiblecheckoutcall" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="checkboxcalleverydart" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

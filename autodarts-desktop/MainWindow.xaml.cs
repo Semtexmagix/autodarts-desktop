@@ -325,7 +325,7 @@ namespace autodarts_desktop
 
         private void UpdateCustomAppState()
         {
-            if (String.IsNullOrEmpty(Settings.Default.obs))
+            if (String.IsNullOrEmpty(Settings.Default.customapp))
             {
                 Checkboxcustom.IsEnabled = false;
                 Checkboxcustom.IsChecked = false;

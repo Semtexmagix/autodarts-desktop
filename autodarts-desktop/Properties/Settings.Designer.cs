@@ -195,12 +195,12 @@ namespace autodarts_desktop.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string obs {
+        public string customapp {
             get {
-                return ((string)(this["obs"]));
+                return ((string)(this["customapp"]));
             }
             set {
-                this["obs"] = value;
+                this["customapp"] = value;
             }
         }
         
@@ -273,54 +273,6 @@ namespace autodarts_desktop.Properties {
             }
             set {
                 this["dbopw"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public double sliderpos {
-            get {
-                return ((double)(this["sliderpos"]));
-            }
-            set {
-                this["sliderpos"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool checkboxrandomcaller {
-            get {
-                return ((bool)(this["checkboxrandomcaller"]));
-            }
-            set {
-                this["checkboxrandomcaller"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool checkboxrandomcallereachleg {
-            get {
-                return ((bool)(this["checkboxrandomcallereachleg"]));
-            }
-            set {
-                this["checkboxrandomcallereachleg"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool checkboxskipdart {
-            get {
-                return ((bool)(this["checkboxskipdart"]));
-            }
-            set {
-                this["checkboxskipdart"] = value;
             }
         }
         
@@ -453,30 +405,6 @@ namespace autodarts_desktop.Properties {
             }
             set {
                 this["calleverydart"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool checkboxpossiblecheckoutcall {
-            get {
-                return ((bool)(this["checkboxpossiblecheckoutcall"]));
-            }
-            set {
-                this["checkboxpossiblecheckoutcall"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool checkboxcalleverydart {
-            get {
-                return ((bool)(this["checkboxcalleverydart"]));
-            }
-            set {
-                this["checkboxcalleverydart"] = value;
             }
         }
     }
