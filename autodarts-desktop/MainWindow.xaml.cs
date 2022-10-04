@@ -1,8 +1,7 @@
 ﻿using autodarts_desktop.Properties;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -24,24 +23,22 @@ namespace autodarts_desktop
             try
             {
                 appManager = new AppManager();
+                appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
+                appManager.DownloadAppFinished += AppManager_DownloadAppFinished;
+                appManager.DownloadAppFailed += AppManager_DownloadAppFailed;
+                appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
                 appManager.ConfigurationChanged += AppManager_ConfigurationChanged;
                 appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
                 appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
-                appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
-                appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
-                appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
-                appManager.CheckDefaultRequirements();
-                UpdateAppsInstallState();
-
                 appManager.NewReleaseFound += AppManager_NewReleaseFound;
                 appManager.NewReleaseReady += AppManager_NewReleaseReady;
                 appManager.CheckNewVersion();
+                appManager.CheckDefaultRequirements();
+                UpdateAppsInstallState();
 
                 string[] args = Environment.GetCommandLineArgs();
-                if (args.Length > 1 && args[1] == "-U")
-                {
-                    appManager.UpdateInstalledApps();
-                }
+                if (args.Length > 1 && args[1] == "-U") appManager.UpdateInstalledApps();
+
             }
             catch (Exception ex)
             {
@@ -217,46 +214,34 @@ namespace autodarts_desktop
 
 
 
-        private void AppManager_NewReleaseFound(object? sender, AppEventArgs e)
-        {
-            if (MessageBox.Show($"New Version '{e.Message}' available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    appManager.UpdateToNewVersion();
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show("Update to new version failed: " + ex.Message);
-                }
-                
-            }
-        }
 
-        private void AppManager_NewReleaseReady(object? sender, AppEventArgs e)
-        {
-            Close();
-        }
-
-        private void AppManager_ConfigurationChanged(object? sender, EventArgs e)
-        {
-            UpdateCustomAppState();
-        }
 
         private void AppManager_DownloadAppStarted(object? sender, AppEventArgs e)
         {
             SetGUIForDownload(true, "Downloading " + e.App + "..");
         }
 
-        private void AppManager_DownloadAppProgressed(object? sender, EventArgs e)
-        {
-            SetGUIForDownload(true);
-        }
-
-        private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
+        private void AppManager_DownloadAppFinished(object? sender, AppEventArgs e)
         {
             UpdateAppsInstallState();
             SetGUIForDownload(false);
+        }
+
+        private void AppManager_DownloadAppFailed(object? sender, AppEventArgs e)
+        {
+            if(e.App == AppManager.releaseAppKey)
+            {
+                Hide();
+                MessageBox.Show("Checking for new release failed! Please check your internet-connection and try again. " + e.Message);
+                Close();
+                return;
+            }
+            SetGUIForDownload(false, "Download failed! Please check your internet-connection and try again. " + e.Message);
+        }
+
+        private void AppManager_DownloadAppProgressed(object? sender, DownloadProgressChangedEventArgs e)
+        {
+            SetGUIForDownload(true);
         }
 
         private void AppManager_AppDownloadRequired(object? sender, AppEventArgs e)
@@ -290,6 +275,32 @@ namespace autodarts_desktop
             else if (e.App == appManager.dartboardsClient.Value)
             {
             }
+        }
+
+        private void AppManager_NewReleaseFound(object? sender, AppEventArgs e)
+        {
+            if (MessageBox.Show($"New Version '{e.Message}' available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    appManager.UpdateToNewVersion();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Update to new version failed: " + ex.Message);
+                }
+
+            }
+        }
+
+        private void AppManager_NewReleaseReady(object? sender, AppEventArgs e)
+        {
+            Close();
+        }
+
+        private void AppManager_ConfigurationChanged(object? sender, EventArgs e)
+        {
+            UpdateCustomAppState();
         }
 
         private void UpdateAppsInstallState()
@@ -347,18 +358,21 @@ namespace autodarts_desktop
 
         private void SetGUIForDownload(bool downloading, string waitingText = "")
         {
+            string downloadMessage = String.IsNullOrEmpty(waitingText) ? WaitingText.Content.ToString() : waitingText;
+
             if (downloading)
             {
                 GridMain.IsEnabled = false;
                 Waiting.Visibility = Visibility.Visible;
-                WaitingText.Content = String.IsNullOrEmpty(waitingText) ? WaitingText.Content : waitingText;
+                WaitingText.Content = downloadMessage;
                 WaitingText.Visibility = Visibility.Visible;
             }
             else
             {
                 GridMain.IsEnabled = true;
                 Waiting.Visibility = Visibility.Hidden;
-                WaitingText.Visibility = Visibility.Hidden;
+                WaitingText.Content = downloadMessage;
+                WaitingText.Visibility = String.IsNullOrEmpty(waitingText) ? Visibility.Hidden : Visibility.Visible;
             }
         }
 

@@ -11,7 +11,6 @@ using System.Threading;
 using Path = System.IO.Path;
 using System.Net.Http;
 
-
 namespace autodarts_desktop
 {
     public enum AutodartsExternPlatforms
@@ -51,13 +50,8 @@ namespace autodarts_desktop
     {
         // ATTRIBUTES
 
-        private const string V = "v0.8.4";
-
-        private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
-        private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
-        private const string appSourceFile = "autodarts-desktop.zip";
-        private const string appDestination = "updates";
-        
+        public static readonly string version = "v0.8.5";
+   
         // Key = Download-Link   -   Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
         public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.3.1/autodarts-caller.exe", "autodarts-caller");
@@ -68,101 +62,100 @@ namespace autodarts_desktop
         public const string autodartsUrl = "https://autodarts.io";
 
 
-
-        private string latestRepoVersion;
-        public static string version = V;
+        public static readonly string releaseAppKey = "release";
+        public event EventHandler<AppEventArgs> DownloadAppStarted;
+        public event EventHandler<AppEventArgs> DownloadAppFinished;
+        public event EventHandler<AppEventArgs> DownloadAppFailed;
+        public event EventHandler<DownloadProgressChangedEventArgs> DownloadAppProgressed;
+        public event EventHandler<EventArgs> ConfigurationChanged;
         public event EventHandler<AppEventArgs> NewReleaseReady;
         public event EventHandler<AppEventArgs> NewReleaseFound;
         public event EventHandler<AppEventArgs> AppDownloadRequired;
         public event EventHandler<AppEventArgs> AppConfigurationRequired;
-        public event EventHandler<AppEventArgs> DownloadAppStarted;
-        public event EventHandler<EventArgs> DownloadAppProgressed;
-        public event EventHandler<EventArgs> DownloadAppStopped;
-        public event EventHandler<EventArgs> ConfigurationChanged;
+
+        private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
+        private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
+        private const string appSourceFile = "autodarts-desktop.zip";
+        private const string appDestination = "updates";
         private const string argumentPrefixKey = "argumentPrefixKey";
         private const string argumentDelimiterKey = "argumentDelimiterKey";
         private const string specificFileKey = "specificFile";
         private const string argumentErrorKey = "ArgumentValidateParse-Error";
         private string? pathToApps;
+        private string latestRepoVersion;
+        private static int customAppProcessId;
 
-        
 
         public AppManager()
         {
             string strExeFilePath = AppContext.BaseDirectory;
             pathToApps = Path.GetDirectoryName(strExeFilePath);
             latestRepoVersion = "";
+            customAppProcessId = -1;
         }
 
 
 
         // METHODS
 
-        public void CheckDefaultRequirements()
-        {
-            Dictionary<string, bool> appsInstallState = GetAppsInstallState();
-            bool autodartsCallerInstalled = false;
-            appsInstallState.TryGetValue(autodartsCaller.Value, out autodartsCallerInstalled);
-            if (autodartsCallerInstalled == false)
-            {
-                DownloadAutodartsCaller();
-                OnAppDownloadRequired(new AppEventArgs(autodartsCaller.Value, "Requirements (autodarts-caller) not satisfied"));
-            }
-        }
 
         public async void CheckNewVersion()
         {
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-            var result = await client.GetStringAsync(appSourceUrlLatest);
-            int tagNameIndex = result.IndexOf("tag_name");
-            if (tagNameIndex == -1) throw new ArgumentException("github-tagName-Index not found");
-            result = result.Substring(tagNameIndex);
-            int tagNameCommaIndex = result.IndexOf(',');
-            if (tagNameCommaIndex == -1) throw new ArgumentException("github-tagNameComma-Index not found");
-            result = result.Substring("tag_name: \"".Length, tagNameCommaIndex - "tag_name: \"".Length);
-            var latestGithubVersion = result.Replace("\"", "");
-
-            if (version != latestGithubVersion)
+            try
             {
-                latestRepoVersion = latestGithubVersion;
-                OnNewReleaseFound(new AppEventArgs("release", latestRepoVersion));
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+                var result = await client.GetStringAsync(appSourceUrlLatest);
+                int tagNameIndex = result.IndexOf("tag_name");
+                if (tagNameIndex == -1) throw new ArgumentException("github-tagName-Index not found");
+                result = result.Substring(tagNameIndex);
+                int tagNameCommaIndex = result.IndexOf(',');
+                if (tagNameCommaIndex == -1) throw new ArgumentException("github-tagNameComma-Index not found");
+                result = result.Substring("tag_name: \"".Length, tagNameCommaIndex - "tag_name: \"".Length);
+                var latestGithubVersion = result.Replace("\"", "");
+
+                if (version != latestGithubVersion)
+                {
+                    latestRepoVersion = latestGithubVersion;
+                    OnNewReleaseFound(new AppEventArgs(releaseAppKey, latestRepoVersion));
+                }
+            }
+            catch (Exception ex)
+            {
+                OnDownloadAppFailed(new AppEventArgs(releaseAppKey, ex.Message));
             }
         }
 
         public void UpdateToNewVersion()
         {
+            string downloadPath = Path.Join(pathToApps, appDestination, appSourceFile);
+            string downloadDirectory = Path.GetDirectoryName(downloadPath);
+
             try
             {
                 if (!String.IsNullOrEmpty(latestRepoVersion))
                 {
                     string downloadUrl = appSourceUrl + "/" + latestRepoVersion + "/" + appSourceFile;
-                    string downloadPath = Path.Join(pathToApps, appDestination, appSourceFile);
-                    string downloadDirectory = Path.GetDirectoryName(downloadPath);
 
                     // Removes existing download-directory and creates a new one
-                    if (Directory.Exists(downloadDirectory))
-                    {
-                        Directory.Delete(downloadDirectory, true);
-                    }
-                    Directory.CreateDirectory(downloadDirectory);
+                    RemoveDirectory(downloadDirectory, true);
 
-
+                    // Inform subscribers about a pending download
                     OnDownloadAppStarted(new AppEventArgs(latestRepoVersion, latestRepoVersion));
 
                     // Start the download
                     WebClient webClient = new WebClient();
-                    webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
+                    webClient.DownloadProgressChanged += WebClient_DownloadAppProgressChanged;
                     webClient.DownloadFileCompleted += WebClient_DownloadReleaseCompleted;
                     webClient.QueryString.Add("pathToDownload", downloadPath);
                     webClient.QueryString.Add("version", latestRepoVersion);
                     webClient.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                OnDownloadAppStopped(EventArgs.Empty);
-                throw;
+                RemoveDirectory(downloadDirectory);
+                OnDownloadAppFailed(new AppEventArgs(releaseAppKey, ex.Message));
             }
         }
 
@@ -201,13 +194,16 @@ namespace autodarts_desktop
             }
         }
 
-        public void CloseRunningApps(){
-            CloseRunningApp(autodarts);
-            CloseRunningApp(autodartsCaller);
-            CloseRunningApp(autodartsExtern);
-            CloseRunningApp(autodartsBot);
-            CloseRunningApp(virtualDartsZoom);
-            CloseRunningApp(dartboardsClient);
+        public void CheckDefaultRequirements()
+        {
+            Dictionary<string, bool> appsInstallState = GetAppsInstallState();
+            bool autodartsCallerInstalled = false;
+            appsInstallState.TryGetValue(autodartsCaller.Value, out autodartsCallerInstalled);
+            if (autodartsCallerInstalled == false)
+            {
+                DownloadAutodartsCaller();
+                OnAppDownloadRequired(new AppEventArgs(autodartsCaller.Value, "Requirements (autodarts-caller) not satisfied"));
+            }
         }
 
         public Dictionary<string, bool> GetAppsInstallState()
@@ -310,6 +306,7 @@ namespace autodarts_desktop
                     }
                     process.StartInfo.UseShellExecute = true;
                     process.Start();
+                    customAppProcessId = process.Id;
                 }
                 catch (Exception ex)
                 {
@@ -327,12 +324,30 @@ namespace autodarts_desktop
             OnConfigurationChanged(EventArgs.Empty);
         }
 
+        public void CloseRunningApps()
+        {
+            CloseRunningApp(autodarts);
+            CloseRunningApp(autodartsCaller);
+            CloseRunningApp(autodartsExtern);
+            CloseRunningApp(autodartsBot);
+            CloseRunningApp(virtualDartsZoom);
+            CloseRunningApp(dartboardsClient);
+            CloseRunningApp();
+        }
+
+
 
 
         private void WebClient_DownloadReleaseCompleted(object? sender, AsyncCompletedEventArgs e)
         {
             try
             {
+                if (e.Error != null)
+                {
+                    OnDownloadAppFailed(new AppEventArgs(releaseAppKey, e.Error.Message));
+                    return;
+                }
+
                 WebClient wc = (sender as WebClient);
                 string pathToFile = wc.QueryString["pathToDownload"];
                 //string version = wc.QueryString["version"];
@@ -358,23 +373,22 @@ namespace autodarts_desktop
                         throw;
                     }
                 }
-                OnNewReleaseReady(new AppEventArgs("release", pathToFile));
+                OnNewReleaseReady(new AppEventArgs(releaseAppKey, pathToFile));
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occured: {ex.Message}");
-                OnDownloadAppStopped(e);
+                OnDownloadAppFailed(new AppEventArgs(releaseAppKey, ex.Message));
             }
         }
 
         private void DownloadApp(KeyValuePair<string, string> app, string specificFile = "")
         {
+            string appFileName = GetAppFileNameByUrl(app.Key);
+            string appPath = Path.Join(pathToApps, app.Value);
+            string downloadPath = Path.Join(appPath, appFileName);
+
             try
             {
-                string appFileName = GetAppFileNameByUrl(app.Key);
-                string appPath = Path.Join(pathToApps, app.Value);
-                string downloadPath = Path.Join(appPath, appFileName);
-
                 // Find the executable and kill running process
                 string executable = String.IsNullOrEmpty(specificFile) ? FindExecutable(appPath) : FindExecutable(appPath, specificFile);
                 if (executable != null)
@@ -384,54 +398,50 @@ namespace autodarts_desktop
                 }
 
                 // Removes existing app and creates a new directory
-                if (Directory.Exists(appPath))
-                {
-                    Directory.Delete(appPath, true);
-                }
-                Directory.CreateDirectory(appPath);
+                RemoveDirectory(appPath, true);
 
                 // Inform subscribers about a pending download
                 OnDownloadAppStarted(new AppEventArgs(app.Value, ""));
 
                 // Start the download
-                DownloadApp(app.Key, downloadPath);
+                WebClient webClient = new WebClient();
+                webClient.DownloadFileCompleted += WebClient_DownloadAppCompleted;
+                webClient.DownloadProgressChanged += WebClient_DownloadAppProgressChanged;
+                webClient.QueryString.Add("pathToDownload", downloadPath);
+                webClient.DownloadFileAsync(new Uri(app.Key), downloadPath);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                OnDownloadAppStopped(EventArgs.Empty);
-                throw;
+                RemoveDirectory(appPath);
+                OnDownloadAppFailed(new AppEventArgs(app.Value, ex.Message));
             }
-        }
-        private void DownloadApp(string url, string path)
-        {
-            WebClient webClient = new WebClient();
-            webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
-            webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
-            webClient.QueryString.Add("pathToDownload", path);
-            webClient.DownloadFileAsync(new Uri(url), path);
         }
 
-        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void WebClient_DownloadAppProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             OnDownloadAppProgressed(e);
         }
 
-        private void WebClient_DownloadFileCompleted(object? sender, AsyncCompletedEventArgs e)
+        private void WebClient_DownloadAppCompleted(object? sender, AsyncCompletedEventArgs e)
         {
+            string pathToFile = (sender as WebClient).QueryString["pathToDownload"];
+
+            string appPath = Path.GetDirectoryName(pathToFile);
             try
             {
+                if (e.Error != null) throw e.Error;
+  
                 // Extract download if zip-file
-                string pathToFile = (sender as WebClient).QueryString["pathToDownload"];
                 if (Path.GetExtension(pathToFile).ToLower() == ".zip")
                 {
-                    ZipFile.ExtractToDirectory(pathToFile, Path.GetDirectoryName(pathToFile));
+                    ZipFile.ExtractToDirectory(pathToFile, appPath);
                 }
-                OnDownloadAppStopped(e);
+                OnDownloadAppFinished(new AppEventArgs(pathToFile, "success"));
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occured: {ex.Message}");
-                OnDownloadAppStopped(e);
+                RemoveDirectory(appPath);
+                OnDownloadAppFailed(new AppEventArgs(pathToFile, ex.Message));
             }
         }
 
@@ -680,6 +690,11 @@ namespace autodarts_desktop
             return Process.GetProcessesByName(processName).FirstOrDefault(p => p.ProcessName.ToLower().Contains(processName.ToLower())) != null;
         }
 
+        private void CloseRunningApp()
+        {
+            KillApp(customAppProcessId);
+            KillApp(customAppProcessId);
+        }
         private void CloseRunningApp(KeyValuePair<string, string> app, string specificFile = "")
         {
             string appPath = Path.Join(pathToApps, app.Value);
@@ -692,7 +707,24 @@ namespace autodarts_desktop
                 KillApp(Path.GetFileNameWithoutExtension(executable));
             }
         }
-
+        
+        private static void KillApp(int processId)
+        {
+            try
+            {
+                var process = Process.GetProcessById(processId);
+                if (process != null)
+                {
+                    process.Kill();
+                    Thread.Sleep(175);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred trying to kill process:\n{ex.Message}");
+                throw;
+            }
+        }
         private static void KillApp(string processName)
         {
             try
@@ -711,6 +743,12 @@ namespace autodarts_desktop
             }
         }
 
+        private void RemoveDirectory(string directory, bool createAfterRemove = false)
+        {
+            if (Directory.Exists(directory)) Directory.Delete(directory, true);
+            if (createAfterRemove) Directory.CreateDirectory(directory);
+        }
+
         private static string GetAppFileNameByUrl(string url)
         {
             string[] urlSplitted = url.Split("/");
@@ -720,7 +758,33 @@ namespace autodarts_desktop
 
 
 
-        
+
+
+
+        protected virtual void OnDownloadAppStarted(AppEventArgs e)
+        {
+            if (DownloadAppStarted != null)
+                DownloadAppStarted(this, e);
+        }
+
+        protected virtual void OnDownloadAppFinished(AppEventArgs e)
+        {
+            if (DownloadAppFinished != null)
+                DownloadAppFinished(this, e);
+        }
+
+        protected virtual void OnDownloadAppFailed(AppEventArgs e)
+        {
+            if (DownloadAppFailed != null)
+                DownloadAppFailed(this, e);
+        }
+
+        protected virtual void OnDownloadAppProgressed(DownloadProgressChangedEventArgs e)
+        {
+            if (DownloadAppProgressed != null)
+                DownloadAppProgressed(this, e);
+        }
+
         protected virtual void OnNewReleaseReady(AppEventArgs e)
         {
             if (NewReleaseReady != null)
@@ -750,25 +814,6 @@ namespace autodarts_desktop
             if (AppConfigurationRequired != null)
                 AppConfigurationRequired(this, e);
         }
-
-        protected virtual void OnDownloadAppStarted(AppEventArgs e)
-        {
-            if (DownloadAppStarted != null)
-                DownloadAppStarted(this, e);
-        }
-
-        protected virtual void OnDownloadAppProgressed(EventArgs e)
-        {
-            if (DownloadAppProgressed != null)
-                DownloadAppProgressed(this, e);
-        }
-
-        protected virtual void OnDownloadAppStopped(EventArgs e)
-        {
-            if (DownloadAppStopped != null)
-                DownloadAppStopped(this, e);
-        }
-
 
     }
 }

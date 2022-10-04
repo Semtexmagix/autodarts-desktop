@@ -62,6 +62,6 @@
         <Image x:Name="Waiting" Width="40" Margin="0,-165,0,0" gif:ImageBehavior.RepeatBehavior="1"
                gif:ImageBehavior.AnimateInDesignMode="False"
                gif:ImageBehavior.AutoStart="True" gif:ImageBehavior.AnimatedSource="images/spinner.gif" Visibility="Hidden" />
-        <Label x:Name="WaitingText" Content="Please wait.." HorizontalAlignment="Left" Margin="27,163,0,0" VerticalAlignment="Top" FontSize="14" Foreground="GreenYellow" Visibility="Hidden"/>
+        <Label x:Name="WaitingText" Content="Please wait.." HorizontalAlignment="Left" Margin="7,175,0,0" VerticalAlignment="Top" FontSize="10" Foreground="GreenYellow" Visibility="Hidden"/>
     </Grid>
 </Window>

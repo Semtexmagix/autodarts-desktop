@@ -23,8 +23,9 @@ namespace autodarts_desktop
             InitializeComponent();
             this.appManager = appManager;
             this.appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
+            this.appManager.DownloadAppFinished += AppManager_DownloadAppFinished;
+            this.appManager.DownloadAppFailed += AppManager_DownloadAppFailed;
             this.appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
-            this.appManager.DownloadAppStopped += AppManager_DownloadAppStopped;
             SetInstallStateApps();
         }
 
@@ -215,14 +216,7 @@ namespace autodarts_desktop
             SetGUIForDownload(true);
         }
 
-        private void AppManager_DownloadAppProgressed(object? sender, EventArgs e)
-        {
-            DownloadProgressChangedEventArgs dpce = (DownloadProgressChangedEventArgs)e;
-            SetGUIForDownload(true);
-            progressDownloads.Value = dpce.ProgressPercentage;
-        }
-
-        private void AppManager_DownloadAppStopped(object? sender, EventArgs e)
+        private void AppManager_DownloadAppFinished(object? sender, AppEventArgs e)
         {
             SetGUIForDownload(false);
             SetInstallStateApps();
@@ -233,6 +227,17 @@ namespace autodarts_desktop
             ButtonInstall.IsEnabled = false;
         }
 
+        private void AppManager_DownloadAppFailed(object? sender, AppEventArgs e)
+        {
+            SetGUIForDownload(false);
+            MessageBox.Show("Download failed! Please check your internet-connection and try again. " + e.Message);
+        }
+        
+        private void AppManager_DownloadAppProgressed(object? sender, DownloadProgressChangedEventArgs e)
+        {
+            SetGUIForDownload(true);
+            progressDownloads.Value = e.ProgressPercentage;
+        }
 
     }
 }

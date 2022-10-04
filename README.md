@@ -32,7 +32,7 @@ You can also use other assistant-programs:
 Moreover you can start custom-apps, e.g. OBS (Open Brodcast System) - to compose a customized virtual-camera:
 
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS2.png?raw=true)
-With OBS it is possible to display the Autodarts.io game in the virtual camera.
+With OBS it is possible to display the autodarts-match in the virtual camera.
 
 
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS1.png?raw=true)
@@ -54,13 +54,13 @@ It may be buggy. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 ## TODOs
 - cross-platform
 - autostart + (tray?)
-- close custom-app on exit
 - Add new app: droidcam (android) + epoccam (iOS)
 
 
 ### Done
 - alot
 - refactor setup-areas for using AppManager
+- close custom-app on exit
 
 
 ## LAST WORDS
