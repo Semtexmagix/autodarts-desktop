@@ -50,7 +50,7 @@ namespace autodarts_desktop
     {
         // ATTRIBUTES
 
-        public static readonly string version = "v0.8.8";
+        public static readonly string version = "v0.8.9";
    
         // Key = Download-Link   -   Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
