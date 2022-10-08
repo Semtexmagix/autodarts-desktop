@@ -54,8 +54,8 @@ namespace autodarts_desktop
    
         // Key = Download-Link   -   Value = Storage-path
         public KeyValuePair<string, string> autodarts = new("https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip", "autodarts");
-        public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.3.1/autodarts-caller.exe", "autodarts-caller");
-        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.4.2/autodarts-extern.exe", "autodarts-extern");
+        public KeyValuePair<string, string> autodartsCaller = new("https://github.com/lbormann/autodarts-caller/releases/download/v1.3.2/autodarts-caller.exe", "autodarts-caller");
+        public KeyValuePair<string, string> autodartsExtern = new("https://github.com/lbormann/autodarts-extern/releases/download/v1.4.3/autodarts-extern.exe", "autodarts-extern");
         public KeyValuePair<string, string> autodartsBot = new("https://github.com/xinixke/autodartsbot/releases/download/0.0.1/autodartsbot-0.0.1.windows.x64.zip", "autodarts-bot");
         public KeyValuePair<string, string> virtualDartsZoom = new("https://www.lehmann-bo.de/Downloads/VDZ/Virtual Darts Zoom.zip", "virtual-darts-zoom");
         public KeyValuePair<string, string> dartboardsClient = new("https://dartboards.online/dboclient_0.8.6.exe", "dartboards-client");
@@ -291,27 +291,31 @@ namespace autodarts_desktop
 
         public static void RunCustomApp()
         {
-            string pathToExecutable = Settings.Default.customapp;
-            string arguments = Settings.Default.customappargs;
-
-            using (var process = new Process())
+            if (customAppProcessId == -1)
             {
-                try
+                string pathToExecutable = Settings.Default.customapp;
+                string arguments = Settings.Default.customappargs;
+
+                using (var process = new Process())
                 {
-                    process.StartInfo.WorkingDirectory = Path.GetFullPath(Path.GetDirectoryName(pathToExecutable));
-                    process.StartInfo.FileName = Path.GetFileName(pathToExecutable);
-                    if (!String.IsNullOrEmpty(arguments))
+                    try
                     {
-                        process.StartInfo.Arguments = arguments;
+                        process.StartInfo.WorkingDirectory = Path.GetFullPath(Path.GetDirectoryName(pathToExecutable));
+                        process.StartInfo.FileName = Path.GetFileName(pathToExecutable);
+                        if (!String.IsNullOrEmpty(arguments))
+                        {
+                            process.StartInfo.Arguments = arguments;
+                        }
+                        process.StartInfo.UseShellExecute = true;
+                        process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                        process.Start();
+                        customAppProcessId = process.Id;
                     }
-                    process.StartInfo.UseShellExecute = true;
-                    process.Start();
-                    customAppProcessId = process.Id;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An error occurred trying to start \"{pathToExecutable}\":\n{ex.Message}");
-                    throw;
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"An error occurred trying to start \"{pathToExecutable}\":\n{ex.Message}");
+                        throw;
+                    }
                 }
             }
         }
