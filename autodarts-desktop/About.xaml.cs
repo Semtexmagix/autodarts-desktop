@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using autodarts_desktop.control;
 using Button = System.Windows.Controls.Button;
 using Clipboard = System.Windows.Forms.Clipboard;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -17,7 +18,7 @@ namespace autodarts_desktop
         public About()
         {
             InitializeComponent();
-            appVersion.Content = AppManager.version;
+            appVersion.Content = Updater.version;
         }
 
 

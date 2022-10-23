@@ -6,62 +6,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-Desktop" Width="325" Height="220" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Autodarts-Desktop" Width="360" Height="360" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Window.Background>
         <ImageBrush ImageSource="/images/background.png" Stretch="UniformToFill"/>
     </Window.Background>
-    <Grid x:Name="GridMain" HorizontalAlignment="Center" Width="325" Height="250" RenderTransformOrigin="0.531,-0.273" Margin="0,-16,0,0" VerticalAlignment="Top">
-        <Grid.Background>
-            <ImageBrush/>
-        </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
 
-        <Grid.Resources>
-            <Style x:Key="BtnStyle" TargetType="Button">
-                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Grid x:Name="gd" Background="{TemplateBinding Background}">
-                                <ContentPresenter></ContentPresenter>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="Button.IsFocused" Value="True">
-                                    <Setter Property="Background" Value="Transparent" TargetName="gd"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Cursor" Value="Hand"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Grid.Resources>
+    <ScrollViewer x:Name="scroller" 
+                  VerticalScrollBarVisibility="Auto" 
+                  HorizontalScrollBarVisibility="Hidden" 
+                  VerticalAlignment="Top"
+                  Margin="0,0,0,15"
+                  Height="auto" >
+        
+        <Grid x:Name="GridMain">
+            <Grid.Background>
+                <ImageBrush/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <Button Style="{StaticResource BtnStyle}" x:Name="Buttonabout" HorizontalAlignment="Left" Margin="272,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonabout_Click">
-            <Image Width="24" Height="24" Source="images/about.png"></Image>
-        </Button>
-        <Button Style="{StaticResource BtnStyle}" x:Name="Buttoninstall" HorizontalAlignment="Left" Margin="235,22,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttoninstall_Click">
-            <Image Width="24" Height="24" Source="images/download.png"></Image>
-        </Button>
-        <Button Style="{StaticResource BtnStyle}" x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="270,65,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
-            <Image x:Name="darts_png" Width="32" Height="32" Source="/images/go.png" Stretch="Fill"/>
-        </Button>
+            <Grid.Resources>
+                <Style x:Key="BtnStyle" TargetType="Button">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Grid x:Name="gd" Background="{TemplateBinding Background}">
+                                    <ContentPresenter></ContentPresenter>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsFocused" Value="True">
+                                        <Setter Property="Background" Value="Transparent" TargetName="gd"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
 
-        <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="27,71,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
-        <Label x:Name="labelcombobox" Content="Select profile:" HorizontalAlignment="Left" Margin="22,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757" Foreground="White"/>
+            <Button Style="{StaticResource BtnStyle}" x:Name="Buttonabout" Margin="295,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonabout_Click">
+                <Image Width="24" Height="24" Source="images/about.png"></Image>
+            </Button>
 
-        <CheckBox x:Name="Checkboxad" Content="autodarts-client" HorizontalAlignment="Left" Margin="30,105,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White" />
-        <CheckBox x:Name="Checkboxbot" Content="autodarts-bot" HorizontalAlignment="Left" Margin="183,105,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-        <CheckBox x:Name="Checkboxvdz" Content="virtual-darts-zoom" HorizontalAlignment="Left" Margin="30,125,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-        <CheckBox x:Name="Checkboxdboc" Content="dartsboards-client" HorizontalAlignment="Left" Margin="30,146,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-        <CheckBox x:Name="Checkboxcustom" Content="custom-app" HorizontalAlignment="Left" Margin="183,125,0,0" VerticalAlignment="Top" Click="CheckboxStartApp_Click" Foreground="White"/>
-        <Image x:Name="Waiting" Width="40" Margin="0,-165,0,0" gif:ImageBehavior.RepeatBehavior="1"
+            <Label Content="Select profile:" HorizontalAlignment="Left" Margin="12,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757" Foreground="White"/>
+
+            <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="17,71,0,0" VerticalAlignment="Top" Width="270" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
+
+            <Button Style="{StaticResource BtnStyle}" x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="290,65,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
+                <Image x:Name="darts_png" Width="32" Height="32" Source="/images/go.png" Stretch="Fill"/>
+            </Button>
+
+            <CheckBox x:Name="CheckBoxStartProfileOnProgramStart" Content="Autostart" HorizontalAlignment="Left" Margin="217,53,0,0" VerticalAlignment="Top" Foreground="White"/>
+            
+            <Image x:Name="Waiting" Width="40" Margin="0,13,0,0" gif:ImageBehavior.RepeatBehavior="1" VerticalAlignment="Top"
                gif:ImageBehavior.AnimateInDesignMode="False"
                gif:ImageBehavior.AutoStart="True" gif:ImageBehavior.AnimatedSource="images/spinner.gif" Visibility="Hidden" />
-        <Label x:Name="WaitingText" Content="Please wait.." HorizontalAlignment="Left" Margin="7,175,0,0" VerticalAlignment="Top" FontSize="10" Foreground="GreenYellow" Visibility="Hidden"/>
-    </Grid>
+            
+            <TextBlock  x:Name="WaitingText" 
+                        Text="Please wait.." 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Center" 
+                        MaxWidth="260" 
+                        Margin="0,0,0,0" 
+                        FontSize="12" 
+                        Background="Black" 
+                        Foreground="Orange" 
+                        MouseDown="WaitingText_MouseDown"
+                        Visibility="Hidden"/>
+            
+        </Grid>
+    </ScrollViewer>
+
+
+
 </Window>

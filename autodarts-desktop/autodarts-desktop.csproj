@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
     <RootNamespace>autodarts_desktop</RootNamespace>
     <Nullable>enable</Nullable>
@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="control\update.bat" />
     <None Remove="images\about.png" />
     <None Remove="images\bug.png" />
     <None Remove="images\configuration.png" />
@@ -21,17 +22,20 @@
     <None Remove="images\download.png" />
     <None Remove="images\go.png" />
     <None Remove="images\help.png" />
-    <None Remove="images\save.png" />
     <None Remove="images\spinner.gif" />
     <None Remove="images\spinner_back.gif" />
     <None Remove="wallpaperflare.com_wallpaper.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="update.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
@@ -49,9 +53,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Update="update.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -63,7 +64,6 @@
     <Resource Include="images\download.png" />
     <Resource Include="images\go.png" />
     <Resource Include="images\help.png" />
-    <Resource Include="images\save.png" />
     <Resource Include="images\spinner.gif" />
     <Resource Include="images\background.png" />
   </ItemGroup>

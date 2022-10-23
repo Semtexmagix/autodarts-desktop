@@ -1,10 +1,17 @@
-﻿using autodarts_desktop.Properties;
+﻿using autodarts_desktop.control;
+using autodarts_desktop.model;
+using autodarts_desktop.Properties;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using MessageBox = System.Windows.MessageBox;
 
 namespace autodarts_desktop
 {
@@ -13,201 +20,104 @@ namespace autodarts_desktop
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AppManager appManager;
-        private Dictionary<string, bool> appsInstallState;
+
+        // ATTRIBUTES
+
+        private ProfileManager profileManager;
+        private Profile? selectedProfile;
+        private List<UIElement> selectedProfileElements;
+
+
+
+        // METHODS
 
         public MainWindow()
         {
             InitializeComponent();
 
+
+            selectedProfileElements = new();
+            CheckBoxStartProfileOnProgramStart.IsChecked = Settings.Default.start_profile_on_start;
+
             try
             {
-                appManager = new AppManager();
-                appManager.DownloadAppStarted += AppManager_DownloadAppStarted;
-                appManager.DownloadAppFinished += AppManager_DownloadAppFinished;
-                appManager.DownloadAppFailed += AppManager_DownloadAppFailed;
-                appManager.DownloadAppProgressed += AppManager_DownloadAppProgressed;
-                appManager.ConfigurationChanged += AppManager_ConfigurationChanged;
-                appManager.AppConfigurationRequired += AppManager_AppConfigurationRequired;
-                appManager.AppDownloadRequired += AppManager_AppDownloadRequired;
-                appManager.NewReleaseFound += AppManager_NewReleaseFound;
-                appManager.NewReleaseReady += AppManager_NewReleaseReady;
-                appManager.CheckNewVersion();
-                appManager.CheckDefaultRequirements();
-                UpdateAppsInstallState();
+                profileManager = new ProfileManager();
+                profileManager.AppDownloadStarted += ProfileManager_AppDownloadStarted;
+                profileManager.AppDownloadFinished += ProfileManager_AppDownloadFinished;
+                profileManager.AppDownloadFailed += ProfileManager_AppDownloadFailed;
+                profileManager.AppDownloadProgressed += ProfileManager_AppDownloadProgressed;
+                profileManager.AppInstallStarted += ProfileManager_AppInstallStarted;
+                profileManager.AppInstallFinished += ProfileManager_AppInstallFinished;
+                profileManager.AppInstallFailed += ProfileManager_AppInstallFailed;
+                profileManager.AppConfigurationRequired += ProfileManager_AppConfigurationRequired;
+
+                profileManager.LoadAppsAndProfiles();
+
+                RenderProfiles();
 
                 string[] args = Environment.GetCommandLineArgs();
-                if (args.Length > 1 && args[1] == "-U") appManager.UpdateInstalledApps();
+                if (args.Length > 1 && args[1] == "-U") profileManager.UpdateInstalledApps();
 
+                Updater.NewReleaseFound += Updater_NewReleaseFound;
+                Updater.ReleaseInstallInitialized += Updater_ReleaseInstallInitialized;
+                Updater.ReleaseDownloadStarted += Updater_ReleaseDownloadStarted;
+                Updater.ReleaseDownloadFailed += Updater_ReleaseDownloadFailed;
+                Updater.ReleaseDownloadProgressed += Updater_ReleaseDownloadProgressed;
+                Updater.CheckNewVersion();
+            }
+            catch(ConfigurationException ex)
+            {
+                if (MessageBox.Show($"Configuration-file '{ex.File}' not readable. You can fix it by yourself or let it go to hell and I recreate it for you. Do you want me to reset it? (All of your settings will be lost)", "Configuration Error", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        profileManager.DeleteConfigurationFile(ex.File);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Configuration-file-deletion failed. Please delete it by yourself. " + e.Message);
+                    }
+                }
+                MessageBox.Show("Please restart the application.");
+                Environment.Exit(1);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Something went wrong: " + ex.Message);
-                Close();
+                Environment.Exit(1);
             }
         }
-
 
 
 
         private void Buttonstart_Click(object sender, RoutedEventArgs e)
         {
-            var selectedTag = ((ComboBoxItem)Comboboxportal.SelectedItem).Tag.ToString();
-            Settings.Default.selectedProfile = Comboboxportal.SelectedIndex;
-            Settings.Default.Save();
-
-            try
-            {
-                if (!appManager.RunAutodartsCaller()) return;
-
-                switch (selectedTag)
-                {
-                    case "caller":
-                        appManager.RunAutodartsPortal();
-                        break;
-                    case "lidarts":
-                        if (!appManager.RunAutodartsExtern(AutodartsExternPlatforms.lidarts)) return;
-                        break;
-                    case "nakka":
-                        if (!appManager.RunAutodartsExtern(AutodartsExternPlatforms.nakka)) return;
-                        break;
-                    case "dartboards":
-                        if (!appManager.RunAutodartsExtern(AutodartsExternPlatforms.dartboards)) return;
-                        break;
-                }
-
-                if (Checkboxbot.IsChecked == true)
-                {
-                    if (!appManager.RunAutodartsBot()) return;
-                }
-                if (Checkboxvdz.IsChecked == true)
-                {
-                    if (!appManager.RunVirtualDartsZoom()) return;
-                }
-                if (Checkboxdboc.IsChecked == true)
-                {
-                    if (!appManager.RunDartboardsClient()) return;
-                }
-                if (Checkboxcustom.IsChecked == true)
-                {
-                    AppManager.RunCustomApp();
-                }
-
-                WindowState = WindowState.Minimized;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-    
+            RunSelectedProfile();
         }
 
         private void Buttonabout_Click(object sender, RoutedEventArgs e)
         {
-            About S1 = new About();
-            S1.ShowDialog();
+            new About().ShowDialog();
         }
-
-        private void Buttoninstall_Click(object sender, RoutedEventArgs e)
-        {
-            Install I1 = new Install(appManager);
-            I1.ShowDialog();
-        }
-
+        
         private void Comboboxportal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Comboboxportal.SelectedIndex == -1) return;
-
-            UpdateCustomAppState();
-
-            bool appState;
-            appsInstallState.TryGetValue(appManager.autodarts.Value, out appState);
-            Checkboxad.IsEnabled = appState;
-            Checkboxad.IsChecked = appState ? Settings.Default.ad_start_default : false;
-
-
-            var selectedTag = ((ComboBoxItem)Comboboxportal.SelectedItem).Tag.ToString();
-            switch (selectedTag)
-            {
-                case "caller":
-                    appsInstallState.TryGetValue(appManager.autodartsBot.Value, out appState);
-                    Checkboxbot.IsEnabled = appState;
-                    Checkboxbot.IsChecked = appState ? Settings.Default.bot_start_default : false;
-
-                    Checkboxvdz.IsEnabled = false;
-                    Checkboxvdz.IsChecked = false;
-
-                    Checkboxdboc.IsEnabled = false;
-                    Checkboxdboc.IsChecked = false;
-                    break;
-                case "lidarts":
-                    appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
-                    Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = appState ? Settings.Default.vdz_start_default : false;
-
-                    Checkboxbot.IsEnabled = false;
-                    Checkboxbot.IsChecked = false;
-
-                    Checkboxdboc.IsEnabled = false;
-                    Checkboxdboc.IsChecked = false;
-                    break;
-                case "nakka":
-                    appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
-                    Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = appState ? Settings.Default.vdz_start_default : false;
-
-                    Checkboxbot.IsEnabled = false;
-                    Checkboxbot.IsChecked = false;
-
-                    Checkboxdboc.IsEnabled = false;
-                    Checkboxdboc.IsChecked = false;
-
-                    break;
-                case "dartboards":
-                    appsInstallState.TryGetValue(appManager.dartboardsClient.Value, out appState);
-                    Checkboxdboc.IsEnabled = appState;
-                    Checkboxdboc.IsChecked = appState ? Settings.Default.dboc_start_default : false;
-
-                    appsInstallState.TryGetValue(appManager.virtualDartsZoom.Value, out appState);
-                    Checkboxvdz.IsEnabled = appState;
-                    Checkboxvdz.IsChecked = appState ? Settings.Default.vdz_start_default : false;
-
-                    Checkboxbot.IsEnabled = false;
-                    Checkboxbot.IsChecked = false;
-                    break;
-            }
+            if (selectedProfile != null) selectedProfile.IsTaggedForStart = false;
+            selectedProfile = ((ComboBoxItem)Comboboxportal.SelectedItem).Tag as Profile;
+            if (selectedProfile == null) return;
+            selectedProfile.IsTaggedForStart = true;
+            RenderProfile();
         }
-
-        private void CheckboxStartApp_Click(object sender, RoutedEventArgs e)
-        {
-            CheckBox checkboxStartApp = sender as CheckBox;
-
-            switch (checkboxStartApp.Name)
-            {
-                case "Checkboxad":
-                    Settings.Default.ad_start_default = (bool)Checkboxad.IsChecked;
-                    break;
-                case "Checkboxbot":
-                    Settings.Default.bot_start_default = (bool)Checkboxbot.IsChecked;
-                    break;
-                case "Checkboxvdz":
-                    Settings.Default.vdz_start_default = (bool)Checkboxvdz.IsChecked;
-                    break;
-                case "Checkboxdboc":
-                    Settings.Default.dboc_start_default = (bool)Checkboxdboc.IsChecked;
-                    break;
-                case "Checkboxcustom":
-                    Settings.Default.custom_start_default = (bool)Checkboxcustom.IsChecked;
-                    break;
-            }
-            Settings.Default.Save();
-        }
-
+        
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Settings.Default.start_profile_on_start = (bool)CheckBoxStartProfileOnProgramStart.IsChecked;
+            Settings.Default.Save();
+
             try
             {
-                appManager.CloseRunningApps();
+                profileManager.StoreApps();
+                profileManager.CloseApps();
             }
             catch (Exception ex)
             {
@@ -215,167 +125,222 @@ namespace autodarts_desktop
             }
         }
 
-
-
-        private void AppManager_DownloadAppStarted(object? sender, AppEventArgs e)
+        private void WaitingText_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            SetGUIForDownload(true, "Downloading " + e.App + "..");
+            WaitingText.Visibility = Visibility.Hidden;
         }
 
-        private void AppManager_DownloadAppFinished(object? sender, AppEventArgs e)
-        {
-            UpdateAppsInstallState();
-            SetGUIForDownload(false);
-        }
 
-        private void AppManager_DownloadAppFailed(object? sender, AppEventArgs e)
-        {
-            if(e.App == AppManager.releaseAppKey)
-            {
-                Hide();
-                MessageBox.Show("Checking for new release failed! Please check your internet-connection and try again. " + e.Message);
-                Close();
-                return;
-            }
-            SetGUIForDownload(false, "Download failed! Please check your internet-connection and try again. " + e.Message);
-        }
 
-        private void AppManager_DownloadAppProgressed(object? sender, DownloadProgressChangedEventArgs e)
+        private void Updater_NewReleaseFound(object? sender, ReleaseEventArgs e)
         {
-            SetGUIForDownload(true);
-        }
-
-        private void AppManager_AppDownloadRequired(object? sender, AppEventArgs e)
-        {
-            SetGUIForDownload(true, "Downloading " + e.App + "..");
-        }
-
-        private void AppManager_AppConfigurationRequired(object? sender, AppEventArgs e)
-        {
-            MessageBox.Show(e.Message);
-            if (e.App == appManager.autodarts.Value)
-            {
-                
-            }
-            else if(e.App == appManager.autodartsBot.Value)
-            {
-            }
-            else if (e.App == appManager.autodartsCaller.Value)
-            {
-                SetupCaller SC1 = new SetupCaller();
-                SC1.ShowDialog();
-            }
-            else if (e.App == appManager.autodartsExtern.Value)
-            {
-                SetupExtern SE1 = new SetupExtern();
-                SE1.ShowDialog();
-            }
-            else if (e.App == appManager.virtualDartsZoom.Value)
-            {
-            }
-            else if (e.App == appManager.dartboardsClient.Value)
-            {
-            }
-        }
-
-        private void AppManager_NewReleaseFound(object? sender, AppEventArgs e)
-        {
-            if (MessageBox.Show($"New Version '{e.Message}' available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"New Version '{e.Version}' available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    appManager.UpdateToNewVersion();
+                    Updater.UpdateToNewVersion();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Update to new version failed: " + ex.Message);
                 }
-
             }
         }
 
-        private void AppManager_NewReleaseReady(object? sender, AppEventArgs e)
+        private void Updater_ReleaseDownloadStarted(object? sender, ReleaseEventArgs e)
+        {
+            SetWait(true, "Downloading " + e.Version + "..");
+        }
+
+        private void Updater_ReleaseDownloadFailed(object? sender, ReleaseEventArgs e)
+        {
+            Hide();
+            MessageBox.Show("Checking for new release failed! Please check your internet-connection and try again. " + e.Message);
+            Close();
+            return;
+        }
+
+        private void Updater_ReleaseDownloadProgressed(object? sender, DownloadProgressChangedEventArgs e)
+        {
+            SetWait(true);
+        }
+
+        private void Updater_ReleaseInstallInitialized(object? sender, ReleaseEventArgs e)
         {
             Close();
         }
 
-        private void AppManager_ConfigurationChanged(object? sender, EventArgs e)
+
+
+        private void ProfileManager_AppDownloadStarted(object? sender, AppEventArgs e)
         {
-            UpdateCustomAppState();
+            SetWait(true, "Downloading " + e.App.Name + "..");
         }
 
-        private void UpdateAppsInstallState()
+        private void ProfileManager_AppDownloadFinished(object? sender, AppEventArgs e)
         {
-            appsInstallState = appManager.GetAppsInstallState();
+            SetWait(false);
+        }
 
-            Comboboxportal.Items.Clear();
-            foreach (var appInstallState in appsInstallState)
+        private void ProfileManager_AppDownloadFailed(object? sender, AppEventArgs e)
+        {
+            SetWait(false, "Download " + e.App.Name + " failed. Please check your internet-connection and try again. " + e.Message);
+        }
+
+        private void ProfileManager_AppDownloadProgressed(object? sender, DownloadProgressChangedEventArgs e)
+        {
+            SetWait(true);
+        }
+
+        private void ProfileManager_AppInstallStarted(object? sender, AppEventArgs e)
+        {
+            SetWait(true, "Installing " + e.App.Name + "..");
+        }
+
+        private void ProfileManager_AppInstallFinished(object? sender, AppEventArgs e)
+        {
+            SetWait(false);
+        }
+
+        private void ProfileManager_AppInstallFailed(object? sender, AppEventArgs e)
+        {
+            SetWait(false, "Install " + e.App.Name + " failed. " + e.Message);
+        }
+
+        private void ProfileManager_AppConfigurationRequired(object? sender, AppEventArgs e)
+        {
+            MessageBox.Show(e.Message);
+            new SettingsWindow(profileManager, e.App).ShowDialog();
+        }
+
+
+        private void RunSelectedProfile()
+        {
+            try
             {
-                if(appInstallState.Value == true)
-                {
-                    if (appInstallState.Key == appManager.autodartsCaller.Value)
-                    {
-                        AddComboBoxItem("autodarts.io + autodarts-caller", "caller");
-                    }
-                    else if (appInstallState.Key == appManager.autodartsExtern.Value)
-                    {
-                        AddComboBoxItem("autodarts-extern: lidarts.org", "lidarts");
-                        AddComboBoxItem("autodarts-extern: nakka.com/n01/online", "nakka");
-                        AddComboBoxItem("autodarts-extern: dartboards.online", "dartboards");
-                    }
-                }
+                scroller.ScrollToTop();
+                SetWait(true, "Starting profile ..");
+                if (ProfileManager.RunProfile(selectedProfile)) WindowState = WindowState.Minimized;
             }
-            if(Settings.Default.selectedProfile > -1 && Settings.Default.selectedProfile < Comboboxportal.Items.Count)
+            catch (Exception ex)
             {
-                Comboboxportal.SelectedIndex = Settings.Default.selectedProfile;
+                MessageBox.Show("An error ocurred: " + ex.Message);
             }
-            else
+            finally
             {
-                Comboboxportal.SelectedIndex = 0;
+                SetWait(false);
             }
         }
 
-        private void UpdateCustomAppState()
+        private void SetWait(bool wait, string waitingText = "")
         {
-            if (String.IsNullOrEmpty(Settings.Default.customapp))
-            {
-                Checkboxcustom.IsEnabled = false;
-                Checkboxcustom.IsChecked = false;
-            }
-            else
-            {
-                Checkboxcustom.IsEnabled = true;
-                Checkboxcustom.IsChecked = Settings.Default.custom_start_default;
-            }
-        }
+            string waitingMessage = String.IsNullOrEmpty(waitingText) ? WaitingText.Text : waitingText;
 
-        private void AddComboBoxItem(string content, String value)
-        {
-            var appItem = new ComboBoxItem();
-            appItem.Content = content;
-            appItem.Tag = value;
-            Comboboxportal.Items.Add(appItem);
-        }
-
-        private void SetGUIForDownload(bool downloading, string waitingText = "")
-        {
-            string downloadMessage = String.IsNullOrEmpty(waitingText) ? WaitingText.Content.ToString() : waitingText;
-
-            if (downloading)
+            if (wait)
             {
+                Opacity = 0.5;
                 GridMain.IsEnabled = false;
                 Waiting.Visibility = Visibility.Visible;
-                WaitingText.Content = downloadMessage;
                 WaitingText.Visibility = Visibility.Visible;
             }
             else
             {
+                Opacity = 1.0;
                 GridMain.IsEnabled = true;
                 Waiting.Visibility = Visibility.Hidden;
-                WaitingText.Content = downloadMessage;
                 WaitingText.Visibility = String.IsNullOrEmpty(waitingText) ? Visibility.Hidden : Visibility.Visible;
             }
+            WaitingText.Text = waitingMessage;
         }
+
+        private void RenderProfiles()
+        {
+            Comboboxportal.Items.Clear();
+            ComboBoxItem lastItemTaggedForStart = null;
+            var profiles = profileManager.GetProfiles();
+            if(profiles.Count == 0)
+            {
+                MessageBox.Show($"No profiles available.");
+                Environment.Exit(1);
+            }
+            foreach (var profile in profiles)
+            {
+                var comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = profile.Name;
+                comboBoxItem.Tag = profile;         
+                Comboboxportal.Items.Add(comboBoxItem);
+                if (profile.IsTaggedForStart) lastItemTaggedForStart = comboBoxItem;  
+            }
+            if(lastItemTaggedForStart != null) Comboboxportal.SelectedItem = lastItemTaggedForStart;
+            RenderProfile();
+
+            if (Settings.Default.start_profile_on_start) RunSelectedProfile();
+        }
+
+        private void RenderProfile()
+        {
+            if (selectedProfile == null) return;
+
+            foreach (var e in selectedProfileElements) GridMain.Children.Remove(e);
+            selectedProfileElements.Clear();
+
+            var startMargin = Comboboxportal.Margin;
+            int top = 25;
+            int counter = 1;
+
+            foreach (var app in selectedProfile.Apps)
+            {
+                var marginTop = counter * top + 10;
+                selectedProfile.Apps.TryGetValue(app.Key, out ProfileState? appProfile);
+                var nextMargin = new Thickness(startMargin.Left, startMargin.Top + marginTop, startMargin.Right, startMargin.Bottom);
+
+                var imageConfiguration = new Image();
+                imageConfiguration.HorizontalAlignment = HorizontalAlignment.Left;
+                imageConfiguration.Width = 18;
+                imageConfiguration.Height = 18;
+                //var imgUri = appProfile.App.IsConfigurable() || appProfile.App.IsInstallable() ? "pack://application:,,,/images/configuration.png" : "pack://application:,,,/images/configuration_off.png";
+                imageConfiguration.Source = new BitmapImage(new Uri("pack://application:,,,/images/configuration.png"));
+
+                var buttonConfiguration = new Button();
+                buttonConfiguration.Margin = new Thickness(nextMargin.Left, nextMargin.Top, nextMargin.Right, nextMargin.Bottom);
+                buttonConfiguration.Style = (Style)GridMain.Resources["BtnStyle"];
+                buttonConfiguration.Content = imageConfiguration;
+                buttonConfiguration.HorizontalAlignment = HorizontalAlignment.Left;
+                buttonConfiguration.VerticalAlignment = VerticalAlignment.Top;
+                buttonConfiguration.Background = Brushes.Transparent;
+                buttonConfiguration.BorderThickness = new Thickness(0);
+                buttonConfiguration.IsEnabled = appProfile.App.IsConfigurable() || appProfile.App.IsInstallable();
+                //buttonConfiguration.DataContext = appProfile.App;
+                //buttonConfiguration.SetBinding(Button.IsEnabledProperty, new Binding("IsInstalled"));
+
+                buttonConfiguration.Click += (s, e) =>
+                {
+                    new SettingsWindow(profileManager, app.Value.App).ShowDialog();
+                    scroller.ScrollToTop();
+                };
+                GridMain.Children.Add(buttonConfiguration);
+                selectedProfileElements.Add(buttonConfiguration);
+
+                var checkBoxTagger = new CheckBox();
+                checkBoxTagger.Margin = new Thickness(nextMargin.Left + 25, nextMargin.Top + 2, nextMargin.Right, nextMargin.Bottom);
+                checkBoxTagger.Content = appProfile.App.Name;
+                checkBoxTagger.HorizontalAlignment = HorizontalAlignment.Left;
+                checkBoxTagger.VerticalAlignment = VerticalAlignment.Top;
+                checkBoxTagger.Foreground = Brushes.White;
+                checkBoxTagger.DataContext = appProfile;
+                checkBoxTagger.IsEnabled = !appProfile.IsRequired;
+                checkBoxTagger.SetBinding(CheckBox.IsCheckedProperty, new Binding("TaggedForStart"));
+                
+                if (!String.IsNullOrEmpty(appProfile.App.DescriptionShort)) checkBoxTagger.ToolTip = appProfile.App.DescriptionShort;
+                GridMain.Children.Add(checkBoxTagger);
+                selectedProfileElements.Add(checkBoxTagger);
+
+                counter += 1;
+            }
+
+
+        }
+
 
     }
 }
