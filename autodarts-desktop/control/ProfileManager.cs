@@ -251,7 +251,7 @@ namespace autodarts_desktop.control
         {
             foreach (var app in AppsAll) 
             {
-                if (app.IsInstalled()) app.Install(true);
+                if (app.IsInstallable() && app.IsInstalled()) app.Install(true);
             }
         }
 

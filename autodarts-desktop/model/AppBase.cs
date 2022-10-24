@@ -75,7 +75,7 @@ namespace autodarts_desktop.model
         public bool IsInstalled()
         {
             executable = SetRunExecutable();
-            return executable != null;
+            return String.IsNullOrEmpty(executable) ? false : File.Exists(executable);
         }
 
         public bool IsRunning()
