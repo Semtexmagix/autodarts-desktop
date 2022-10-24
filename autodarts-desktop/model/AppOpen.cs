@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace autodarts_desktop.model
@@ -23,7 +24,8 @@ namespace autodarts_desktop.model
                         string? descriptionLong = null,
                         bool runAsAdmin = false,
                         ProcessWindowStyle? startWindowState = null,
-                        Configuration? configuration = null
+                        Configuration? configuration = null,
+                        string? defaultValue = null
             ) : base(name: name,
                         helpUrl: helpUrl,
                         descriptionShort: descriptionShort,
@@ -42,7 +44,8 @@ namespace autodarts_desktop.model
                                         {
                                         new (name: "file",
                                             type: "string",
-                                            required: true)
+                                            required: true,
+                                            value: String.IsNullOrEmpty(defaultValue) ? null : defaultValue)
                                         }
                                     );
             }

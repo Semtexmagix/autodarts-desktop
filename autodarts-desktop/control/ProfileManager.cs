@@ -284,7 +284,8 @@ namespace autodarts_desktop.control
             AppOpen autodartsWeb =
                 new(
                     name: "autodarts.io",
-                    descriptionShort: "Opens autodart`s web-platform"
+                    descriptionShort: "Opens autodart`s web-platform",
+                    defaultValue: "https://autodarts.io"
                     );
 
             apps.Add(autodartsWeb);
