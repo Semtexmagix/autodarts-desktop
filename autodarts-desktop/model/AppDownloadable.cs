@@ -59,6 +59,39 @@ namespace autodarts_desktop.model
 
 
 
+        public override bool Install()
+        {
+            try
+            {
+                var urlFileSize = Helper.GetFileSizeByUrl(DownloadUrl);
+                var localFileSize = Helper.GetFileSizeByLocal(downloadPathFile);
+
+                skipRun = localFileSize == -2 ? false : true;
+
+                //Console.WriteLine($"url-file: {urlFileSize}  - local-file: {downloadPathFile}");
+                if (urlFileSize == localFileSize) return false;
+
+                // removes existing app and creates a new directory
+                Helper.RemoveDirectory(downloadPath, true);
+
+                // inform subscribers about a pending download
+                OnDownloadStarted(new AppEventArgs(this, ""));
+
+                // start the download
+                var webclient = new WebClient();
+                webclient.DownloadFileCompleted += WebClient_DownloadCompleted;
+                webclient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
+                webclient.DownloadFileAsync(new Uri(DownloadUrl), downloadPathFile);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Helper.RemoveDirectory(downloadPath);
+                OnDownloadFailed(new AppEventArgs(this, ex.Message));
+            }
+            return false;
+        }
+
         public override bool IsConfigurable()
         {
             return Configuration != null;
@@ -107,35 +140,6 @@ namespace autodarts_desktop.model
         }
 
 
-        protected override void DoInstallProcess(bool isReinstall)
-        {
-            skipRun = isReinstall;
-            try
-            {
-                var urlFileSize = Helper.GetFileSizeByUrl(DownloadUrl);
-                var localFileSize = Helper.GetFileSizeByLocal(downloadPathFile);
-
-                //Console.WriteLine($"url-file: {urlFileSize}  - local-file: {downloadPathFile}");
-                if (urlFileSize == localFileSize) return;
-
-                // removes existing app and creates a new directory
-                Helper.RemoveDirectory(downloadPath, true);
-
-                // inform subscribers about a pending download
-                OnDownloadStarted(new AppEventArgs(this, ""));
-
-                // start the download
-                var webclient = new WebClient();
-                webclient.DownloadFileCompleted += WebClient_DownloadCompleted;
-                webclient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
-                webclient.DownloadFileAsync(new Uri(DownloadUrl), downloadPathFile);
-            }
-            catch (Exception ex)
-            {
-                Helper.RemoveDirectory(downloadPath);
-                OnDownloadFailed(new AppEventArgs(this, ex.Message));
-            }
-        }
 
         protected string? GetDownloadExecutable()
         {

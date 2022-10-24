@@ -55,9 +55,6 @@ namespace autodarts_desktop
 
                 RenderProfiles();
 
-                string[] args = Environment.GetCommandLineArgs();
-                if (args.Length > 1 && args[1] == "-U") profileManager.UpdateInstalledApps();
-
                 Updater.NewReleaseFound += Updater_NewReleaseFound;
                 Updater.ReleaseInstallInitialized += Updater_ReleaseInstallInitialized;
                 Updater.ReleaseDownloadStarted += Updater_ReleaseDownloadStarted;

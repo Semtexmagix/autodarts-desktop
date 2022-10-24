@@ -68,9 +68,11 @@ namespace autodarts_desktop.model
             this.runtimeArguments = runtimeArguments;
             executable = SetRunExecutable();
             if (IsRunning()) return true;
-            if (Install(false)) return false;
+            if (Install()) return false;
             return RunProcess(runtimeArguments);
         }
+
+        public abstract bool Install();
 
         public bool IsInstalled()
         {
@@ -84,19 +86,6 @@ namespace autodarts_desktop.model
             return Helper.IsProcessRunning(executable);
         }
 
-        public bool Install(bool removeExistingInstallation)
-        {
-            if (removeExistingInstallation)
-            {
-                Close();
-            }
-            else
-            {
-                if (IsInstalled()) return false; 
-            }
-            DoInstallProcess(removeExistingInstallation);
-            return true;
-        }
 
         public void Close()
         {
@@ -132,9 +121,7 @@ namespace autodarts_desktop.model
 
             if (String.IsNullOrEmpty(executable)) return false;
             var arguments = ComposeArguments(this, runtimeArguments);
-            if (String.IsNullOrEmpty(arguments)) return false;
-
-            // Console.WriteLine($"Start App '{executable}' with Arguments '{arguments}'");
+            if (arguments == null) return false;
 
             using var process = new Process();
             try
@@ -142,7 +129,7 @@ namespace autodarts_desktop.model
                 bool isUri = Uri.TryCreate(executable, UriKind.Absolute, out Uri uriResult)
                 && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
 
-                if(!isUri) process.StartInfo.WorkingDirectory = Path.GetDirectoryName(executable);
+                if (!isUri) process.StartInfo.WorkingDirectory = Path.GetDirectoryName(executable);
                 process.StartInfo.FileName = executable;
                 process.StartInfo.Arguments = arguments;
                 process.StartInfo.RedirectStandardOutput = false;
@@ -167,8 +154,6 @@ namespace autodarts_desktop.model
         }
 
         protected abstract string? SetRunExecutable();
-
-        protected abstract void DoInstallProcess(bool isReinstall);
 
         protected string? ComposeArguments(AppBase app, Dictionary<string, string>? runtimeArguments = null)
         {

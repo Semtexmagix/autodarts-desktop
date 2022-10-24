@@ -247,13 +247,6 @@ namespace autodarts_desktop.control
             }
         }
 
-        public void UpdateInstalledApps()
-        {
-            foreach (var app in AppsAll) 
-            {
-                if (app.IsInstallable() && app.IsInstalled()) app.Install(true);
-            }
-        }
 
         public List<Profile> GetProfiles()
         {

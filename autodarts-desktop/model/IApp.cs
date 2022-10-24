@@ -9,7 +9,7 @@ namespace autodarts_desktop.model
     public interface IApp
     {
 
-        public bool Install(bool removeExistingInstallation);
+        public bool Install();
 
         public bool Run(Dictionary<string, string> runtimeArguments);
 

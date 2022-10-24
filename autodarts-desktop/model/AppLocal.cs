@@ -53,6 +53,11 @@ namespace autodarts_desktop.model
             }
         }
 
+        public override bool Install()
+        {
+            return false;
+        }
+
         public override bool IsConfigurable()
         {
             return true;
@@ -69,10 +74,7 @@ namespace autodarts_desktop.model
             return Configuration.Arguments[0].Value;
         }
 
-        protected override void DoInstallProcess(bool isReinstall)
-        {
-            return;
-        }
+
 
 
 
