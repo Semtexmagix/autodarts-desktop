@@ -71,6 +71,7 @@ namespace autodarts_desktop.control
                 {
                     var appsDownloadable = JsonConvert.DeserializeObject<List<AppDownloadable>>(File.ReadAllText(appsDownloadableFile));
                     AppsDownloadable.AddRange(appsDownloadable);
+                    MigrateAppsDownloadable();
                     AppsAll.AddRange(appsDownloadable);
                 }
                 catch (Exception ex)
@@ -89,6 +90,7 @@ namespace autodarts_desktop.control
                 {
                     var appsInstallable = JsonConvert.DeserializeObject<List<AppInstallable>>(File.ReadAllText(appsInstallableFile));
                     AppsInstallable.AddRange(appsInstallable);
+                    MigrateAppsInstallable();
                     AppsAll.AddRange(appsInstallable);
                 }
                 catch (Exception ex)
@@ -108,6 +110,7 @@ namespace autodarts_desktop.control
                 {
                     var appsLocal = JsonConvert.DeserializeObject<List<AppLocal>>(File.ReadAllText(appsLocalFile));
                     AppsLocal.AddRange(appsLocal);
+                    MigrateAppsLocal();
                     AppsAll.AddRange(appsLocal);
                 }
                 catch (Exception ex)
@@ -126,6 +129,7 @@ namespace autodarts_desktop.control
                 {
                     var appsOpen = JsonConvert.DeserializeObject<List<AppOpen>>(File.ReadAllText(appsOpenFile));
                     AppsOpen.AddRange(appsOpen);
+                    MigrateAppsOpen();
                     AppsAll.AddRange(appsOpen);
                 }
                 catch (Exception ex)
@@ -144,6 +148,7 @@ namespace autodarts_desktop.control
                 try
                 {
                     Profiles = JsonConvert.DeserializeObject<List<Profile>>(File.ReadAllText(profilesFile));
+                    MigrateProfiles();
                 }
                 catch (Exception ex)
                 {
@@ -247,12 +252,10 @@ namespace autodarts_desktop.control
             }
         }
 
-
         public List<Profile> GetProfiles()
         {
             return Profiles;
         }
-
 
 
 
@@ -277,6 +280,12 @@ namespace autodarts_desktop.control
             SerializeApps(apps, appsLocalFile);
         }
 
+        private void MigrateAppsLocal()
+        {
+
+            // Add more migs..
+        }
+
         private void CreateDummyAppsOpen()
         {
             List<AppOpen> apps = new();
@@ -293,6 +302,12 @@ namespace autodarts_desktop.control
             AppsOpen.AddRange(apps);
             AppsAll.AddRange(apps);
             SerializeApps(apps, appsOpenFile);
+        }
+
+        private void MigrateAppsOpen()
+        {
+
+            // Add more migs..
         }
 
         private void CreateDummyAppsInstallable()
@@ -345,6 +360,12 @@ namespace autodarts_desktop.control
             SerializeApps(apps, appsInstallableFile);
         }
 
+        private void MigrateAppsInstallable()
+        {
+
+            // Add more migs..
+        }
+
         private void CreateDummyAppsDownloadable()
         {
             List<AppDownloadable> apps = new();
@@ -382,7 +403,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsExtern =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.3/autodarts-extern.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.4/autodarts-extern.exe",
                     name: "autodarts-extern",
                     helpUrl: "https://github.com/lbormann/autodarts-extern",
                     descriptionShort: "automates dart web platforms with autodarts",
@@ -436,6 +457,20 @@ namespace autodarts_desktop.control
             AppsAll.AddRange(apps);
             
             SerializeApps(apps, appsDownloadableFile);
+        }
+
+        private void MigrateAppsDownloadable()
+        {
+            // 1. Mig (Update download version)
+            string migValue = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.4/autodarts-extern.exe";
+            var app = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
+            if (app != null)
+            {
+                app.DownloadUrl = migValue;
+            }
+
+
+            // Add more migs..
         }
 
         private void CreateDummyProfiles()
@@ -496,6 +531,13 @@ namespace autodarts_desktop.control
 
             SerializeProfiles(Profiles, profilesFile);
         }
+
+        private void MigrateProfiles()
+        {
+
+            // Add more migs..
+        }
+
 
 
         private void SerializeApps<AppBase>(List<AppBase> apps, string filename)

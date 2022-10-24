@@ -16,7 +16,7 @@ namespace autodarts_desktop.model
 
         // ATTRIBUTES
 
-        public string DownloadUrl { get; private set; }
+        public string DownloadUrl { get; set; }
 
 
 
