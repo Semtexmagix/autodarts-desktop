@@ -89,7 +89,7 @@ namespace autodarts_desktop.model
                     // ... sonst hängen wir den Value an
                     else
                     {
-                        composedArguments += " " + Prefix + a.Name + Delimitter + "\"" + a.Value + "\"";
+                        composedArguments += " " + Prefix + a.Name + Delimitter + "\"" + a.MappedValue() + "\"";
                     }
                 }
             }

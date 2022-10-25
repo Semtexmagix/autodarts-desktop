@@ -393,10 +393,10 @@ namespace autodarts_desktop.control
                             new(name: "B", type: "string", required: true, nameHuman: "autodarts-board-id", section: "Autodarts"),
                             new(name: "M", type: "path", required: true, nameHuman: "path-to-sound-files", section: "Media"),
                             new(name: "V", type: "float[0.0..1.0]", required: false, nameHuman: "caller-volume", section: "Media"),
-                            new(name: "R", type: "bool", required: false, nameHuman: "random-caller", section: "Random"),
-                            new(name: "L", type: "bool", required: false, nameHuman: "random-caller-each-leg", section: "Random"),
-                            new(name: "E", type: "bool", required: false, nameHuman: "call-every-dart", section: "Calls"),
-                            new(name: "PCC", type: "bool", required: false, nameHuman: "call-possible-checkout", section: "Calls"),
+                            new(name: "R", type: "bool", required: false, nameHuman: "random-caller", section: "Random", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "L", type: "bool", required: false, nameHuman: "random-caller-each-leg", section: "Random", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "E", type: "bool", required: false, nameHuman: "call-every-dart", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "PCC", type: "bool", required: false, nameHuman: "call-possible-checkout", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "WTT", type: "string", required: false, nameHuman: "webhook", section: ""),
                         })
                     );
@@ -411,22 +411,22 @@ namespace autodarts_desktop.control
                         prefix: "--",
                         delimitter: " ",
                         arguments: new List<Argument> {
-                        new(name: "browser_path", type: "file", required: true, nameHuman: "Path to browser", section: "", description: "Path to browser. fav. Chrome"),
-                        new(name: "host_port", type: "string", required: true, nameHuman: "Host-Port", section: ""),
-                        new(name: "autodarts_user", type: "string", required: true, nameHuman: "Autodarts-Email", section: "Autodarts"),
-                        new(name: "autodarts_password", type: "password", required: true, nameHuman: "Autodarts-Password", section: "Autodarts"),
-                        new(name: "autodarts_board_id", type: "string", required: true, nameHuman: "Autodarts-Board-ID", section: "Autodarts"),
-                        new(name: "extern_platform", type: "selection[lidarts,nakka,dartboards]", required: true, nameHuman: "", isRuntimeArgument: true),
-                        new(name: "time_before_exit", type: "int[0..150000]", required: false, nameHuman: "Dwel after match end (in milliseconds)", section: "Match"),
-                        new(name: "lidarts_user", type: "string", required: false, nameHuman: "Lidarts-Email", section: "Lidarts", requiredOnArgument: "extern_platform=lidarts"),
-                        new(name: "lidarts_password", type: "password", required: false, nameHuman: "Lidarts-Password", section: "Lidarts", requiredOnArgument: "extern_platform=lidarts"),
-                        new(name: "lidarts_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Lidarts"),
-                        new(name: "lidarts_chat_message_start", type: "string", required: false, nameHuman: "Chat-message on match-start", section: "Lidarts"),
-                        new(name: "lidarts_chat_message_end", type: "string", required: false, nameHuman: "Chat-message on match-end", section: "Lidarts"),
-                        new(name: "nakka_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Nakka"),
-                        new(name: "dartboards_user", type: "string", required: false, nameHuman: "Dartboards-Email", section: "Dartboards", requiredOnArgument: "extern_platform=dartboards"),
-                        new(name: "dartboards_password", type: "password", required: false, nameHuman: "Dartboards-Password", section: "Dartboards", requiredOnArgument: "extern_platform=dartboards"),
-                        new(name: "dartboards_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Dartboards"),
+                            new(name: "browser_path", type: "file", required: true, nameHuman: "Path to browser", section: "", description: "Path to browser. fav. Chrome"),
+                            new(name: "host_port", type: "string", required: true, nameHuman: "Host-Port", section: ""),
+                            new(name: "autodarts_user", type: "string", required: true, nameHuman: "Autodarts-Email", section: "Autodarts"),
+                            new(name: "autodarts_password", type: "password", required: true, nameHuman: "Autodarts-Password", section: "Autodarts"),
+                            new(name: "autodarts_board_id", type: "string", required: true, nameHuman: "Autodarts-Board-ID", section: "Autodarts"),
+                            new(name: "extern_platform", type: "selection[lidarts,nakka,dartboards]", required: true, nameHuman: "", isRuntimeArgument: true),
+                            new(name: "time_before_exit", type: "int[0..150000]", required: false, nameHuman: "Dwel after match end (in milliseconds)", section: "Match"),
+                            new(name: "lidarts_user", type: "string", required: false, nameHuman: "Lidarts-Email", section: "Lidarts", requiredOnArgument: "extern_platform=lidarts"),
+                            new(name: "lidarts_password", type: "password", required: false, nameHuman: "Lidarts-Password", section: "Lidarts", requiredOnArgument: "extern_platform=lidarts"),
+                            new(name: "lidarts_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Lidarts"),
+                            new(name: "lidarts_chat_message_start", type: "string", required: false, nameHuman: "Chat-message on match-start", section: "Lidarts"),
+                            new(name: "lidarts_chat_message_end", type: "string", required: false, nameHuman: "Chat-message on match-end", section: "Lidarts"),
+                            new(name: "nakka_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Nakka"),
+                            new(name: "dartboards_user", type: "string", required: false, nameHuman: "Dartboards-Email", section: "Dartboards", requiredOnArgument: "extern_platform=dartboards"),
+                            new(name: "dartboards_password", type: "password", required: false, nameHuman: "Dartboards-Password", section: "Dartboards", requiredOnArgument: "extern_platform=dartboards"),
+                            new(name: "dartboards_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Dartboards"),
                         })
                 );
 
@@ -462,11 +462,28 @@ namespace autodarts_desktop.control
         private void MigrateAppsDownloadable()
         {
             // 1. Mig (Update download version)
-            string migValue = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.4/autodarts-extern.exe";
-            var app = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
-            if (app != null)
+            var mig1 = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
+            if (mig1 != null)
             {
-                app.DownloadUrl = migValue;
+                mig1.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.4/autodarts-extern.exe";
+            }
+
+            // 2. Mig (Add ValueMapping for bool)
+            var mig2 = AppsDownloadable.Single(a => a.Name == "autodarts-caller");
+            if (mig2 != null)
+            {
+                foreach (var arg in mig2.Configuration.Arguments)
+                {
+                    switch (arg.Name)
+                    {
+                        case "R":
+                        case "L":
+                        case "E":
+                        case "PCC":
+                            arg.ValueMapping = new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" };
+                            break;
+                    }
+                }
             }
 
 

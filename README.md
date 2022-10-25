@@ -71,6 +71,8 @@ It may be buggy. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 - run as admin
 - Add new app: droidcam (android) + epoccam (iOS)
 - Recreate *.json files on error
+- Fixes autodarts-caller bool-arguments
+- Fixes arguments of type 'float'
 
 
 ## LAST WORDS

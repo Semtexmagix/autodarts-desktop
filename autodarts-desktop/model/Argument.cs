@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using Windows.Foundation.Collections;
 
 
 namespace autodarts_desktop.model
@@ -32,6 +35,8 @@ namespace autodarts_desktop.model
 
         public string? Value { get; set; }
 
+        public Dictionary<string, string>? ValueMapping { get; set; }
+
         [JsonIgnore]
         public string RangeBy { get; private set; }
 
@@ -50,7 +55,7 @@ namespace autodarts_desktop.model
         public const string RangeDelimitter = "..";
         public const char RangeBorderStart = '[';
         public const char RangeBorderEnd = ']';
-
+        public const char RangeSeparator = '|';
 
 
 
@@ -65,8 +70,8 @@ namespace autodarts_desktop.model
                         string? requiredOnArgument = null,
                         bool emptyAllowedOnRequired = false,
                         bool isRuntimeArgument = false,
-                        bool isFilledByUser = false,
-                        string? value = null
+                        string? value = null,
+                        Dictionary<string, string>? valueMapping = null 
                 )
         {
             Name = name;
@@ -78,12 +83,29 @@ namespace autodarts_desktop.model
             RequiredOnArgument = requiredOnArgument;
             EmptyAllowedOnRequired = emptyAllowedOnRequired;
             IsRuntimeArgument = isRuntimeArgument;
-
             Value = value;
+            ValueMapping = valueMapping;
 
             ValidateType();
         }
 
+        public string? MappedValue()
+        {
+            if(ValueMapping != null)
+            {
+                foreach (var item in ValueMapping)
+                {
+                    if (Value == item.Key) return item.Value;
+                }
+            }
+
+            //if (!String.IsNullOrEmpty(RangeBy))
+            //{
+            //    RangeBy.Length
+            //}
+
+            return Value;
+        }
 
         public bool ShouldSerializeValue()
         {
@@ -213,7 +235,7 @@ namespace autodarts_desktop.model
         {
             // => float[0..10]
             var range = Type.Substring(type.Length, Type.Length - type.Length);
-            Console.WriteLine($"{type}: " + range);
+            //Console.WriteLine($"{type}: " + range);
 
             // => [0 10]
             var rangeSplitted = range.Split(RangeDelimitter);
@@ -225,16 +247,18 @@ namespace autodarts_desktop.model
             RangeBy = rangeSplitted[0].Remove(0, 1);
             RangeTo = rangeSplitted[1].Remove(rangeSplitted[1].Length - 1);
 
-            Console.WriteLine($"{type}-range-by: " + RangeBy);
-            Console.WriteLine($"{type}-range-to: " + RangeTo);
+            //Console.WriteLine($"{type}-range-by: " + RangeBy);
+            //Console.WriteLine($"{type}-range-to: " + RangeTo);
 
             if(type == TypeString)
             {
                 if (Value.Length < int.Parse(RangeBy) || Value.Length > int.Parse(RangeTo)) throw new Exception($"Out of range ({RangeBy} to {RangeTo})");
-            }else if(type == TypeFloat)
+            }
+            else if(type == TypeFloat)
             {
-                if (float.Parse(Value) < float.Parse(RangeBy) || float.Parse(Value) > float.Parse(RangeTo)) throw new Exception($"Out of range ({RangeBy} to {RangeTo})");
-            }else if(type == TypeInt)
+                if (float.Parse(Value, new CultureInfo("en-us")) < float.Parse(RangeBy, new CultureInfo("en-us")) || float.Parse(Value, new CultureInfo("en-us")) > float.Parse(RangeTo, new CultureInfo("en-us"))) throw new Exception($"Out of range ({RangeBy} to {RangeTo})");
+            }
+            else if(type == TypeInt)
             {
                 if (int.Parse(Value) < int.Parse(RangeBy) || int.Parse(Value) > int.Parse(RangeTo)) throw new Exception($"Out of range ({RangeBy} to {RangeTo})");
             }

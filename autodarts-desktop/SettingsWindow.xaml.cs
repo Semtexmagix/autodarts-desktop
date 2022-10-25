@@ -80,38 +80,6 @@ namespace autodarts_desktop
             labelHeader.Foreground = fontColor;
             GridMain.Children.Add(labelHeader);
 
-            // TODO: REMOVE
-            //if (app.IsInstallable())
-            //{
-            //    var imageInstall = new Image();
-            //    imageInstall.Width = 24;
-            //    imageInstall.Height = 24;
-            //    imageInstall.Source = new BitmapImage(new Uri("pack://application:,,,/images/download.png"));
-
-            //    var buttonInstall = new Button();
-            //    buttonInstall.Margin = new Thickness(10, 10, 0, 0);
-            //    buttonInstall.Style = (Style)GridMain.Resources["BtnStyle"];
-            //    buttonInstall.Content = imageInstall;
-            //    buttonInstall.HorizontalAlignment = HorizontalAlignment.Left;
-            //    buttonInstall.VerticalAlignment = VerticalAlignment.Top;
-            //    buttonInstall.Background = Brushes.Transparent;
-            //    buttonInstall.BorderThickness = new Thickness(0, 0, 0, 0);
-            //    buttonInstall.Click += (s, e) =>
-            //    {
-            //        try
-            //        {
-            //            app.Install(true);
-            //            Close();
-            //        }
-            //        catch(Exception ex)
-            //        {
-            //            MessageBox.Show("Install failed. " + ex.Message);
-            //        }  
-            //    };
-            //    GridMain.Children.Add(buttonInstall);
-            //}
-
-
             if (!String.IsNullOrEmpty(app.HelpUrl))
             {
                 var ímageHelp = new Image();
@@ -283,9 +251,8 @@ namespace autodarts_desktop
                             slider.IsSnapToTickEnabled = true;
 
                             if (type == Argument.TypeFloat)
-                            {
-                                
-                                slider.TickFrequency = 0.01;
+                            {  
+                                slider.TickFrequency = 0.1;
                                 slider.Minimum = Helper.GetDoubleByString(argument.RangeBy);
                                 slider.Maximum = Helper.GetDoubleByString(argument.RangeTo);
                             }
