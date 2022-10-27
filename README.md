@@ -73,6 +73,7 @@ It may be buggy. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 - Recreate *.json files on error
 - Fixes autodarts-caller bool-arguments
 - Fixes arguments of type 'float'
+- Fixes rerun of apps fail
 
 
 ## LAST WORDS

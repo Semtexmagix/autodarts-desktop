@@ -99,11 +99,6 @@ namespace autodarts_desktop.model
                 }
             }
 
-            //if (!String.IsNullOrEmpty(RangeBy))
-            //{
-            //    RangeBy.Length
-            //}
-
             return Value;
         }
 

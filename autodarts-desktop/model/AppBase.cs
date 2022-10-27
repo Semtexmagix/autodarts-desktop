@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace autodarts_desktop.model
 {
@@ -28,11 +29,14 @@ namespace autodarts_desktop.model
         [JsonIgnore]
         public Argument? ArgumentRequired { get; private set; }
 
-        private int processId;
+
         private string? executable;
-        private const int defaultProcessId = 0;
         private readonly ProcessWindowStyle DefaultStartWindowState = ProcessWindowStyle.Minimized;
         protected Dictionary<string, string>? runtimeArguments;
+        private TaskCompletionSource<bool> eventHandled;
+        private Process process;
+        private const int defaultProcessId = 0;
+        private int processId;
 
 
 
@@ -69,10 +73,11 @@ namespace autodarts_desktop.model
             executable = SetRunExecutable();
             if (IsRunning()) return true;
             if (Install()) return false;
-            return RunProcess(runtimeArguments);
+            RunProcess(runtimeArguments);
+            return true;
         }
 
-        public abstract bool Install();
+        
 
         public bool IsInstalled()
         {
@@ -82,16 +87,17 @@ namespace autodarts_desktop.model
 
         public bool IsRunning()
         {
-            if (processId != defaultProcessId && Helper.IsProcessRunning(processId)) return true;
-            return Helper.IsProcessRunning(executable);
+            return process != null && !process.HasExited;
         }
-
 
         public void Close()
         {
             if(!IsRunning()) return;
             if (IsRunnable())
             {
+                //Console.WriteLine(Name + " tries to exit");
+                process.CloseMainWindow();
+
                 if (processId != defaultProcessId)
                 {
                     try
@@ -109,21 +115,25 @@ namespace autodarts_desktop.model
             }
         }
 
+        public abstract bool Install();
+
         public abstract bool IsConfigurable();
 
         public abstract bool IsInstallable();
 
 
 
-        private bool RunProcess(Dictionary<string, string>? runtimeArguments = null)
+        private async Task RunProcess(Dictionary<string, string>? runtimeArguments = null)
         {
-            if (!IsRunnable()) return true;
+            if (!IsRunnable()) return;
 
-            if (String.IsNullOrEmpty(executable)) return false;
+            if (String.IsNullOrEmpty(executable)) return;
             var arguments = ComposeArguments(this, runtimeArguments);
-            if (arguments == null) return false;
+            if (arguments == null) return;
 
-            using var process = new Process();
+            eventHandled = new TaskCompletionSource<bool>();
+            process = new Process();
+            
             try
             {
                 bool isUri = Uri.TryCreate(executable, UriKind.Absolute, out Uri uriResult)
@@ -137,15 +147,32 @@ namespace autodarts_desktop.model
                 process.StartInfo.UseShellExecute = true;
                 if (RunAsAdmin) process.StartInfo.Verb = "runas";
                 process.StartInfo.WindowStyle = StartWindowState;
+
+                process.EnableRaisingEvents = true;
+                process.Exited += process_Exited;
                 process.Start();
                 processId = process.Id;
-                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred trying to start \"{executable}\" with \"{arguments}\":\n{ex.Message}");
                 throw;
             }
+
+            // Wait for Exited event
+            await Task.WhenAny(eventHandled.Task);
+            
+        }
+
+        private void process_Exited(object sender, EventArgs e)
+        {
+            //Console.WriteLine(
+            //    $"Exit time    : {process.ExitTime}\n" +
+            //    $"Exit code    : {process.ExitCode}\n" +
+            //    $"Elapsed time : {Math.Round((process.ExitTime - process.StartTime).TotalMilliseconds)}");
+            //Console.WriteLine("Process " + Name + " exited");
+            processId = defaultProcessId;
+            eventHandled.TrySetResult(true);
         }
 
         protected virtual bool IsRunnable()
