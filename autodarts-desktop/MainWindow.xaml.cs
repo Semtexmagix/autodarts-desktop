@@ -3,10 +3,12 @@ using autodarts_desktop.model;
 using autodarts_desktop.Properties;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Button = System.Windows.Controls.Button;
@@ -208,6 +210,7 @@ namespace autodarts_desktop
         {
             MessageBox.Show(e.Message);
             new SettingsWindow(profileManager, e.App).ShowDialog();
+            RunSelectedProfile();
         }
 
 
@@ -285,7 +288,7 @@ namespace autodarts_desktop
             int top = 25;
             int counter = 1;
 
-            foreach (var app in selectedProfile.Apps)
+            foreach (var app in selectedProfile.Apps.OrderByDescending(a => a.Value.TaggedForStart))
             {
                 var marginTop = counter * top + 10;
                 selectedProfile.Apps.TryGetValue(app.Key, out ProfileState? appProfile);
@@ -295,7 +298,6 @@ namespace autodarts_desktop
                 imageConfiguration.HorizontalAlignment = HorizontalAlignment.Left;
                 imageConfiguration.Width = 18;
                 imageConfiguration.Height = 18;
-                //var imgUri = appProfile.App.IsConfigurable() || appProfile.App.IsInstallable() ? "pack://application:,,,/images/configuration.png" : "pack://application:,,,/images/configuration_off.png";
                 imageConfiguration.Source = new BitmapImage(new Uri("pack://application:,,,/images/configuration.png"));
 
                 var buttonConfiguration = new Button();
@@ -307,8 +309,6 @@ namespace autodarts_desktop
                 buttonConfiguration.Background = Brushes.Transparent;
                 buttonConfiguration.BorderThickness = new Thickness(0);
                 buttonConfiguration.IsEnabled = appProfile.App.IsConfigurable() || appProfile.App.IsInstallable();
-                //buttonConfiguration.DataContext = appProfile.App;
-                //buttonConfiguration.SetBinding(Button.IsEnabledProperty, new Binding("IsInstalled"));
 
                 buttonConfiguration.Click += (s, e) =>
                 {
@@ -323,11 +323,21 @@ namespace autodarts_desktop
                 checkBoxTagger.Content = appProfile.App.Name;
                 checkBoxTagger.HorizontalAlignment = HorizontalAlignment.Left;
                 checkBoxTagger.VerticalAlignment = VerticalAlignment.Top;
-                checkBoxTagger.Foreground = Brushes.White;
                 checkBoxTagger.DataContext = appProfile;
-                checkBoxTagger.IsEnabled = !appProfile.IsRequired;
                 checkBoxTagger.SetBinding(CheckBox.IsCheckedProperty, new Binding("TaggedForStart"));
-                
+                checkBoxTagger.IsEnabled = !appProfile.IsRequired;
+                checkBoxTagger.Foreground = appProfile.TaggedForStart ? Brushes.White : Brushes.Gray;
+                checkBoxTagger.FontWeight = appProfile.TaggedForStart ? FontWeights.Bold : FontWeights.Normal;
+                checkBoxTagger.Checked += (s, e) =>
+                {
+                    checkBoxTagger.Foreground = Brushes.White;
+                    checkBoxTagger.FontWeight = FontWeights.Bold;
+                };
+                checkBoxTagger.Unchecked += (s, e) =>
+                {
+                    checkBoxTagger.Foreground = Brushes.Gray;
+                    checkBoxTagger.FontWeight = FontWeights.Normal;
+                };
                 if (!String.IsNullOrEmpty(appProfile.App.DescriptionShort)) checkBoxTagger.ToolTip = appProfile.App.DescriptionShort;
                 GridMain.Children.Add(checkBoxTagger);
                 selectedProfileElements.Add(checkBoxTagger);

@@ -196,7 +196,7 @@ namespace autodarts_desktop.model
                 {
                     string invalidArgumentErrorMessage = ex.Message.Substring(Configuration.ArgumentErrorKey.Length, ex.Message.Length - Configuration.ArgumentErrorKey.Length);
                     ArgumentRequired = (Argument)ex.Data["argument"];
-                    invalidArgumentErrorMessage += " is required. Please fill it out.";
+                    invalidArgumentErrorMessage += " - Please correct it.";
                     OnAppConfigurationRequired(new AppEventArgs(this, invalidArgumentErrorMessage));
                     return null;
                 }

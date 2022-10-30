@@ -144,7 +144,9 @@ namespace autodarts_desktop
                     
                     var borderColor = Brushes.Transparent;
                     var borderThickness = new Thickness(1);
-                    if (app.ArgumentRequired != null && argument == app.ArgumentRequired)
+                    if (argument.Required && 
+                        (String.IsNullOrEmpty(argument.Value) && !argument.EmptyAllowedOnRequired) ||
+                        (argument.Value == null && argument.EmptyAllowedOnRequired))
                     {
                         borderColor = Brushes.Red;
                         borderThickness = new Thickness(3);

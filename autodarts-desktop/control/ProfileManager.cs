@@ -397,7 +397,7 @@ namespace autodarts_desktop.control
                             new(name: "L", type: "bool", required: false, nameHuman: "random-caller-each-leg", section: "Random", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "E", type: "bool", required: false, nameHuman: "call-every-dart", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "PCC", type: "bool", required: false, nameHuman: "call-possible-checkout", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
-                            new(name: "WTT", type: "string", required: false, nameHuman: "webhook", section: ""),
+                            new(name: "WTT", type: "string", required: false, nameHuman: "webhook", section: "", value: "http://localhost:8080/throw"),
                         })
                     );
 
@@ -412,7 +412,7 @@ namespace autodarts_desktop.control
                         delimitter: " ",
                         arguments: new List<Argument> {
                             new(name: "browser_path", type: "file", required: true, nameHuman: "Path to browser", section: "", description: "Path to browser. fav. Chrome"),
-                            new(name: "host_port", type: "string", required: true, nameHuman: "Host-Port", section: ""),
+                            new(name: "host_port", type: "string", required: true, nameHuman: "Host-Port", section: "", value: "8080"),
                             new(name: "autodarts_user", type: "string", required: true, nameHuman: "Autodarts-Email", section: "Autodarts"),
                             new(name: "autodarts_password", type: "password", required: true, nameHuman: "Autodarts-Password", section: "Autodarts"),
                             new(name: "autodarts_board_id", type: "string", required: true, nameHuman: "Autodarts-Board-ID", section: "Autodarts"),
@@ -421,8 +421,8 @@ namespace autodarts_desktop.control
                             new(name: "lidarts_user", type: "string", required: false, nameHuman: "Lidarts-Email", section: "Lidarts", requiredOnArgument: "extern_platform=lidarts"),
                             new(name: "lidarts_password", type: "password", required: false, nameHuman: "Lidarts-Password", section: "Lidarts", requiredOnArgument: "extern_platform=lidarts"),
                             new(name: "lidarts_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Lidarts"),
-                            new(name: "lidarts_chat_message_start", type: "string", required: false, nameHuman: "Chat-message on match-start", section: "Lidarts"),
-                            new(name: "lidarts_chat_message_end", type: "string", required: false, nameHuman: "Chat-message on match-end", section: "Lidarts"),
+                            new(name: "lidarts_chat_message_start", type: "string", required: false, nameHuman: "Chat-message on match-start", section: "Lidarts", value: "Hi, GD! Automated darts-scoring - powered by autodarts.io - Enter the community: https://discord.gg/bY5JYKbmvM"),
+                            new(name: "lidarts_chat_message_end", type: "string", required: false, nameHuman: "Chat-message on match-end", section: "Lidarts", value: "Thanks GG, WP!"),
                             new(name: "nakka_skip_dart_modals", type: "bool", required: false, nameHuman: "Skip dart-modals", section: "Nakka"),
                             new(name: "dartboards_user", type: "string", required: false, nameHuman: "Dartboards-Email", section: "Dartboards", requiredOnArgument: "extern_platform=dartboards"),
                             new(name: "dartboards_password", type: "password", required: false, nameHuman: "Dartboards-Password", section: "Dartboards", requiredOnArgument: "extern_platform=dartboards"),
@@ -461,18 +461,11 @@ namespace autodarts_desktop.control
 
         private void MigrateAppsDownloadable()
         {
-            // 1. Mig (Update download version)
-            var mig1 = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
-            if (mig1 != null)
+            var autodartsCaller = AppsDownloadable.Single(a => a.Name == "autodarts-caller");
+            if (autodartsCaller != null)
             {
-                mig1.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.4/autodarts-extern.exe";
-            }
-
-            // 2. Mig (Add ValueMapping for bool)
-            var mig2 = AppsDownloadable.Single(a => a.Name == "autodarts-caller");
-            if (mig2 != null)
-            {
-                foreach (var arg in mig2.Configuration.Arguments)
+                // 2. Mig (Add ValueMapping for bool)
+                foreach (var arg in autodartsCaller.Configuration.Arguments)
                 {
                     switch (arg.Name)
                     {
@@ -483,6 +476,36 @@ namespace autodarts_desktop.control
                             arg.ValueMapping = new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" };
                             break;
                     }
+                }
+
+                // 3. Mig (Set default values)
+                var wtt = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "WTT");
+                if (wtt != null && String.IsNullOrEmpty(wtt.Value)) wtt.Value = "http://localhost:8080/throw";
+            }
+
+            var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
+            if (autodartsExtern != null)
+            {
+                // 1. Mig (Update download version)
+                autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.4/autodarts-extern.exe";
+
+                // 4. Mig (Set default values)
+                var hostPort = autodartsExtern.Configuration.Arguments.Find(a => a.Name == "host_port");
+                if (hostPort != null && String.IsNullOrEmpty(hostPort.Value))
+                {
+                    hostPort.Value = "8080";
+                }
+
+                var lidartsChatMessageStart = autodartsExtern.Configuration.Arguments.Find(a => a.Name == "lidarts_chat_message_start");
+                if (lidartsChatMessageStart != null && String.IsNullOrEmpty(lidartsChatMessageStart.Value))
+                {
+                    lidartsChatMessageStart.Value = "Hi, GD! Automated darts-scoring - powered by autodarts.io - Enter the community: https://discord.gg/bY5JYKbmvM";
+                }
+
+                var lidartsChatMessageEnd = autodartsExtern.Configuration.Arguments.Find(a => a.Name == "lidarts_chat_message_end");
+                if (lidartsChatMessageEnd != null && String.IsNullOrEmpty(lidartsChatMessageEnd.Value))
+                {
+                    lidartsChatMessageEnd.Value = "Thanks GG, WP!";
                 }
             }
 
