@@ -222,6 +222,8 @@ namespace autodarts_desktop
                         passwordBox.VerticalAlignment = VerticalAlignment.Top;
                         passwordBox.Margin = new Thickness(0, counter * marginTop, 0, 0);
                         passwordBox.Width = elementWidth;
+                        passwordBox.BorderBrush = borderColor;
+                        passwordBox.BorderThickness = borderThickness;
                         passwordBox.DataContext = argument;
                         passwordBox.SetBinding(TextBox.TextProperty, new Binding("Value"));
                         HighlightElement(passwordBox, argument);
@@ -248,6 +250,8 @@ namespace autodarts_desktop
                             slider.VerticalAlignment = VerticalAlignment.Top;
                             slider.Margin = new Thickness(0, counter * marginTop, 0, 0);
                             slider.Width = elementWidth;
+                            slider.BorderBrush = borderColor;
+                            slider.BorderThickness = borderThickness;
                             slider.IsSnapToTickEnabled = true;
 
                             if (type == Argument.TypeFloat)
@@ -276,6 +280,8 @@ namespace autodarts_desktop
                             textBox.VerticalAlignment = VerticalAlignment.Top;
                             textBox.Margin = new Thickness(0, counter * marginTop, 0, 0);
                             textBox.Width = elementWidth;
+                            textBox.BorderBrush = borderColor;
+                            textBox.BorderThickness = borderThickness;
                             textBox.DataContext = argument;
                             textBox.SetBinding(TextBox.TextProperty, new Binding("Value"));
                             HighlightElement(textBox, argument);
@@ -300,6 +306,8 @@ namespace autodarts_desktop
                         checkBox.HorizontalAlignment = HorizontalAlignment.Center;
                         checkBox.VerticalAlignment = VerticalAlignment.Top;
                         checkBox.Foreground = Brushes.White;
+                        checkBox.BorderBrush = borderColor;
+                        checkBox.BorderThickness = borderThickness;
                         checkBox.DataContext = argument;
                         checkBox.SetBinding(CheckBox.IsCheckedProperty, new Binding("Value"));
                         HighlightElement(checkBox, argument);

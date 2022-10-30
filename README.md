@@ -74,6 +74,7 @@ It may be buggy. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 - Fixes autodarts-caller bool-arguments
 - Fixes arguments of type 'float'
 - Fixes rerun of apps fail
+- Fixes highlighting of required arguments in settings
 
 
 ## LAST WORDS
