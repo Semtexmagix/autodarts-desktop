@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using static System.Net.WebRequestMethods;
 using Path = System.IO.Path;
 
 
@@ -380,7 +381,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.3.2/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.3.3/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -481,6 +482,9 @@ namespace autodarts_desktop.control
                 // 3. Mig (Set default values)
                 var wtt = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "WTT");
                 if (wtt != null && String.IsNullOrEmpty(wtt.Value)) wtt.Value = "http://localhost:8080/throw";
+
+                // 5. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.3.3/autodarts-caller.exe";
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
