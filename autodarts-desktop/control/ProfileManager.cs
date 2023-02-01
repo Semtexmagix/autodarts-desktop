@@ -496,6 +496,9 @@ namespace autodarts_desktop.control
 
                 // 10. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.3.8/autodarts-caller.exe";
+
+                // 11. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.4.0/autodarts-caller.exe";
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
