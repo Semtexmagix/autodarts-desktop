@@ -502,6 +502,9 @@ namespace autodarts_desktop.control
 
                 // 12. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.5.0/autodarts-caller.exe";
+
+                // 13. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.5.1/autodarts-caller.exe";
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
@@ -528,6 +531,9 @@ namespace autodarts_desktop.control
                 {
                     lidartsChatMessageEnd.Value = "Thanks GG, WP!";
                 }
+
+                // 14. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.5/autodarts-extern.exe";
             }
 
 
