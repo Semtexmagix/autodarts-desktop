@@ -533,7 +533,7 @@ namespace autodarts_desktop.control
                 }
 
                 // 14. Mig (Update download version)
-                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.5/autodarts-extern.exe";
+                autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.5/autodarts-extern.exe";
             }
 
 
