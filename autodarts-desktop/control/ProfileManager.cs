@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 using Path = System.IO.Path;
 
@@ -436,22 +437,22 @@ namespace autodarts_desktop.control
                                     new(name: "WEPS", type: "string", required: true, nameHuman: "wled-endpoints", section: "WLED"),
                                     new(name: "HSO", type: "int[1..180]", required: false, nameHuman: "highscore-on", section: "Autodarts"),
                                     new(name: "HFO", type: "int[1..170]", required: false, nameHuman: "highfinish-on", section: "Autodarts"),
-                                    new(name: "G", type: "int[1..117]", required: false, nameHuman: "game-won-effect-ids", section: "WLED"),
-                                    new(name: "M", type: "int[1..117]", required: false, nameHuman: "match-won-effect-ids", section: "WLED"),
-                                    new(name: "B", type: "int[1..117]", required: false, nameHuman: "busted-effect-ids", section: "WLED"),
-                                    new(name: "HS", type: "int[1..117]", required: false, nameHuman: "high-score-effect-ids", section: "WLED"),
-                                    new(name: "HF", type: "int[1..117]", required: false, nameHuman: "high-finish-effect-ids", section: "WLED")
+                                    new(name: "G", type: "int[1..300]", required: false, nameHuman: "game-won-effects", section: "WLED"),
+                                    new(name: "M", type: "int[1..300]", required: false, nameHuman: "match-won-effects", section: "WLED"),
+                                    new(name: "B", type: "int[1..300]", required: false, nameHuman: "busted-effects", section: "WLED"),
+                                    new(name: "HS", type: "int[1..300]", required: false, nameHuman: "high-score-effects", section: "WLED"),
+                                    new(name: "HF", type: "int[1..300]", required: false, nameHuman: "high-finish-effects", section: "WLED")
                     };
             for(int i = 0; i <= 180; i++)
             {
                 var score = i.ToString();
-                Argument scoreArgument = new(name: "S" + score, type: "int[1..117]", required: false, nameHuman: "score " + score, section: "WLED");
+                Argument scoreArgument = new(name: "S" + score, type: "int[1..300]", required: false, nameHuman: "score " + score, section: "WLED");
                 autodartsWledArguments.Add(scoreArgument);
             }
 
             AppDownloadable autodartsWled =
             new(
-                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.0.0/autodarts-wled.exe",
+                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.0/autodarts-wled.exe",
                 name: "autodarts-wled",
                 helpUrl: "https://github.com/lbormann/autodarts-wled",
                 descriptionShort: "control wled installations",
@@ -534,6 +535,15 @@ namespace autodarts_desktop.control
 
                 // 17. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.5.3/autodarts-caller.exe";
+
+                // 18. Mig (Adjust WTT Argument)
+                var wtt2 = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "WTT");
+                if (wtt2 != null && !String.IsNullOrEmpty(wtt2.Value)) wtt2.Value = wtt2.Value.Replace("throw", "");
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.5.4/autodarts-caller.exe";
+
+                // 19. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.5.5/autodarts-caller.exe";
+
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
@@ -566,37 +576,38 @@ namespace autodarts_desktop.control
             }
 
 
-            var autodartsBotIndex = AppsDownloadable.FindIndex(a => a.Name == "autodarts-bot");
             // 9. Mig (Remove app)
+            var autodartsBotIndex = AppsDownloadable.FindIndex(a => a.Name == "autodarts-bot");
             if (autodartsBotIndex != -1)
             {
                 AppsDownloadable.RemoveAt(autodartsBotIndex);
             }
 
 
-            var autodartsWledIndex = AppsDownloadable.FindIndex(a => a.Name == "autodarts-wled");
             // 15. Mig (Add app)
+            var autodartsWledIndex = AppsDownloadable.FindIndex(a => a.Name == "autodarts-wled");
             if (autodartsWledIndex == -1)
             {
                 var autodartsWledArguments = new List<Argument> {
-                                new(name: "WEPS", type: "string", required: true, nameHuman: "wled-endpoints", section: "WLED"),
-                                new(name: "HSO", type: "int[1..180]", required: false, nameHuman: "highscore-on", section: "Autodarts"),
-                                new(name: "HFO", type: "int[1..170]", required: false, nameHuman: "highfinish-on", section: "Autodarts"),
-                                new(name: "G", type: "int[1..117]", required: false, nameHuman: "game-won-effect-ids", section: "WLED"),
-                                new(name: "M", type: "int[1..117]", required: false, nameHuman: "match-won-effect-ids", section: "WLED"),
-                                new(name: "B", type: "int[1..117]", required: false, nameHuman: "busted-effect-ids", section: "WLED"),
-                                new(name: "HS", type: "int[1..117]", required: false, nameHuman: "high-score-effect-ids", section: "WLED"),
-                                new(name: "HF", type: "int[1..117]", required: false, nameHuman: "high-finish-effect-ids", section: "WLED")
-                };
+                                    new(name: "WEPS", type: "string", required: true, nameHuman: "wled-endpoints", section: "WLED"),
+                                    new(name: "HSO", type: "int[1..180]", required: false, nameHuman: "highscore-on", section: "Autodarts"),
+                                    new(name: "HFO", type: "int[1..170]", required: false, nameHuman: "highfinish-on", section: "Autodarts"),
+                                    new(name: "G", type: "int[1..300]", required: false, nameHuman: "game-won-effects", section: "WLED"),
+                                    new(name: "M", type: "int[1..300]", required: false, nameHuman: "match-won-effects", section: "WLED"),
+                                    new(name: "B", type: "int[1..300]", required: false, nameHuman: "busted-effects", section: "WLED"),
+                                    new(name: "HS", type: "int[1..300]", required: false, nameHuman: "high-score-effects", section: "WLED"),
+                                    new(name: "HF", type: "int[1..300]", required: false, nameHuman: "high-finish-effects", section: "WLED")
+                    };
                 for (int i = 0; i <= 180; i++)
                 {
                     var score = i.ToString();
-                    Argument scoreArgument = new(name: "S" + score, type: "int[1..117]", required: false, nameHuman: "score " + score, section: "WLED");
+                    Argument scoreArgument = new(name: "S" + score, type: "int[1..300]", required: false, nameHuman: "score " + score, section: "WLED");
                     autodartsWledArguments.Add(scoreArgument);
                 }
+
                 AppDownloadable autodartsWled =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.0.0/autodarts-wled.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.0/autodarts-wled.exe",
                     name: "autodarts-wled",
                     helpUrl: "https://github.com/lbormann/autodarts-wled",
                     descriptionShort: "control wled installations",
@@ -605,12 +616,10 @@ namespace autodarts_desktop.control
                         delimitter: " ",
                         arguments: autodartsWledArguments)
                     );
+
                 //AppsDownloadable.Add(autodartsWled);
+
             }
-
-          
-
-
 
 
             // Add more migs..
