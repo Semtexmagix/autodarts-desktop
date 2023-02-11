@@ -89,7 +89,17 @@ namespace autodarts_desktop.model
                     // ... sonst hängen wir den Value an
                     else
                     {
-                        composedArguments += " " + Prefix + a.Name + Delimitter + "\"" + a.MappedValue() + "\"";
+                        if (!a.IsMulti || String.IsNullOrEmpty(a.MappedValue()))
+                        {
+                            composedArguments += " " + Prefix + a.Name + Delimitter + "\"" + a.MappedValue() + "\"";
+                        }
+                        else
+                        {
+                            var splitted = a.MappedValue().Split(" ");
+                            var multiSplitted = String.Empty;
+                            foreach (var b in splitted) multiSplitted += $" \"{b}\"";
+                            composedArguments += " " + Prefix + a.Name + Delimitter + multiSplitted;
+                        }  
                     }
                 }
             }

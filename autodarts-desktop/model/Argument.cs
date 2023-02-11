@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using Windows.Foundation.Collections;
 
 
 namespace autodarts_desktop.model
@@ -32,6 +31,8 @@ namespace autodarts_desktop.model
         public bool EmptyAllowedOnRequired { get; set; }
 
         public bool IsRuntimeArgument { get; set; }
+
+        public bool IsMulti { get; set; }
 
         public string? Value { get; set; }
 
@@ -70,6 +71,7 @@ namespace autodarts_desktop.model
                         string? requiredOnArgument = null,
                         bool emptyAllowedOnRequired = false,
                         bool isRuntimeArgument = false,
+                        bool isMulti = false,
                         string? value = null,
                         Dictionary<string, string>? valueMapping = null 
                 )
@@ -83,6 +85,7 @@ namespace autodarts_desktop.model
             RequiredOnArgument = requiredOnArgument;
             EmptyAllowedOnRequired = emptyAllowedOnRequired;
             IsRuntimeArgument = isRuntimeArgument;
+            IsMulti = isMulti;
             Value = value;
             ValueMapping = valueMapping;
 
