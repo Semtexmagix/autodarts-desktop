@@ -439,9 +439,8 @@ namespace autodarts_desktop.control
                         new(name: "-I", type: "string", required: false, nameHuman: "host-ip", section: "App"),
                         new(name: "-P", type: "string", required: false, nameHuman: "host-port", section: "App"),
                         new(name: "WEPS", type: "string", required: true, isMulti: true, nameHuman: "wled-endpoints", section: "WLED"),
-                        new(name: "HSO", type: "int[1..180]", required: false, nameHuman: "highscore-on", section: "Autodarts"),
+                        new(name: "BRI", type: "int[1..255]", required: false, nameHuman: "effects-brightness", section: "WLED"),
                         new(name: "HFO", type: "int[2..170]", required: false, nameHuman: "highfinish-on", section: "Autodarts"),
-                        new(name: "HS", type: "string", required: false, isMulti: true, nameHuman: "high-score-effects", section: "WLED"),
                         new(name: "HF", type: "string", required: false, isMulti: true, nameHuman: "high-finish-effects", section: "WLED"),
                         new(name: "G", type: "string", required: false, isMulti: true, nameHuman: "game-won-effects", section: "WLED"),
                         new(name: "M", type: "string", required: false, isMulti : true, nameHuman: "match-won-effects", section: "WLED"),
@@ -452,6 +451,12 @@ namespace autodarts_desktop.control
                 var score = i.ToString();
                 Argument scoreArgument = new(name: "S" + score, type: "string", required: false, isMulti: true, nameHuman: "score " + score, section: "WLED");
                 autodartsWledArguments.Add(scoreArgument);
+            }
+            for (int i = 1; i <= 12; i++)
+            {
+                var areaNumber = i.ToString();
+                Argument areaArgument = new(name: "A" + areaNumber, type: "string", required: false, isMulti: true, nameHuman: "area-" + areaNumber, section: "WLED");
+                autodartsWledArguments.Add(areaArgument);
             }
 
             AppDownloadable autodartsWled =
@@ -615,19 +620,49 @@ namespace autodarts_desktop.control
                     autodartsWledArguments.Add(scoreArgument);
                 }
 
-                AppDownloadable autodartsWled =
-                new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.1/autodarts-wled.exe",
-                    name: "autodarts-wled",
-                    helpUrl: "https://github.com/lbormann/autodarts-wled",
-                    descriptionShort: "control wled installations",
-                    configuration: new(
-                        prefix: "-",
-                        delimitter: " ",
-                        arguments: autodartsWledArguments)
-                    );
+                AppDownloadable autodartsWledCreate =
+                    new(
+                        downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.1/autodarts-wled.exe",
+                        name: "autodarts-wled",
+                        helpUrl: "https://github.com/lbormann/autodarts-wled",
+                        descriptionShort: "control wled installations",
+                        configuration: new(
+                            prefix: "-",
+                            delimitter: " ",
+                            arguments: autodartsWledArguments)
+                        );
 
-                AppsDownloadable.Add(autodartsWled);
+                AppsDownloadable.Add(autodartsWledCreate);
+            }
+
+
+            var autodartsWled = AppsDownloadable.Single(a => a.Name == "autodarts-wled");
+            if (autodartsWled != null)
+            {
+                // 21. Remove HSO, HS -- Add A1-A12, BRI
+                autodartsWled.Configuration.Arguments.RemoveAll(a => a.Name == "HSO");
+                autodartsWled.Configuration.Arguments.RemoveAll(a => a.Name == "HS");
+
+                var bri = autodartsWled.Configuration.Arguments.Find(a => a.Name == "BRI");
+                if (bri == null)
+                {
+                    autodartsWled.Configuration.Arguments.Add(new(name: "BRI", type: "int[1..255]", required: false, nameHuman: "brightness-effects", section: "WLED"));
+                }
+                
+                for (int i = 1; i <= 12; i++)
+                {
+                    var areaNumber = i.ToString();
+                    var areaX = autodartsWled.Configuration.Arguments.Find(a => a.Name == "A" + areaNumber);
+                    if (areaX == null)
+                    {
+                        Argument areaArgument = new(name: "A" + areaNumber, type: "string", required: false, isMulti: true, nameHuman: "area-" + areaNumber, section: "WLED");
+                        autodartsWled.Configuration.Arguments.Add(areaArgument);
+                    }
+                }
+
+                // 22. Mig (Update download version)
+                autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.3/autodarts-wled.exe";
+
 
             }
 
