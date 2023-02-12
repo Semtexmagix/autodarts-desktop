@@ -442,6 +442,7 @@ namespace autodarts_desktop.control
                         new(name: "BRI", type: "int[1..255]", required: false, nameHuman: "effects-brightness", section: "WLED"),
                         new(name: "HFO", type: "int[2..170]", required: false, nameHuman: "highfinish-on", section: "Autodarts"),
                         new(name: "HF", type: "string", required: false, isMulti: true, nameHuman: "high-finish-effects", section: "WLED"),
+                        new(name: "IDE", type: "string", required: false, nameHuman: "idle-effect", section: "WLED"),
                         new(name: "G", type: "string", required: false, isMulti: true, nameHuman: "game-won-effects", section: "WLED"),
                         new(name: "M", type: "string", required: false, isMulti : true, nameHuman: "match-won-effects", section: "WLED"),
                         new(name: "B", type: "string", required: false, isMulti : true, nameHuman: "busted-effects", section: "WLED")
@@ -663,6 +664,14 @@ namespace autodarts_desktop.control
                 // 22. Mig (Update download version)
                 autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.3/autodarts-wled.exe";
 
+
+                // 23. Mig (Update download version)
+                var ide = autodartsWled.Configuration.Arguments.Find(a => a.Name == "IDE");
+                if (ide == null)
+                {
+                    autodartsWled.Configuration.Arguments.Add(new(name: "IDE", type: "string", required: false, nameHuman: "idle-effect", section: "WLED"));
+                }
+                autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.4/autodarts-wled.exe";
 
             }
 
