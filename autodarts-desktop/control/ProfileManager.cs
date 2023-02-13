@@ -673,6 +673,9 @@ namespace autodarts_desktop.control
                 }
                 autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.4/autodarts-wled.exe";
 
+                // 24. Mig (Update download version)
+                autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.3.0/autodarts-wled.exe";
+
             }
 
 
