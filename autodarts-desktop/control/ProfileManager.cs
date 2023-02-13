@@ -383,7 +383,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.3.3/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.5.5/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -406,7 +406,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsExtern =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.4/autodarts-extern.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.6/autodarts-extern.exe",
                     name: "autodarts-extern",
                     helpUrl: "https://github.com/lbormann/autodarts-extern",
                     descriptionShort: "automates dart web platforms with autodarts",
@@ -462,7 +462,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsWled =
             new(
-                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.2.1/autodarts-wled.exe",
+                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.3.0/autodarts-wled.exe",
                 name: "autodarts-wled",
                 helpUrl: "https://github.com/lbormann/autodarts-wled",
                 descriptionShort: "control wled installations",
@@ -587,6 +587,9 @@ namespace autodarts_desktop.control
 
                 // 14. Mig (Update download version)
                 autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.5/autodarts-extern.exe";
+
+                // 25. Mig (Update download version)
+                autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.4.6/autodarts-extern.exe";
             }
 
 
