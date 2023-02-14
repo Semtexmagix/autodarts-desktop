@@ -383,7 +383,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.6.0/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.6.1/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -400,6 +400,7 @@ namespace autodarts_desktop.control
                             new(name: "L", type: "bool", required: false, nameHuman: "random-caller-each-leg", section: "Random", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "E", type: "bool", required: false, nameHuman: "call-every-dart", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "PCC", type: "bool", required: false, nameHuman: "call-possible-checkout", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "A", type: "bool", required: false, nameHuman: "ambient-sounds", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "WTT", type: "string", required: false, nameHuman: "webhook", section: "", value: "http://localhost:8080/throw"),
                         })
                     );
@@ -560,6 +561,14 @@ namespace autodarts_desktop.control
 
                 // 26. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.6.0/autodarts-caller.exe";
+
+                // 27. Mig (Update download version)
+                var ambientSounds = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "A");
+                if (ambientSounds == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "A", type: "bool", required: false, nameHuman: "ambient-sounds", section: "Calls", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.6.1/autodarts-caller.exe";
 
             }
 
