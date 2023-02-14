@@ -383,7 +383,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.5.5/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.6.0/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -557,6 +557,9 @@ namespace autodarts_desktop.control
                 // 20. Mig (WTT is multi)
                 var wtt3 = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "WTT");
                 if (wtt3 != null) wtt3.IsMulti = true;
+
+                // 26. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.6.0/autodarts-caller.exe";
 
             }
 
