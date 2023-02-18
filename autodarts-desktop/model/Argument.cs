@@ -192,9 +192,7 @@ namespace autodarts_desktop.model
             return "invalidType";
         }
 
-
-
-        private void ValidateType()
+        public void ValidateType()
         {
             try
             {
@@ -228,6 +226,7 @@ namespace autodarts_desktop.model
                 throw new Exception($"Argument-Type '{Type}' is invalid: " + NameHuman + " " + ex.Message);
             }
         }
+
 
         private void ValidateValue(string type)
         {

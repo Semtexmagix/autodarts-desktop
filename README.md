@@ -53,7 +53,9 @@ It may be buggy. You can give me feedback in Discord (Autodarts.io) ---> Reepa86
 ## TODOs
 - cross-platform
 - update images / text in Readme
-
+- update when autostart is activated
+- Do not put any folder oder files in autodarts-desktops`s extensions folders
+- Update without question!
 
 ### Done
 - refactor setup-areas for using AppManager

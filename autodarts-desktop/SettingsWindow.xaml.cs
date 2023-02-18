@@ -257,7 +257,7 @@ namespace autodarts_desktop
                             slider.IsSnapToTickEnabled = true;
 
                             if (type == Argument.TypeFloat)
-                            {  
+                            {
                                 slider.TickFrequency = 0.1;
                                 slider.Minimum = Helper.GetDoubleByString(argument.RangeBy);
                                 slider.Maximum = Helper.GetDoubleByString(argument.RangeTo);

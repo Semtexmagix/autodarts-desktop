@@ -383,7 +383,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.7.0/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v1.7.1/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -400,8 +400,8 @@ namespace autodarts_desktop.control
                             new(name: "L", type: "bool", required: false, nameHuman: "random-caller-each-leg", section: "Random", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "E", type: "bool", required: false, nameHuman: "call-every-dart", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "PCC", type: "bool", required: false, nameHuman: "call-possible-checkout", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
-                            new(name: "A", type: "bool", required: false, nameHuman: "ambient-sounds", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
-                            new(name: "WTT", type: "string", required: false, nameHuman: "webhook", section: "", value: "http://localhost:8080/throw"),
+                            new(name: "A", type: "float[0.0..1.0]", required: false, nameHuman: "ambient-sounds", section: "Calls"),
+                            new(name: "WTT", type: "string", required: false, isMulti: true, nameHuman: "webhook", section: ""),
                         })
                     );
 
@@ -441,6 +441,7 @@ namespace autodarts_desktop.control
                         new(name: "-P", type: "string", required: false, nameHuman: "host-port", section: "App"),
                         new(name: "WEPS", type: "string", required: true, isMulti: true, nameHuman: "wled-endpoints", section: "WLED"),
                         new(name: "BRI", type: "int[1..255]", required: false, nameHuman: "effects-brightness", section: "WLED"),
+                        new(name: "DU", type: "int[0..10]", required: false, nameHuman: "effects-duration", section: "WLED"),
                         new(name: "HFO", type: "int[2..170]", required: false, nameHuman: "highfinish-on", section: "Autodarts"),
                         new(name: "HF", type: "string", required: false, isMulti: true, nameHuman: "high-finish-effects", section: "WLED"),
                         new(name: "IDE", type: "string", required: false, nameHuman: "idle-effect", section: "WLED"),
@@ -463,7 +464,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsWled =
             new(
-                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.3.1/autodarts-wled.exe",
+                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.3.2/autodarts-wled.exe",
                 name: "autodarts-wled",
                 helpUrl: "https://github.com/lbormann/autodarts-wled",
                 descriptionShort: "control wled installations",
@@ -572,6 +573,24 @@ namespace autodarts_desktop.control
 
                 // 28. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.7.0/autodarts-caller.exe";
+
+                // 29. Mig (Update download version)
+                var ambientSounds2 = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "A");
+                if (ambientSounds2 != null)
+                {
+                    if (ambientSounds2.Value == "True")
+                    {
+                        ambientSounds2.Value = "1.0";
+                    }
+                    else if (ambientSounds2.Value == "False")
+                    {
+                        ambientSounds2.Value = "0.0";
+                    }
+                    ambientSounds2.Type = "float[0.0..1.0]";
+                    ambientSounds2.ValueMapping = null;
+                    ambientSounds2.ValidateType();
+                }
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.7.1/autodarts-caller.exe";
 
             }
 
@@ -699,6 +718,14 @@ namespace autodarts_desktop.control
 
                 // 28. Mig (Update download version)
                 autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.3.1/autodarts-wled.exe";
+
+                // 31. Mig (Update downloiad version)
+                var duration = autodartsWled.Configuration.Arguments.Find(a => a.Name == "DU");
+                if (duration == null)
+                {
+                    autodartsWled.Configuration.Arguments.Add(new(name: "DU", type: "int[0..10]", required: false, nameHuman: "effects-duration", section: "WLED"));
+                }
+                autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.3.2/autodarts-wled.exe";
 
             }
 
