@@ -12,7 +12,7 @@ using TextBox = System.Windows.Controls.TextBox;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
-
+using Xceed.Wpf.Toolkit;
 
 namespace autodarts_desktop
 {
@@ -63,7 +63,7 @@ namespace autodarts_desktop
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error occured: " + ex.Message);
+                System.Windows.MessageBox.Show("Error occured: " + ex.Message);
             }
         }
 
@@ -106,7 +106,7 @@ namespace autodarts_desktop
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        System.Windows.MessageBox.Show("Error: " + ex.Message);
                     }
                 };
                 GridMain.Children.Add(buttonHelp);
@@ -178,6 +178,10 @@ namespace autodarts_desktop
 
                     counter += 1;
 
+
+
+                    FrameworkElement customElement = null;
+
                     if (type == Argument.TypeString || type == Argument.TypePath || type == Argument.TypeFile)
                     {
                         var textBox = new TextBox();
@@ -190,6 +194,7 @@ namespace autodarts_desktop
                         textBox.DataContext = argument;
                         textBox.SetBinding(TextBox.TextProperty, new Binding("Value"));
                         HighlightElement(textBox, argument);
+                        customElement = textBox;
 
                         if (type == Argument.TypePath)
                         {
@@ -230,6 +235,7 @@ namespace autodarts_desktop
                         passwordBox.SetBinding(TextBox.TextProperty, new Binding("Value"));
                         HighlightElement(passwordBox, argument);
                         GridMain.Children.Add(passwordBox);
+                        customElement = passwordBox;
                     }
                     else if (type == Argument.TypeFloat || type == Argument.TypeInt)
                     {
@@ -274,20 +280,39 @@ namespace autodarts_desktop
 
                             GridMain.Children.Add(slider);
                             GridMain.Children.Add(textBoxSlider);
+                            customElement = textBoxSlider;
                         }
-                        else
+                        else if(type == Argument.TypeInt)
                         {
-                            var textBox = new TextBox();
-                            textBox.HorizontalAlignment = HorizontalAlignment.Center;
-                            textBox.VerticalAlignment = VerticalAlignment.Top;
-                            textBox.Margin = new Thickness(0, counter * marginTop, 0, 0);
-                            textBox.Width = elementWidth;
-                            textBox.BorderBrush = borderColor;
-                            textBox.BorderThickness = borderThickness;
-                            textBox.DataContext = argument;
-                            textBox.SetBinding(TextBox.TextProperty, new Binding("Value"));
-                            HighlightElement(textBox, argument);
-                            GridMain.Children.Add(textBox);
+                            var integerUpDown = new IntegerUpDown();
+                            integerUpDown.HorizontalAlignment = HorizontalAlignment.Center;
+                            integerUpDown.VerticalAlignment = VerticalAlignment.Top;
+                            integerUpDown.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                            integerUpDown.Width = elementWidth;
+                            integerUpDown.BorderBrush = borderColor;
+                            integerUpDown.BorderThickness = borderThickness;
+                            integerUpDown.DataContext = argument;
+                            integerUpDown.SetBinding(IntegerUpDown.ValueProperty, new Binding("Value"));
+                            HighlightElement(integerUpDown, argument);
+                            GridMain.Children.Add(integerUpDown);
+                            customElement = integerUpDown;
+                        }
+                        else if (type == Argument.TypeFloat)
+                        {
+                            var decimalUpDown = new DecimalUpDown();
+                            decimalUpDown.HorizontalAlignment = HorizontalAlignment.Center;
+                            decimalUpDown.VerticalAlignment = VerticalAlignment.Top;
+                            decimalUpDown.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                            decimalUpDown.Width = elementWidth;
+                            decimalUpDown.BorderBrush = borderColor;
+                            decimalUpDown.Increment = (decimal)0.1;
+                            decimalUpDown.FormatString = "F1";
+                            decimalUpDown.BorderThickness = borderThickness;
+                            decimalUpDown.DataContext = argument;
+                            decimalUpDown.SetBinding(DecimalUpDown.ValueProperty, new Binding("Value"));
+                            HighlightElement(decimalUpDown, argument);
+                            GridMain.Children.Add(decimalUpDown);
+                            customElement = decimalUpDown;
                         }
 
                     }
@@ -314,11 +339,41 @@ namespace autodarts_desktop
                         checkBox.SetBinding(CheckBox.IsCheckedProperty, new Binding("Value"));
                         HighlightElement(checkBox, argument);
                         GridMain.Children.Add(checkBox);
+                        customElement = checkBox;
                     }
                     else if (type == Argument.TypeSelection)
                     {
                         // TODO..
+                    }
 
+                    if (customElement != null)
+                    {
+                        counter += 1;
+
+                        var imageClear = new Image();
+                        imageClear.Width = 24;
+                        imageClear.Height = 24;
+                        imageClear.Source = new BitmapImage(new Uri("pack://application:,,,/images/clear.png"));
+
+                        var button = new Button();
+                        button.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                        button.Width = elementWidth;
+                        button.Style = (Style)GridMain.Resources["BtnStyle"];
+                        button.Content = imageClear;
+                        button.HorizontalAlignment = HorizontalAlignment.Right;
+                        button.VerticalAlignment = VerticalAlignment.Top;
+                        button.Background = Brushes.Transparent;
+                        button.BorderThickness = new Thickness(0, 0, 0, 0);
+                        button.Click += (s, e) =>
+                        {
+                                argument.Value = null;
+                                customElement.DataContext = null;
+                                customElement.UpdateDefaultStyle();
+                                customElement.UpdateLayout();
+                                customElement.DataContext = argument;
+                        
+                        };
+                        GridMain.Children.Add(button);
                     }
                 }
             }

@@ -15,6 +15,7 @@
     <None Remove="control\update.bat" />
     <None Remove="images\about.png" />
     <None Remove="images\bug.png" />
+    <None Remove="images\clear.png" />
     <None Remove="images\configuration.png" />
     <None Remove="images\contact.png" />
     <None Remove="images\darts.png" />
@@ -35,7 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
@@ -58,6 +60,7 @@
   <ItemGroup>
     <Resource Include="images\about.png" />
     <Resource Include="images\bug.png" />
+    <Resource Include="images\clear.png" />
     <Resource Include="images\configuration.png" />
     <Resource Include="images\contact.png" />
     <Resource Include="images\donation.png" />
