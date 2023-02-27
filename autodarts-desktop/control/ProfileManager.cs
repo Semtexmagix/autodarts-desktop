@@ -395,12 +395,21 @@ namespace autodarts_desktop.control
                             new(name: "P", type: "password", required: true, nameHuman: "autodarts-password", section: "Autodarts"),
                             new(name: "B", type: "string", required: true, nameHuman: "autodarts-board-id", section: "Autodarts"),
                             new(name: "M", type: "path", required: true, nameHuman: "path-to-sound-files", section: "Media"),
+                            new(name: "MS", type: "path", required: false, nameHuman: "path-to-shared-sound-files", section: "Media"),
                             new(name: "V", type: "float[0.0..1.0]", required: false, nameHuman: "caller-volume", section: "Media"),
+                            new(name: "C", type: "string", required: false, nameHuman: "specific-caller", section: "Calls"),
                             new(name: "R", type: "bool", required: false, nameHuman: "random-caller", section: "Random", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "L", type: "bool", required: false, nameHuman: "random-caller-each-leg", section: "Random", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "CCP", type: "bool", required: false, nameHuman: "call-current-player", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "E", type: "bool", required: false, nameHuman: "call-every-dart", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "ESF", type: "bool", required: false, nameHuman: "call-every-dart-single-files", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "PCC", type: "bool", required: false, nameHuman: "possible-checkout-call", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "PCCSF", type: "bool", required: false, nameHuman: "possible-checkout-call-single-files", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "A", type: "float[0.0..1.0]", required: false, nameHuman: "ambient-sounds", section: "Calls"),
+                            new(name: "ACC", type: "bool", required: false, nameHuman: "ambient-sounds-after-calls", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "DL", type: "bool", required: false, nameHuman: "downloads", section: "Downloads", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "DLL", type: "int[0..1000]", required: false, nameHuman: "downloads-limit", section: "Downloads"),
+                            new(name: "DLP", type: "path", required: false, nameHuman: "downloads-path", section: "Downloads"),
                             new(name: "HP", type: "int", required: false, nameHuman: "host-port", section: "Service")
                         })
                     );
@@ -604,6 +613,57 @@ namespace autodarts_desktop.control
 
                 // 35. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v1.8.2/autodarts-caller.exe";
+
+
+                // 36. Mig (Update download version)
+
+                var ms = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "MS");
+                if (ms == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "MS", type: "path", required: false, nameHuman: "path-to-shared-sound-files", section: "Media"));
+                }
+                var caller = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "C");
+                if (caller == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "C", type: "string", required: false, nameHuman: "specific-caller", section: "Calls"));
+                }
+                var cpp = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "CCP");
+                if (cpp == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "CCP", type: "bool", required: false, nameHuman: "call-current-player", section: "Calls", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                var esf = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "ESF");
+                if (esf == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "ESF", type: "bool", required: false, nameHuman: "call-every-dart-single-files", section: "Calls", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                var pccsf = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "PCCSF");
+                if (pccsf == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "PCCSF", type: "bool", required: false, nameHuman: "possible-checkout-call-single-files", section: "Calls", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                var acc = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "ACC");
+                if (acc == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "ACC", type: "bool", required: false, nameHuman: "ambient-sounds-after-calls", section: "Calls", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                var dl = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "DL");
+                if (dl == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "DL", type: "bool", required: false, nameHuman: "downloads", section: "Downloads", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                var dll = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "DLL");
+                if (dll == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "DLL", type: "int[0..1000]", required: false, nameHuman: "downloads-limit", section: "Downloads"));
+                }
+                var dlp = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "DLP");
+                if (dlp == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "DLP", type: "path", required: false, nameHuman: "downloads-path", section: "Downloads"));
+                }
+
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.0/autodarts-caller.exe";
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
