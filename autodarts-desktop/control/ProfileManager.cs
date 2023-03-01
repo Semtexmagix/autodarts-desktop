@@ -410,6 +410,7 @@ namespace autodarts_desktop.control
                             new(name: "DL", type: "bool", required: false, nameHuman: "downloads", section: "Downloads", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "DLL", type: "int[0..1000]", required: false, nameHuman: "downloads-limit", section: "Downloads"),
                             new(name: "DLP", type: "path", required: false, nameHuman: "downloads-path", section: "Downloads"),
+                            new(name: "BAV", type: "float", required: false, nameHuman: "background-audio-volume", section: "Calls"),
                             new(name: "HP", type: "int", required: false, nameHuman: "host-port", section: "Service")
                         })
                     );
@@ -674,6 +675,13 @@ namespace autodarts_desktop.control
                 // 39. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.3/autodarts-caller.exe";
 
+                // 40. add bav-arg
+                var bav = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "BAV");
+                if (bav == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "BAV", type: "float", required: false, nameHuman: "background-audio-volume", section: "Downloads"));
+                }
+
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
@@ -719,7 +727,7 @@ namespace autodarts_desktop.control
                 }
                 autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.0/autodarts-extern.exe";
 
-                // 40. Mig (Update download version)
+                // 41. Mig (Update download version)
                 //autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.1/autodarts-extern.exe";
             }
 
