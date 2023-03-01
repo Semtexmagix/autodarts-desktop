@@ -410,7 +410,7 @@ namespace autodarts_desktop.control
                             new(name: "DL", type: "bool", required: false, nameHuman: "downloads", section: "Downloads", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "DLL", type: "int[0..1000]", required: false, nameHuman: "downloads-limit", section: "Downloads"),
                             new(name: "DLP", type: "path", required: false, nameHuman: "downloads-path", section: "Downloads"),
-                            new(name: "BAV", type: "float", required: false, nameHuman: "background-audio-volume", section: "Calls"),
+                            new(name: "BAV", type: "float[0.0..1.0]", required: false, nameHuman: "background-audio-volume", section: "Calls"),
                             new(name: "HP", type: "int", required: false, nameHuman: "host-port", section: "Service")
                         })
                     );
@@ -679,7 +679,7 @@ namespace autodarts_desktop.control
                 var bav = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "BAV");
                 if (bav == null)
                 {
-                    autodartsCaller.Configuration.Arguments.Add(new(name: "BAV", type: "float", required: false, nameHuman: "background-audio-volume", section: "Downloads"));
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "BAV", type: "float[0.0..1.0]", required: false, nameHuman: "background-audio-volume", section: "Downloads"));
                 }
 
             }
