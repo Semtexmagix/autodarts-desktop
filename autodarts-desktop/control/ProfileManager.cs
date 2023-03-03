@@ -451,7 +451,6 @@ namespace autodarts_desktop.control
                         new(name: "WEPS", type: "string", required: true, isMulti: true, nameHuman: "wled-endpoints", section: "WLED"),
                         new(name: "DU", type: "int[0..10]", required: false, nameHuman: "effects-duration", section: "WLED"),
                         new(name: "BSS", type: "float[0.0..10.0]", required: false, nameHuman: "board-start-stop", section: "Autodarts"),
-                        new(name: "BSSOS", type: "bool", required: false, nameHuman: "board-start-stop-only-start", section: "Autodarts", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                         new(name: "BRI", type: "int[1..255]", required: false, nameHuman: "effects-brightness", section: "WLED"),
                         new(name: "HFO", type: "int[2..170]", required: false, nameHuman: "highfinish-on", section: "Autodarts"),
                         new(name: "HF", type: "string", required: false, isMulti: true, nameHuman: "high-finish-effects", section: "WLED"),
@@ -475,7 +474,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsWled =
             new(
-                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.1/autodarts-wled.exe",
+                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.2/autodarts-wled.exe",
                 name: "autodarts-wled",
                 helpUrl: "https://github.com/lbormann/autodarts-wled",
                 descriptionShort: "control wled installations",
@@ -874,6 +873,10 @@ namespace autodarts_desktop.control
 
                 autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.1/autodarts-wled.exe";
 
+
+                // 45. Mig (Update download version)
+                autodartsWled.Configuration.Arguments.RemoveAll(a => a.Name == "BSSOS");
+                autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.2/autodarts-wled.exe";
             }
 
 
