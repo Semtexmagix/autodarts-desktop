@@ -383,7 +383,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.8/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.9/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -408,10 +408,11 @@ namespace autodarts_desktop.control
                             new(name: "A", type: "float[0.0..1.0]", required: false, nameHuman: "ambient-sounds", section: "Calls"),
                             new(name: "AAC", type: "bool", required: false, nameHuman: "ambient-sounds-after-calls", section: "Calls", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
                             new(name: "DL", type: "bool", required: false, nameHuman: "downloads", section: "Downloads", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
-                            new(name: "DLL", type: "int[0..1000]", required: false, nameHuman: "downloads-limit", section: "Downloads"),
+                            new(name: "DLL", type: "int", required: false, nameHuman: "downloads-limit", section: "Downloads"),
                             new(name: "DLP", type: "path", required: false, nameHuman: "downloads-path", section: "Downloads"),
                             new(name: "BAV", type: "float[0.0..1.0]", required: false, nameHuman: "background-audio-volume", section: "Calls"),
-                            new(name: "HP", type: "int", required: false, nameHuman: "host-port", section: "Service")
+                            new(name: "HP", type: "int", required: false, nameHuman: "host-port", section: "Service"),
+                            new(name: "DEB", type: "bool", required: false, nameHuman: "debug", section: "Service", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"})
                         })
                     );
 
@@ -698,7 +699,20 @@ namespace autodarts_desktop.control
                     autodartsCaller.Configuration.Arguments.Add(new(name: "AAC", type: "bool", required: false, nameHuman: "ambient-sounds-after-calls", section: "Calls", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
                 }
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.8/autodarts-caller.exe";
-                
+
+                // 47. Mig (Update download version)
+                var deb = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "DEB");
+                if (deb == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "DEB", type: "bool", required: false, nameHuman: "debug", section: "Service", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                autodartsCaller.Configuration.Arguments.RemoveAll(a => a.Name == "DLL");
+                var dll2 = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "DLL");
+                if (dll2 == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "DLL", type: "int", required: false, nameHuman: "downloads-limit", section: "Downloads"));
+                }
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.9/autodarts-caller.exe";
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");

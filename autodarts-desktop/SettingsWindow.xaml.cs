@@ -166,7 +166,7 @@ namespace autodarts_desktop
                         )
                     {
                         var textBlock = new TextBlock();
-                        textBlock.Text = argument.NameHuman + ":";
+                        textBlock.Text = argument.NameHuman + (argument.Required ? " * " : "") + ":";
                         textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                         textBlock.VerticalAlignment = VerticalAlignment.Top;
                         textBlock.FontSize = fontSize - 6;
@@ -348,7 +348,7 @@ namespace autodarts_desktop
 
                     if (customElement != null)
                     {
-                        counter += 1;
+                        //counter += 1;
 
                         var imageClear = new Image();
                         imageClear.Width = 24;
@@ -356,8 +356,8 @@ namespace autodarts_desktop
                         imageClear.Source = new BitmapImage(new Uri("pack://application:,,,/images/clear.png"));
 
                         var button = new Button();
-                        button.Margin = new Thickness(0, counter * marginTop, 0, 0);
-                        button.Width = elementWidth;
+                        button.Margin = new Thickness(20, counter * marginTop, 0, 0);
+                        //button.Width = elementWidth;
                         button.Style = (Style)GridMain.Resources["BtnStyle"];
                         button.Content = imageClear;
                         button.HorizontalAlignment = HorizontalAlignment.Right;
