@@ -417,7 +417,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsExtern =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.0/autodarts-extern.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.1/autodarts-extern.exe",
                     name: "autodarts-extern",
                     helpUrl: "https://github.com/lbormann/autodarts-extern",
                     descriptionShort: "automates dart web platforms with autodarts",
@@ -744,7 +744,7 @@ namespace autodarts_desktop.control
                 }
                 autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.0/autodarts-extern.exe";
 
-                // X. Mig (Update download version)
+                // 46. Mig (Update download version)
                 //autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.1/autodarts-extern.exe";
             }
 
