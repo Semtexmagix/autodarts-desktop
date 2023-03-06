@@ -6,7 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d"
-        Title="Autodarts-Desktop" Width="360" Height="360" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Autodarts-Desktop" Width="480" Height="720" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    
     <Window.Background>
         <ImageBrush ImageSource="/images/background.png" Stretch="UniformToFill"/>
     </Window.Background>
@@ -49,19 +50,19 @@
                 </Style>
             </Grid.Resources>
 
-            <Button Style="{StaticResource BtnStyle}" x:Name="Buttonabout" Margin="295,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonabout_Click">
+            <Button Style="{StaticResource BtnStyle}" x:Name="Buttonabout" Margin="295,10,20,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonabout_Click">
                 <Image Width="24" Height="24" Source="images/about.png"></Image>
             </Button>
 
-            <Label Content="Select profile:" HorizontalAlignment="Left" Margin="12,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757" Foreground="White"/>
+            <Label x:Name="SelectProfile" Content="Select profile:" HorizontalAlignment="Left" Margin="12,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.98,0.757" Foreground="White"/>
 
-            <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="17,71,0,0" VerticalAlignment="Top" Width="270" SelectionChanged="Comboboxportal_SelectionChanged" Height="22" SelectedIndex="0" />
+            <ComboBox x:Name="Comboboxportal" HorizontalAlignment="Left" Margin="17,71,0,0" VerticalAlignment="Top" Width="360" SelectionChanged="Comboboxportal_SelectionChanged" SelectedIndex="0" />
 
-            <Button Style="{StaticResource BtnStyle}" x:Name="Buttonstart" HorizontalAlignment="Left" ToolTip="Start profile" Margin="290,65,0,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
+            <Button Style="{StaticResource BtnStyle}" x:Name="Buttonstart" HorizontalAlignment="Right" ToolTip="Start profile" Margin="290,70,28,0" VerticalAlignment="Top" Background="Transparent" BorderThickness="0" Click="Buttonstart_Click" RenderTransformOrigin="0.512,1.722">
                 <Image x:Name="darts_png" Width="32" Height="32" Source="/images/go.png" Stretch="Fill"/>
             </Button>
 
-            <CheckBox x:Name="CheckBoxStartProfileOnProgramStart" Content="Autostart" HorizontalAlignment="Left" Margin="217,53,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <CheckBox x:Name="CheckBoxStartProfileOnProgramStart" Content="Autostart" HorizontalAlignment="Left" Margin="330,53,0,0" VerticalAlignment="Top" Foreground="White"/>
             
             <Image x:Name="Waiting" Width="40" Margin="0,13,0,0" gif:ImageBehavior.RepeatBehavior="1" VerticalAlignment="Top"
                gif:ImageBehavior.AnimateInDesignMode="False"

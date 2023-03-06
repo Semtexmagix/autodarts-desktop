@@ -2,11 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 using Path = System.IO.Path;
 
@@ -383,7 +380,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.9/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.10/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -418,7 +415,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsExtern =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.1/autodarts-extern.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.2/autodarts-extern.exe",
                     name: "autodarts-extern",
                     helpUrl: "https://github.com/lbormann/autodarts-extern",
                     descriptionShort: "automates dart web platforms with autodarts",
@@ -458,7 +455,9 @@ namespace autodarts_desktop.control
                         new(name: "IDE", type: "string", required: false, nameHuman: "idle-effect", section: "WLED"),
                         new(name: "G", type: "string", required: false, isMulti: true, nameHuman: "game-won-effects", section: "WLED"),
                         new(name: "M", type: "string", required: false, isMulti : true, nameHuman: "match-won-effects", section: "WLED"),
-                        new(name: "B", type: "string", required: false, isMulti : true, nameHuman: "busted-effects", section: "WLED")
+                        new(name: "B", type: "string", required: false, isMulti : true, nameHuman: "busted-effects", section: "WLED"),
+                        new(name: "DEB", type: "bool", required: false, nameHuman: "debug", section: "Service", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" })
+
                     };
             for (int i = 0; i <= 180; i++)
             {
@@ -475,7 +474,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsWled =
             new(
-                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.2/autodarts-wled.exe",
+                downloadUrl: "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.3/autodarts-wled.exe",
                 name: "autodarts-wled",
                 helpUrl: "https://github.com/lbormann/autodarts-wled",
                 descriptionShort: "control wled installations",
@@ -713,6 +712,9 @@ namespace autodarts_desktop.control
                     autodartsCaller.Configuration.Arguments.Add(new(name: "DLL", type: "int", required: false, nameHuman: "downloads-limit", section: "Downloads"));
                 }
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.9/autodarts-caller.exe";
+
+                // 48. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.10/autodarts-caller.exe";
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
@@ -760,6 +762,10 @@ namespace autodarts_desktop.control
 
                 // 46. Mig (Update download version)
                 autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.1/autodarts-extern.exe";
+
+                // 50. Mig (Update download version)
+                autodartsExtern.DownloadUrl = "https://github.com/lbormann/autodarts-extern/releases/download/v1.5.2/autodarts-extern.exe";
+
             }
 
 
@@ -891,6 +897,14 @@ namespace autodarts_desktop.control
                 // 45. Mig (Update download version)
                 autodartsWled.Configuration.Arguments.RemoveAll(a => a.Name == "BSSOS");
                 autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.2/autodarts-wled.exe";
+
+                // 49. Mig (Update download version)
+                var deb = autodartsWled.Configuration.Arguments.Find(a => a.Name == "DEB");
+                if (deb == null)
+                {
+                    autodartsWled.Configuration.Arguments.Add(new(name: "DEB", type: "bool", required: false, nameHuman: "debug", section: "Service", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.3/autodarts-wled.exe";
             }
 
 

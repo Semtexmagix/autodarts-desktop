@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms.Integration;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Button = System.Windows.Controls.Button;
@@ -29,6 +30,9 @@ namespace autodarts_desktop
         private Profile? selectedProfile;
         private List<UIElement> selectedProfileElements;
 
+        private double fontSize;
+        private int elementWidth;
+        private HorizontalAlignment elementHoAl;
 
 
         // METHODS
@@ -37,9 +41,19 @@ namespace autodarts_desktop
         {
             InitializeComponent();
 
+            fontSize = 18.0;
+            elementWidth = (int)(Width * 0.80);
+            elementHoAl = HorizontalAlignment.Left;
+
+            Comboboxportal.Width = elementWidth;
+            Comboboxportal.FontSize = fontSize;
+            Comboboxportal.HorizontalAlignment = elementHoAl;
+
+            SelectProfile.FontSize = fontSize - 4;
 
             selectedProfileElements = new();
             CheckBoxStartProfileOnProgramStart.IsChecked = Settings.Default.start_profile_on_start;
+            CheckBoxStartProfileOnProgramStart.FontSize = fontSize - 6;
 
             try
             {
@@ -96,7 +110,9 @@ namespace autodarts_desktop
 
         private void Buttonabout_Click(object sender, RoutedEventArgs e)
         {
+            Visibility = Visibility.Hidden;
             new About().ShowDialog();
+            Visibility = Visibility.Visible;
         }
         
         private void Comboboxportal_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -269,6 +285,7 @@ namespace autodarts_desktop
                 comboBoxItem.Content = profile.Name;
                 comboBoxItem.Tag = profile;         
                 Comboboxportal.Items.Add(comboBoxItem);
+                
                 if (profile.IsTaggedForStart) lastItemTaggedForStart = comboBoxItem;  
             }
             if(lastItemTaggedForStart != null) Comboboxportal.SelectedItem = lastItemTaggedForStart;
@@ -285,7 +302,7 @@ namespace autodarts_desktop
             selectedProfileElements.Clear();
 
             var startMargin = Comboboxportal.Margin;
-            int top = 25;
+            int top = 30;
             int counter = 1;
 
             foreach (var app in selectedProfile.Apps.OrderByDescending(a => a.Value.TaggedForStart))
@@ -301,29 +318,36 @@ namespace autodarts_desktop
                 imageConfiguration.Source = new BitmapImage(new Uri("pack://application:,,,/images/configuration.png"));
 
                 var buttonConfiguration = new Button();
-                buttonConfiguration.Margin = new Thickness(nextMargin.Left, nextMargin.Top, nextMargin.Right, nextMargin.Bottom);
+                buttonConfiguration.Margin = new Thickness(nextMargin.Left, nextMargin.Top + 5, nextMargin.Right, nextMargin.Bottom);
                 buttonConfiguration.Style = (Style)GridMain.Resources["BtnStyle"];
                 buttonConfiguration.Content = imageConfiguration;
                 buttonConfiguration.HorizontalAlignment = HorizontalAlignment.Left;
                 buttonConfiguration.VerticalAlignment = VerticalAlignment.Top;
+                buttonConfiguration.VerticalContentAlignment = VerticalAlignment.Center;
+                buttonConfiguration.FontSize = fontSize;
                 buttonConfiguration.Background = Brushes.Transparent;
                 buttonConfiguration.BorderThickness = new Thickness(0);
                 buttonConfiguration.IsEnabled = appProfile.App.IsConfigurable() || appProfile.App.IsInstallable();
 
                 buttonConfiguration.Click += (s, e) =>
                 {
+                    Visibility = Visibility.Hidden;
                     new SettingsWindow(profileManager, app.Value.App).ShowDialog();
                     scroller.ScrollToTop();
+                    Visibility = Visibility.Visible;
                 };
                 GridMain.Children.Add(buttonConfiguration);
                 selectedProfileElements.Add(buttonConfiguration);
 
                 var checkBoxTagger = new CheckBox();
-                checkBoxTagger.Margin = new Thickness(nextMargin.Left + 25, nextMargin.Top + 2, nextMargin.Right, nextMargin.Bottom);
+                checkBoxTagger.Margin = new Thickness(nextMargin.Left + 25, nextMargin.Top + 3, nextMargin.Right, nextMargin.Bottom);
                 checkBoxTagger.Content = appProfile.App.Name;
                 checkBoxTagger.HorizontalAlignment = HorizontalAlignment.Left;
                 checkBoxTagger.VerticalAlignment = VerticalAlignment.Top;
+                checkBoxTagger.VerticalContentAlignment = VerticalAlignment.Center;
                 checkBoxTagger.DataContext = appProfile;
+                checkBoxTagger.FontSize = fontSize;
+
                 checkBoxTagger.SetBinding(CheckBox.IsCheckedProperty, new Binding("TaggedForStart"));
                 checkBoxTagger.IsEnabled = !appProfile.IsRequired;
                 checkBoxTagger.Foreground = appProfile.TaggedForStart ? Brushes.White : Brushes.Gray;

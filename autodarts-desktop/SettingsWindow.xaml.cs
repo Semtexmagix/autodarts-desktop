@@ -29,6 +29,9 @@ namespace autodarts_desktop
         private System.Windows.Media.Brush fontColor;
         private int marginTop;
         private int elementWidth;
+        private double elementOffsetRight;
+        private double elementOffsetLeft;
+        private HorizontalAlignment elementHoAl;
         
 
 
@@ -42,10 +45,13 @@ namespace autodarts_desktop
             this.profileManager = profileManager;
             this.app = app;
 
-            fontSize = 20.0;
+            fontSize = 22.0;
             fontColor = Brushes.White;
-            marginTop = (int)fontSize + 6;
-            elementWidth = (int)(Width * 0.8);
+            marginTop = (int)fontSize + 14;
+            elementWidth = (int)(Width * 0.80);
+            elementHoAl = HorizontalAlignment.Left;
+            elementOffsetRight = 0.0;
+            elementOffsetLeft = 20.0;
             Title = "Configuration - " + this.app.Name;
 
             RenderAppConfiguration();
@@ -76,7 +82,7 @@ namespace autodarts_desktop
             labelHeader.VerticalAlignment = VerticalAlignment.Top;
             labelHeader.FontSize = fontSize;
             labelHeader.FontWeight = FontWeights.ExtraBold;
-            labelHeader.Margin = new Thickness(0, 24, 0, 0);
+            labelHeader.Margin = new Thickness(elementOffsetLeft, 24, elementOffsetRight, 0);
             labelHeader.Foreground = fontColor;
             GridMain.Children.Add(labelHeader);
 
@@ -93,6 +99,7 @@ namespace autodarts_desktop
                 buttonHelp.Content = ímageHelp;
                 buttonHelp.HorizontalAlignment = HorizontalAlignment.Right;
                 buttonHelp.VerticalAlignment = VerticalAlignment.Top;
+                buttonHelp.FontSize = fontSize;
                 buttonHelp.Background = Brushes.Transparent;
                 buttonHelp.BorderThickness = new Thickness(0, 0, 0, 0);
                 buttonHelp.Click += (s, e) =>
@@ -130,9 +137,9 @@ namespace autodarts_desktop
                     textBlockSectionHeader.Text = section.Key;
                     textBlockSectionHeader.HorizontalAlignment = HorizontalAlignment.Center;
                     textBlockSectionHeader.VerticalAlignment = VerticalAlignment.Top;
-                    textBlockSectionHeader.FontSize = fontSize - 4;
+                    textBlockSectionHeader.FontSize = fontSize - 3;
                     textBlockSectionHeader.FontWeight = FontWeights.Bold;
-                    textBlockSectionHeader.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                    textBlockSectionHeader.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                     textBlockSectionHeader.Foreground = fontColor;
                     textBlockSectionHeader.TextDecorations = TextDecorations.Underline;
                     GridMain.Children.Add(textBlockSectionHeader);
@@ -166,11 +173,12 @@ namespace autodarts_desktop
                         )
                     {
                         var textBlock = new TextBlock();
-                        textBlock.Text = argument.NameHuman + (argument.Required ? " * " : "") + ":";
-                        textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                        // + ":"
+                        textBlock.Text = argument.NameHuman + (argument.Required ? " * " : "");
+                        textBlock.HorizontalAlignment = elementHoAl;
                         textBlock.VerticalAlignment = VerticalAlignment.Top;
                         textBlock.FontSize = fontSize - 6;
-                        textBlock.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                        textBlock.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                         textBlock.Foreground = fontColor;
                         textBlock.ToolTip = argument.Description;
                         GridMain.Children.Add(textBlock);
@@ -185,9 +193,10 @@ namespace autodarts_desktop
                     if (type == Argument.TypeString || type == Argument.TypePath || type == Argument.TypeFile)
                     {
                         var textBox = new TextBox();
-                        textBox.HorizontalAlignment = HorizontalAlignment.Center;
+                        textBox.HorizontalAlignment = elementHoAl;
                         textBox.VerticalAlignment = VerticalAlignment.Top;
-                        textBox.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                        textBox.FontSize = fontSize - 6;
+                        textBox.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                         textBox.Width = elementWidth;
                         textBox.BorderBrush = borderColor;
                         textBox.BorderThickness = borderThickness;
@@ -225,9 +234,10 @@ namespace autodarts_desktop
                     else if (type == Argument.TypePassword)
                     {
                         var passwordBox = new TextBox();
-                        passwordBox.HorizontalAlignment = HorizontalAlignment.Center;
+                        passwordBox.HorizontalAlignment = elementHoAl;
                         passwordBox.VerticalAlignment = VerticalAlignment.Top;
-                        passwordBox.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                        passwordBox.FontSize = fontSize - 6;
+                        passwordBox.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                         passwordBox.Width = elementWidth;
                         passwordBox.BorderBrush = borderColor;
                         passwordBox.BorderThickness = borderThickness;
@@ -242,9 +252,10 @@ namespace autodarts_desktop
                         if (!String.IsNullOrEmpty(argument.RangeBy))
                         {
                             var textBoxSlider = new TextBox();
-                            textBoxSlider.HorizontalAlignment = HorizontalAlignment.Center;
+                            textBoxSlider.HorizontalAlignment = elementHoAl;
                             textBoxSlider.VerticalAlignment = VerticalAlignment.Top;
-                            textBoxSlider.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                            textBoxSlider.FontSize = fontSize - 6;
+                            textBoxSlider.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                             textBoxSlider.Width = elementWidth;
                             textBoxSlider.MaxLength = 5;
                             textBoxSlider.IsEnabled = false;
@@ -254,9 +265,10 @@ namespace autodarts_desktop
                             counter += 1;
 
                             var slider = new Slider();
-                            slider.HorizontalAlignment = HorizontalAlignment.Center;
+                            slider.HorizontalAlignment = elementHoAl;
                             slider.VerticalAlignment = VerticalAlignment.Top;
-                            slider.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                            slider.FontSize = fontSize - 6;
+                            slider.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                             slider.Width = elementWidth;
                             slider.BorderBrush = borderColor;
                             slider.BorderThickness = borderThickness;
@@ -285,9 +297,10 @@ namespace autodarts_desktop
                         else if(type == Argument.TypeInt)
                         {
                             var integerUpDown = new IntegerUpDown();
-                            integerUpDown.HorizontalAlignment = HorizontalAlignment.Center;
+                            integerUpDown.HorizontalAlignment = elementHoAl;
                             integerUpDown.VerticalAlignment = VerticalAlignment.Top;
-                            integerUpDown.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                            integerUpDown.FontSize = fontSize - 6;
+                            integerUpDown.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                             integerUpDown.Width = elementWidth;
                             integerUpDown.BorderBrush = borderColor;
                             integerUpDown.BorderThickness = borderThickness;
@@ -300,9 +313,10 @@ namespace autodarts_desktop
                         else if (type == Argument.TypeFloat)
                         {
                             var decimalUpDown = new DecimalUpDown();
-                            decimalUpDown.HorizontalAlignment = HorizontalAlignment.Center;
+                            decimalUpDown.HorizontalAlignment = elementHoAl;
                             decimalUpDown.VerticalAlignment = VerticalAlignment.Top;
-                            decimalUpDown.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                            decimalUpDown.FontSize = fontSize - 6;          
+                            decimalUpDown.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                             decimalUpDown.Width = elementWidth;
                             decimalUpDown.BorderBrush = borderColor;
                             decimalUpDown.Increment = (decimal)0.1;
@@ -319,19 +333,23 @@ namespace autodarts_desktop
                     else if (type == Argument.TypeBool)
                     {
                         var checkBox = new CheckBox();
-                        checkBox.Margin = new Thickness(0, counter * marginTop, 0, 0);
+                        checkBox.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                         var checkBoxContent = new TextBox();
                         checkBoxContent.FontSize = fontSize - 6;
                         checkBoxContent.Text = argument.NameHuman;
                         checkBoxContent.Background = Brushes.Transparent;
                         checkBoxContent.Foreground = fontColor;
                         checkBoxContent.BorderThickness = new Thickness(0, 0, 0, 0);
-                        checkBoxContent.VerticalAlignment = VerticalAlignment.Top;
-                        checkBoxContent.HorizontalAlignment = HorizontalAlignment.Center;
-                        checkBoxContent.Margin = new Thickness(0, -3, 0, 0);
+                        checkBoxContent.VerticalAlignment = VerticalAlignment.Center;
+                        checkBoxContent.HorizontalAlignment = elementHoAl;
+                        checkBoxContent.Margin = new Thickness(0, -4, elementOffsetRight, 0);
+                        checkBoxContent.IsReadOnly= true;
+                        checkBoxContent.Cursor = Cursors.Arrow;
+
                         checkBox.Content = checkBoxContent;
-                        checkBox.HorizontalAlignment = HorizontalAlignment.Center;
+                        checkBox.HorizontalAlignment = elementHoAl;
                         checkBox.VerticalAlignment = VerticalAlignment.Top;
+                        checkBox.FontSize = fontSize - 6;
                         checkBox.Foreground = Brushes.White;
                         checkBox.BorderBrush = borderColor;
                         checkBox.BorderThickness = borderThickness;
@@ -348,15 +366,13 @@ namespace autodarts_desktop
 
                     if (customElement != null)
                     {
-                        //counter += 1;
-
                         var imageClear = new Image();
                         imageClear.Width = 24;
                         imageClear.Height = 24;
                         imageClear.Source = new BitmapImage(new Uri("pack://application:,,,/images/clear.png"));
 
                         var button = new Button();
-                        button.Margin = new Thickness(20, counter * marginTop, 0, 0);
+                        button.Margin = new Thickness(0, counter * marginTop - (imageClear.Height / 6), (imageClear.Width / 2), 0);
                         //button.Width = elementWidth;
                         button.Style = (Style)GridMain.Resources["BtnStyle"];
                         button.Content = imageClear;
