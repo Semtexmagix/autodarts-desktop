@@ -18,7 +18,7 @@ namespace autodarts_desktop.control
         // ATTRIBUTES
 
         // Increase for new build ..
-        public static readonly string version = "v1.2.17";
+        public static readonly string version = "v1.2.18";
 
         
         public static event EventHandler<ReleaseEventArgs>? NewReleaseFound;
