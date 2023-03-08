@@ -31,6 +31,7 @@ namespace autodarts_desktop
         private int elementWidth;
         private double elementOffsetRight;
         private double elementOffsetLeft;
+        private double elementClearedOpacity;
         private HorizontalAlignment elementHoAl;
         
 
@@ -52,6 +53,7 @@ namespace autodarts_desktop
             elementHoAl = HorizontalAlignment.Left;
             elementOffsetRight = 0.0;
             elementOffsetLeft = 20.0;
+            elementClearedOpacity = 0.3;
             Title = "Configuration - " + this.app.Name;
 
             RenderAppConfiguration();
@@ -173,7 +175,6 @@ namespace autodarts_desktop
                         )
                     {
                         var textBlock = new TextBlock();
-                        // + ":"
                         textBlock.Text = argument.NameHuman + (argument.Required ? " * " : "");
                         textBlock.HorizontalAlignment = elementHoAl;
                         textBlock.VerticalAlignment = VerticalAlignment.Top;
@@ -181,6 +182,8 @@ namespace autodarts_desktop
                         textBlock.Margin = new Thickness(elementOffsetLeft, counter * marginTop, elementOffsetRight, 0);
                         textBlock.Foreground = fontColor;
                         textBlock.ToolTip = argument.Description;
+                        if (argument.Value == null) textBlock.Opacity = elementClearedOpacity;
+
                         GridMain.Children.Add(textBlock);
                     }
 
@@ -200,6 +203,7 @@ namespace autodarts_desktop
                         textBox.Width = elementWidth;
                         textBox.BorderBrush = borderColor;
                         textBox.BorderThickness = borderThickness;
+                        textBox.TextChanged += (s, e) => textBox.Opacity = 1.0;
                         textBox.DataContext = argument;
                         textBox.SetBinding(TextBox.TextProperty, new Binding("Value"));
                         HighlightElement(textBox, argument);
@@ -241,6 +245,7 @@ namespace autodarts_desktop
                         passwordBox.Width = elementWidth;
                         passwordBox.BorderBrush = borderColor;
                         passwordBox.BorderThickness = borderThickness;
+                        passwordBox.TextChanged += (s, e) => passwordBox.Opacity = 1.0;
                         passwordBox.DataContext = argument;
                         passwordBox.SetBinding(TextBox.TextProperty, new Binding("Value"));
                         HighlightElement(passwordBox, argument);
@@ -259,6 +264,7 @@ namespace autodarts_desktop
                             textBoxSlider.Width = elementWidth;
                             textBoxSlider.MaxLength = 5;
                             textBoxSlider.IsEnabled = false;
+                            textBoxSlider.TextChanged += (s, e) => textBoxSlider.Opacity = 1.0;
                             textBoxSlider.DataContext = argument;
                             textBoxSlider.SetBinding(TextBox.TextProperty, new Binding("Value"));
 
@@ -273,6 +279,8 @@ namespace autodarts_desktop
                             slider.BorderBrush = borderColor;
                             slider.BorderThickness = borderThickness;
                             slider.IsSnapToTickEnabled = true;
+                            slider.ValueChanged += (s, e) => slider.Opacity = 1.0;
+                            slider.Tag = textBoxSlider;
 
                             if (type == Argument.TypeFloat)
                             {
@@ -290,9 +298,10 @@ namespace autodarts_desktop
                             slider.SetBinding(Slider.ValueProperty, new Binding("Value"));
                             HighlightElement(slider, argument);
 
-                            GridMain.Children.Add(slider);
+                          
                             GridMain.Children.Add(textBoxSlider);
-                            customElement = textBoxSlider;
+                            GridMain.Children.Add(slider);
+                            customElement = slider;
                         }
                         else if(type == Argument.TypeInt)
                         {
@@ -304,6 +313,7 @@ namespace autodarts_desktop
                             integerUpDown.Width = elementWidth;
                             integerUpDown.BorderBrush = borderColor;
                             integerUpDown.BorderThickness = borderThickness;
+                            integerUpDown.ValueChanged += (s, e) => integerUpDown.Opacity = 1.0;
                             integerUpDown.DataContext = argument;
                             integerUpDown.SetBinding(IntegerUpDown.ValueProperty, new Binding("Value"));
                             HighlightElement(integerUpDown, argument);
@@ -322,6 +332,7 @@ namespace autodarts_desktop
                             decimalUpDown.Increment = (decimal)0.1;
                             decimalUpDown.FormatString = "F1";
                             decimalUpDown.BorderThickness = borderThickness;
+                            decimalUpDown.ValueChanged += (s, e) => decimalUpDown.Opacity = 1.0;
                             decimalUpDown.DataContext = argument;
                             decimalUpDown.SetBinding(DecimalUpDown.ValueProperty, new Binding("Value"));
                             HighlightElement(decimalUpDown, argument);
@@ -353,6 +364,7 @@ namespace autodarts_desktop
                         checkBox.Foreground = Brushes.White;
                         checkBox.BorderBrush = borderColor;
                         checkBox.BorderThickness = borderThickness;
+                        checkBox.Checked += (s, e) => checkBox.Opacity = 1.0;
                         checkBox.DataContext = argument;
                         checkBox.SetBinding(CheckBox.IsCheckedProperty, new Binding("Value"));
                         HighlightElement(checkBox, argument);
@@ -373,7 +385,6 @@ namespace autodarts_desktop
 
                         var button = new Button();
                         button.Margin = new Thickness(0, counter * marginTop - (imageClear.Height / 6), (imageClear.Width / 2), 0);
-                        //button.Width = elementWidth;
                         button.Style = (Style)GridMain.Resources["BtnStyle"];
                         button.Content = imageClear;
                         button.HorizontalAlignment = HorizontalAlignment.Right;
@@ -382,17 +393,28 @@ namespace autodarts_desktop
                         button.BorderThickness = new Thickness(0, 0, 0, 0);
                         button.Click += (s, e) =>
                         {
-                                argument.Value = null;
-                                customElement.DataContext = null;
-                                customElement.UpdateDefaultStyle();
-                                customElement.UpdateLayout();
-                                customElement.DataContext = argument;
-                        
+                            argument.Value = null;
+                            customElement.DataContext = null;
+                            customElement.UpdateDefaultStyle();
+                            customElement.UpdateLayout();
+                            customElement.DataContext = argument;
+                            customElement.Opacity = elementClearedOpacity;
                         };
+                        if (argument.Value == null)
+                        {
+                            customElement.Opacity = elementClearedOpacity;
+                            if(customElement.Tag != null) { ((FrameworkElement)customElement.Tag).Opacity = elementClearedOpacity; }
+                        }
                         GridMain.Children.Add(button);
+
                     }
                 }
             }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void HighlightElement(FrameworkElement element, Argument argument)
