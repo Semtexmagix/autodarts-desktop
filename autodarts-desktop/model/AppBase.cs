@@ -17,7 +17,7 @@ namespace autodarts_desktop.model
         // ATTRIBUTES
 
         public string Name { get; private set; }
-        public string? HelpUrl { get; private set; }
+        public string? HelpUrl { get; set; }
         public string? DescriptionShort { get; private set; }
         public string? DescriptionLong { get; private set; }
         public bool RunAsAdmin { get; private set; }

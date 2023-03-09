@@ -399,11 +399,24 @@ namespace autodarts_desktop
                             customElement.UpdateLayout();
                             customElement.DataContext = argument;
                             customElement.Opacity = elementClearedOpacity;
+
+                            if (customElement.Tag != null)
+                            {
+                                var cet = (FrameworkElement)customElement.Tag;
+                                cet.DataContext = null;
+                                cet.UpdateDefaultStyle();
+                                cet.UpdateLayout();
+                                cet.DataContext = argument;
+                                cet.Opacity = elementClearedOpacity;
+                            }
                         };
                         if (argument.Value == null)
                         {
                             customElement.Opacity = elementClearedOpacity;
-                            if(customElement.Tag != null) { ((FrameworkElement)customElement.Tag).Opacity = elementClearedOpacity; }
+                            if(customElement.Tag != null) {
+                                var cet = (FrameworkElement)customElement.Tag;
+                                cet.Opacity = elementClearedOpacity; 
+                            }
                         }
                         GridMain.Children.Add(button);
 

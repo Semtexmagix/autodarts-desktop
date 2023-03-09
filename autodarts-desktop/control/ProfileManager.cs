@@ -372,9 +372,9 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodarts =
                 new(
-                    downloadUrl: "https://github.com/autodarts/releases/releases/download/v0.17.0/autodarts0.17.0.windows-amd64.zip",
+                    downloadUrl: "https://github.com/autodarts/releases/releases/download/v0.18.0-rc1/autodarts0.18.0-rc1.windows-amd64.zip",
                     name: "autodarts-client",
-                    helpUrl: "https://github.com/autodarts/docs",
+                    helpUrl: "https://docs.autodarts.io/",
                     descriptionShort: "Client for dart recognition with cameras"
                     );
 
@@ -837,7 +837,7 @@ namespace autodarts_desktop.control
                 {
                     autodartsWled.Configuration.Arguments.Add(new(name: "BRI", type: "int[1..255]", required: false, nameHuman: "brightness-effects", section: "WLED"));
                 }
-                
+
                 for (int i = 1; i <= 12; i++)
                 {
                     var areaNumber = i.ToString();
@@ -919,7 +919,13 @@ namespace autodarts_desktop.control
                 autodartsWled.DownloadUrl = "https://github.com/lbormann/autodarts-wled/releases/download/v1.4.4/autodarts-wled.exe";
             }
 
-
+            // // 55. Mig (Update download version)
+            var autodartsClient = AppsDownloadable.Single(a => a.Name == "autodarts-client");
+            if (autodartsClient != null)
+            {
+                autodartsClient.DownloadUrl = "https://github.com/autodarts/releases/releases/download/v0.18.0-rc1/autodarts0.18.0-rc1.windows-amd64.zip";
+                autodartsClient.HelpUrl = "https://docs.autodarts.io/";
+            }
 
 
             // Add more migs..
