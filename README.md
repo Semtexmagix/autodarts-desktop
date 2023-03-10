@@ -30,7 +30,7 @@ You can also use other assistant-programs:
 
 Moreover you can start custom-apps, e.g. OBS (Open Brodcast System) - to compose a customized virtual-camera:
 
-![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS4.png?raw=true)
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS4.PNG?raw=true)
 Since autodarts-client version 0.18.0-rc1 it's possible to stream your board cams!
 
 
