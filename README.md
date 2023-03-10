@@ -1,9 +1,9 @@
 # AUTODARTS-DESKTOP
 
 Autodarts-desktop manages several extension-tools for https://autodarts.io.
-It handles download, setup, use and version-check.
- - You can easily start tools like caller or extern to transfer thrown darts to other web-dart-platforms.
- - The administration of app-parameters is simplified by setup windows - no more console/batch-file handling. =)
+It automatically handles download, setup, use updates to recent versions.
+ - You can start tools like caller or extern to transfer thrown darts to other web-dart-platforms.
+ - The app-administration is simplified by configuration windows - no more console/batch-file handling. =)
 
 ## Presentation
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/Main.png?raw=true)
@@ -30,6 +30,10 @@ You can also use other assistant-programs:
 
 Moreover you can start custom-apps, e.g. OBS (Open Brodcast System) - to compose a customized virtual-camera:
 
+![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS4.png?raw=true)
+Since autodarts-client version 0.18.0-rc1 it's possible to stream your board cams!
+
+
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS2.png?raw=true)
 With OBS it is possible to display the autodarts-match in the virtual camera.
 
@@ -41,8 +45,9 @@ It is also possible, to integrate a player camera into the view.
 ![alt text](https://github.com/Semtexmagix/autodarts-desktop/blob/master/OBS3.png?raw=true)
 or .. a full screen mode for the board.
 
-All of this can be easily realized via OBS scenes: The scenes can be switched during the game or via hotkeys.
-Hint: If you start OBS by the custom-app function, use "--startvirtualcam --disable-updater --minimize-to-tray" as start-arguments; OBS starts in an optimized mode. 
+This can be realized by OBS scenes: The scenes can be switched during the game or via hotkeys.
+
+Hint: If you start OBS by "custom-app function", use "--startvirtualcam --disable-updater --minimize-to-tray" for start-arguments! OBS will start in optimal way. 
 
 
 ## BUGS
