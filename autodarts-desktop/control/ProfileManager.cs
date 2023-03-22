@@ -380,7 +380,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.14/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.1.3/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -388,7 +388,7 @@ namespace autodarts_desktop.control
                         prefix: "-",
                         delimitter: " ",
                         arguments: new List<Argument> {
-                            new(name: "U", type: "string", required: true, nameHuman: "autodarts-username", section: "Autodarts"),
+                            new(name: "U", type: "string", required: true, nameHuman: "autodarts-email", section: "Autodarts"),
                             new(name: "P", type: "password", required: true, nameHuman: "autodarts-password", section: "Autodarts"),
                             new(name: "B", type: "string", required: true, nameHuman: "autodarts-board-id", section: "Autodarts"),
                             new(name: "M", type: "path", required: true, nameHuman: "path-to-sound-files", section: "Media"),
@@ -727,6 +727,16 @@ namespace autodarts_desktop.control
 
                 // 55. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.0.14/autodarts-caller.exe";
+
+                // 58. Mig (Update download version)
+                var username = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "U");
+                if (username != null)
+                {
+                    username.NameHuman = "autodarts-email";
+                }
+
+                // 59. Mig (Update download version)
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.1.3/autodarts-caller.exe";
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");

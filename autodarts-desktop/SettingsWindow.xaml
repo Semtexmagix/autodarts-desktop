@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:autodarts_desktop"
         mc:Ignorable="d" ResizeMode="NoResize" Width="480" Height="720" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Window.Background>
-        <ImageBrush ImageSource="/images/background.png" Stretch="UniformToFill"/>
+        <ImageBrush ImageSource="/images/background.png" Stretch="UniformToFill" Opacity="0.0"/>
     </Window.Background>
     <ScrollViewer x:Name="scroller" 
                   VerticalScrollBarVisibility="Auto" 
