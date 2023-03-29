@@ -372,7 +372,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodarts =
                 new(
-                    downloadUrl: "https://github.com/autodarts/releases/releases/download/v0.18.1/autodarts0.18.1.windows-amd64.zip",
+                    downloadUrl: "https://github.com/autodarts/releases/releases/download/v0.18.2/autodarts0.18.2.windows-amd64.zip",
                     name: "autodarts-client",
                     helpUrl: "https://docs.autodarts.io/",
                     descriptionShort: "Client for dart recognition with cameras"
@@ -947,7 +947,9 @@ namespace autodarts_desktop.control
 
                 // 58. Mig (Update download version)
                 autodartsClient.DownloadUrl = "https://github.com/autodarts/releases/releases/download/v0.18.1/autodarts0.18.1.windows-amd64.zip";
-                
+
+                // 59. Mig (Update download version)
+                autodartsClient.DownloadUrl = "https://github.com/autodarts/releases/releases/download/v0.18.2/autodarts0.18.2.windows-amd64.zip";
             }
 
 
