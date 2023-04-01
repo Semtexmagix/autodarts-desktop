@@ -380,7 +380,7 @@ namespace autodarts_desktop.control
 
             AppDownloadable autodartsCaller =
                 new(
-                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.1.3/autodarts-caller.exe",
+                    downloadUrl: "https://github.com/lbormann/autodarts-caller/releases/download/v2.1.4/autodarts-caller.exe",
                     name: "autodarts-caller",
                     helpUrl: "https://github.com/lbormann/autodarts-caller",
                     descriptionShort: "calls out thrown points",
@@ -409,7 +409,8 @@ namespace autodarts_desktop.control
                             new(name: "DLP", type: "path", required: false, nameHuman: "downloads-path", section: "Downloads"),
                             new(name: "BAV", type: "float[0.0..1.0]", required: false, nameHuman: "background-audio-volume", section: "Calls"),
                             new(name: "HP", type: "int", required: false, nameHuman: "host-port", section: "Service"),
-                            new(name: "DEB", type: "bool", required: false, nameHuman: "debug", section: "Service", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"})
+                            new(name: "DEB", type: "bool", required: false, nameHuman: "debug", section: "Service", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"}),
+                            new(name: "CC", type: "bool", required: false, nameHuman: "cert-check", section: "Service", valueMapping: new Dictionary<string, string>{["True"] = "1",["False"] = "0"})
                         })
                     );
 
@@ -737,6 +738,15 @@ namespace autodarts_desktop.control
 
                 // 59. Mig (Update download version)
                 autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.1.3/autodarts-caller.exe";
+
+                // 60. Mig (Update download version)
+                var cc = autodartsCaller.Configuration.Arguments.Find(a => a.Name == "CC");
+                if (cc == null)
+                {
+                    autodartsCaller.Configuration.Arguments.Add(new(name: "CC", type: "bool", required: false, nameHuman: "cert-check", section: "Service", valueMapping: new Dictionary<string, string> { ["True"] = "1", ["False"] = "0" }));
+                }
+                autodartsCaller.DownloadUrl = "https://github.com/lbormann/autodarts-caller/releases/download/v2.1.4/autodarts-caller.exe";
+
             }
 
             var autodartsExtern = AppsDownloadable.Single(a => a.Name == "autodarts-extern");
