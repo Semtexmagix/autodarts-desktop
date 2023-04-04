@@ -149,17 +149,18 @@ namespace autodarts_desktop
 
         private void Updater_NewReleaseFound(object? sender, ReleaseEventArgs e)
         {
-            if (MessageBox.Show($"New Version '{e.Version}' available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //if (MessageBox.Show($"New Version '{e.Version}' available! Do you want to update?", "New Version", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //{
+            try
             {
-                try
-                {
-                    Updater.UpdateToNewVersion();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Update to new version failed: " + ex.Message);
-                }
+                MessageBox.Show($"Autodarts-desktop-windows is now deprecated! We'll now move to the cross-platform modern version!", "DEPRECATED");
+                Updater.UpdateToNewVersion();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Update to new version failed: " + ex.Message);
+            }
+            //}
         }
 
         private void Updater_ReleaseDownloadStarted(object? sender, ReleaseEventArgs e)

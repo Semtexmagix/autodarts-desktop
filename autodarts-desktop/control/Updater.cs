@@ -18,7 +18,7 @@ namespace autodarts_desktop.control
         // ATTRIBUTES
 
         // Increase for new build ..
-        public static readonly string version = "v1.2.26";
+        public static readonly string version = "v1.2.27";
 
         
         public static event EventHandler<ReleaseEventArgs>? NewReleaseFound;
@@ -28,9 +28,9 @@ namespace autodarts_desktop.control
         public static event EventHandler<DownloadProgressChangedEventArgs>? ReleaseDownloadProgressed;
 
         private static string latestRepoVersion = string.Empty;
-        private const string appSourceUrl = "https://github.com/Semtexmagix/autodarts-desktop/releases/download";
-        private const string appSourceUrlLatest = "https://api.github.com/repos/Semtexmagix/autodarts-desktop/releases/latest";
-        private const string appSourceFile = "autodarts-desktop.zip";
+        private const string appSourceUrl = "https://github.com/lbormann/autodarts-desktop/releases/download";
+        private const string appSourceUrlLatest = "https://api.github.com/repos/lbormann/autodarts-desktop/releases/latest";
+        private const string appSourceFile = "autodarts-desktop-windows-X64.zip";
         private const string appDestination = "updates";
         private const string requestUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36";
 
