@@ -1,4 +1,8 @@
-# AUTODARTS-DESKTOP
+# AUTODARTS-DESKTOP [DEPRECATED]
+
+DO NOT USE THIS ANYMORE.
+Autodarts-desktop is now cross-platform ready! Visit: https://github.com/lbormann/autodarts-desktop
+
 
 Autodarts-desktop manages several extension-tools for https://autodarts.io.
 It automatically handles download, setup, use updates to recent versions.
